@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminApp", "adminApp\adminApp.csproj", "{57BB1CB2-A994-4274-9BE9-A6569FF035E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCareObjects", "HomeCareObjects\HomeCareObjects.csproj", "{70D4736C-84B8-4D84-950A-BC6C0316F1A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeCareObjects", "HomeCareObjects\HomeCareObjects.csproj", "{70D4736C-84B8-4D84-950A-BC6C0316F1A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCareWebApp", "HomeCareWebApp\HomeCareWebApp.csproj", "{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{70D4736C-84B8-4D84-950A-BC6C0316F1A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D4736C-84B8-4D84-950A-BC6C0316F1A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D4736C-84B8-4D84-950A-BC6C0316F1A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
