@@ -144,5 +144,15 @@ namespace AdminApp
         {
 
         }
+
+        private void mainScreen_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

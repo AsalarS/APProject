@@ -28,7 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            dgvLogs = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dgvLogs).BeginInit();
             SuspendLayout();
+            // 
+            // dgvLogs
+            // 
+            dgvLogs.BackgroundColor = Color.FromArgb(0, 0, 24);
+            dgvLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvLogs.GridColor = SystemColors.Menu;
+            dgvLogs.Location = new Point(60, 60);
+            dgvLogs.Name = "dgvLogs";
+            dgvLogs.RowTemplate.Height = 25;
+            dgvLogs.Size = new Size(750, 450);
+            dgvLogs.TabIndex = 0;
+            dgvLogs.CellContentClick += dgvLogs_CellContentClick;
             // 
             // logsPage
             // 
@@ -36,13 +50,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(858, 611);
+            Controls.Add(dgvLogs);
             FormBorderStyle = FormBorderStyle.None;
             Name = "logsPage";
             Text = "logsPage";
             Load += logsPage_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvLogs).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dgvLogs;
     }
 }
