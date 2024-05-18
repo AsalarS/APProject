@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dashboard));
             panel1 = new Panel();
             mainScreen = new Panel();
             panel3 = new Panel();
@@ -37,6 +38,9 @@
             logoutBtn = new Button();
             bellBtn = new Button();
             dashboardBtn = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -58,6 +62,8 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(label2);
+            panel3.Controls.Add(label1);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
@@ -74,7 +80,7 @@
             servicesBtn.FlatStyle = FlatStyle.Flat;
             servicesBtn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             servicesBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            servicesBtn.Image = Properties.Resources.repair_tool;
+            servicesBtn.Image = (Image)resources.GetObject("servicesBtn.Image");
             servicesBtn.Location = new Point(1, 145);
             servicesBtn.Name = "servicesBtn";
             servicesBtn.Size = new Size(204, 60);
@@ -95,7 +101,7 @@
             categoryBtn.FlatStyle = FlatStyle.Flat;
             categoryBtn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             categoryBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            categoryBtn.Image = Properties.Resources.options_lines;
+            categoryBtn.Image = (Image)resources.GetObject("categoryBtn.Image");
             categoryBtn.Location = new Point(1, 205);
             categoryBtn.Name = "categoryBtn";
             categoryBtn.Size = new Size(204, 60);
@@ -116,7 +122,7 @@
             logsBtn.FlatStyle = FlatStyle.Flat;
             logsBtn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             logsBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            logsBtn.Image = Properties.Resources.edit;
+            logsBtn.Image = (Image)resources.GetObject("logsBtn.Image");
             logsBtn.Location = new Point(0, 267);
             logsBtn.Name = "logsBtn";
             logsBtn.Size = new Size(204, 60);
@@ -156,7 +162,7 @@
             bellBtn.FlatStyle = FlatStyle.Flat;
             bellBtn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             bellBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            bellBtn.Image = Properties.Resources.bell_ring_white1;
+            bellBtn.Image = (Image)resources.GetObject("bellBtn.Image");
             bellBtn.Location = new Point(137, 536);
             bellBtn.Name = "bellBtn";
             bellBtn.Size = new Size(68, 72);
@@ -175,7 +181,7 @@
             dashboardBtn.FlatStyle = FlatStyle.Flat;
             dashboardBtn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             dashboardBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            dashboardBtn.Image = Properties.Resources.menu_32px;
+            dashboardBtn.Image = (Image)resources.GetObject("dashboardBtn.Image");
             dashboardBtn.Location = new Point(0, 79);
             dashboardBtn.Name = "dashboardBtn";
             dashboardBtn.Size = new Size(204, 60);
@@ -186,6 +192,28 @@
             dashboardBtn.Click += dashboardBtn_Click;
             dashboardBtn.MouseEnter += dashboardBtn_MouseEnter;
             dashboardBtn.MouseLeave += dashboardBtn_MouseLeave;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.FromArgb(131, 140, 163);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(60, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Welcome,";
+            label1.Click += label1_Click;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(30, 34);
+            label2.Name = "label2";
+            label2.Size = new Size(136, 40);
+            label2.TabIndex = 1;
+            label2.Text = "John Doe";
             // 
             // dashboard
             // 
@@ -208,6 +236,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
             Load += Form1_Load;
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -222,5 +252,7 @@
         private Button logoutBtn;
         private Button bellBtn;
         private Button dashboardBtn;
+        private Label label1;
+        private Label label2;
     }
 }

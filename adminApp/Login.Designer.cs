@@ -31,7 +31,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            textBox1 = new TextBox();
+            txtUserName = new TextBox();
             textBox2 = new TextBox();
             loginBtn = new Button();
             SuspendLayout();
@@ -67,16 +67,16 @@
             label3.TabIndex = 2;
             label3.Text = "Password";
             // 
-            // textBox1
+            // txtUserName
             // 
-            textBox1.BackColor = Color.FromArgb(50, 50, 77);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.ForeColor = Color.White;
-            textBox1.Location = new Point(322, 274);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(406, 28);
-            textBox1.TabIndex = 3;
+            txtUserName.BackColor = Color.FromArgb(50, 50, 77);
+            txtUserName.BorderStyle = BorderStyle.None;
+            txtUserName.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtUserName.ForeColor = Color.White;
+            txtUserName.Location = new Point(322, 274);
+            txtUserName.Name = "txtUserName";
+            txtUserName.Size = new Size(406, 28);
+            txtUserName.TabIndex = 3;
             // 
             // textBox2
             // 
@@ -113,7 +113,7 @@
             ClientSize = new Size(1064, 611);
             Controls.Add(loginBtn);
             Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(txtUserName);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -121,6 +121,7 @@
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
+            FormClosing += Login_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -130,7 +131,7 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private TextBox textBox1;
+        private TextBox txtUserName;
         private TextBox textBox2;
         private Button loginBtn;
     }
