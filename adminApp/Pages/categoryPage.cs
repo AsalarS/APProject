@@ -25,6 +25,8 @@ namespace AdminApp.Pages
         {
             dgvCategory.DataSource = context.Users.ToList();
             RefreshGridView();
+            //this is to change the text color
+            this.ForeColor = Color.Black;
         }
         private void RefreshGridView()
         {
@@ -55,8 +57,9 @@ namespace AdminApp.Pages
             {
                 try
                 {
-                    var alldet = context.Categories
+                   // var alldet = context.Categories
                 }
+                catch { }
             }
         }
     }
