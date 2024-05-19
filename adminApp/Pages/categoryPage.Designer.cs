@@ -29,48 +29,87 @@
         private void InitializeComponent()
         {
             comboBox1 = new ComboBox();
-            dataGridView1 = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dgvCategory = new DataGridView();
+            btnAdd = new Button();
+            btnDelete = new Button();
+            btnUpdate = new Button();
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(334, 178);
+            comboBox1.Location = new Point(234, 107);
+            comboBox1.Margin = new Padding(2);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(182, 33);
+            comboBox1.Size = new Size(129, 23);
             comboBox1.TabIndex = 0;
             // 
-            // dataGridView1
+            // dgvCategory
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(588, 151);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new Size(360, 225);
-            dataGridView1.TabIndex = 1;
+            dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCategory.Location = new Point(412, 91);
+            dgvCategory.Margin = new Padding(2);
+            dgvCategory.Name = "dgvCategory";
+            dgvCategory.RowHeadersWidth = 62;
+            dgvCategory.RowTemplate.Height = 33;
+            dgvCategory.Size = new Size(252, 135);
+            dgvCategory.TabIndex = 1;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(234, 425);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(75, 23);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(364, 425);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 3;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Location = new Point(506, 425);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.TabIndex = 4;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = true;
             // 
             // categoryPage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
-            ClientSize = new Size(1226, 1018);
-            Controls.Add(dataGridView1);
+            ClientSize = new Size(858, 611);
+            Controls.Add(btnUpdate);
+            Controls.Add(btnDelete);
+            Controls.Add(btnAdd);
+            Controls.Add(dgvCategory);
             Controls.Add(comboBox1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "categoryPage";
             Text = "categoryPage";
             Load += categoryPage_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private ComboBox comboBox1;
-        private DataGridView dataGridView1;
+        private DataGridView dgvCategory;
+        private Button btnAdd;
+        private Button btnDelete;
+        private Button btnUpdate;
     }
 }
