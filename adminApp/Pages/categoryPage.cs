@@ -30,16 +30,20 @@ namespace AdminApp.Pages
         }
         private void RefreshGridView()
         {
-            try
+            
+            
+            dgvCategory.DataSource = null;
+            var categoriesToShow = context.Categories.AsQueryable();
+            dgvCategory.DataSource = categoriesToShow.OrderByDescending(m => m.CategoryId).Select(o => new
             {
-                dgvCategory.DataSource = null;
-                var categoriesToShow = context.Categories.AsQueryable();
+                categoryID = o.CategoryId,
+                CategoryName = o.CategoryName,
+                Description = o.Description,
+                ManagerID = o.ManagerId,
+            }).ToList();
 
-            }
-            catch (Exception ex)
-            {
-
-            }
+            
+            
 
         }
 
@@ -53,14 +57,26 @@ namespace AdminApp.Pages
             int  firstcell = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
             Category category = context.Categories.Single(x => x.CategoryId == firstcell);
 
-           if (MessageBox.Show("Are you sure you want to delete order (" + firstcell + ") & its details?", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+           if (MessageBox.Show("Are you sure you want to delete category (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
-                   // var alldet = context.Categories
+                    context.Categories.Remove(category);
+
+                    context.SaveChanges();
+
+                    MessageBox.Show("Added successfully. ");
+
+                    RefreshGridView();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    // MessageBox.Show(ex.Message);
+                    MessageBox.Show($"Error: {ex.InnerException?.Message}");
+                }
             }
         }
+
+
     }
 }

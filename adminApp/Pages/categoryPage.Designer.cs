@@ -39,7 +39,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(234, 107);
+            comboBox1.Location = new Point(113, 91);
             comboBox1.Margin = new Padding(2);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(129, 23);
@@ -47,18 +47,19 @@
             // 
             // dgvCategory
             // 
+            dgvCategory.BackgroundColor = Color.FromArgb(0, 0, 24);
             dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCategory.Location = new Point(412, 91);
+            dgvCategory.Location = new Point(280, 91);
             dgvCategory.Margin = new Padding(2);
             dgvCategory.Name = "dgvCategory";
             dgvCategory.RowHeadersWidth = 62;
             dgvCategory.RowTemplate.Height = 33;
-            dgvCategory.Size = new Size(252, 135);
+            dgvCategory.Size = new Size(440, 290);
             dgvCategory.TabIndex = 1;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(234, 425);
+            btnAdd.Location = new Point(280, 425);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 2;
@@ -68,7 +69,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(364, 425);
+            btnDelete.Location = new Point(466, 425);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 3;
@@ -78,7 +79,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(506, 425);
+            btnUpdate.Location = new Point(645, 425);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 4;
