@@ -19,6 +19,7 @@ namespace adminApp.Dialogue
         {
             InitializeComponent();
             context = new HomeCareDBContext();
+            service = new Service();
         }
 
         public servicesDialogue(Service service)
@@ -48,7 +49,7 @@ namespace adminApp.Dialogue
                 ddlTechnician.ValueMember = "UserId";
                 ddlTechnician.SelectedItem = null;
 
-                if (service.ServiceId > 0)
+                if (service != null && service.ServiceId > 0)
                 {
                     txtServiceId.Text = service.ServiceId.ToString();
                     ddlCategory.SelectedValue = service.CategoryId;
@@ -82,7 +83,7 @@ namespace adminApp.Dialogue
                 }
 
 
-                if (service.CategoryId > 0)
+                if (service != null && service.ServiceId > 0)
                 {
                     context.Services.Update(service);
                 }

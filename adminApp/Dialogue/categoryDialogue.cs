@@ -46,7 +46,7 @@ namespace adminApp.Popup
                 ddlManager.ValueMember = "UserID";
                 ddlManager.SelectedItem = null;
 
-                if (category.CategoryId > 0)
+                if (category != null && category.CategoryId > 0)
                 {
                     txtCategoryId.Text = category.CategoryId.ToString();
                     ddlManager.SelectedValue = category.ManagerId;
@@ -68,7 +68,7 @@ namespace adminApp.Popup
                 category.CategoryName = nameTxt.Text;
                 category.Description = descTxt.Text;
                 category.ManagerId = Convert.ToInt32(ddlManager.SelectedValue.ToString());
-                if (category.CategoryId > 0)
+                if (category != null && category.CategoryId > 0)
                 {
                     context.Categories.Update(category);
                 }
