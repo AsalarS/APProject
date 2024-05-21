@@ -74,6 +74,23 @@ namespace adminApp.Dialogue
                 service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
                 service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
+
+                if (service.CategoryId > 0)
+                {
+                    context.Services.Update(service);
+                }
+                else
+                {
+                    //add the order to the orders DBSet
+                    context.Services.Add(service);
+                }
+                //Execute the insert SQL
+                context.SaveChanges();
+
+                //Only if the insert was successful, we can 
+                this.DialogResult = DialogResult.OK;
+                //close the form
+                this.Close();
             }
             catch (Exception)
             {
