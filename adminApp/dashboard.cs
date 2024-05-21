@@ -1,3 +1,4 @@
+using adminApp;
 using AdminApp.Pages;
 
 namespace AdminApp
@@ -100,6 +101,11 @@ namespace AdminApp
 
         private void logoutBtn_Click(object sender, EventArgs e)
         {
+            //clear out everything in Global class
+            /*Global.User = null;
+            Global.RoleName = null;
+            Global.AllAdmins = null;
+            Global.AllCustomers = null;*/
             goToPage(new Login());
         }
 

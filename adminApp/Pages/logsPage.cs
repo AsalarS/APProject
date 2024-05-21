@@ -24,7 +24,7 @@ namespace AdminApp.Pages
         private void logsPage_Load(object sender, EventArgs e)
         {
             RefreshGridView();
-            this.dgvLogs.DefaultCellStyle.ForeColor = Color.Black;
+            this.dgvLogs.DefaultCellStyle.ForeColor = Color.FromArgb(131, 140, 163);
             this.dgvLogs.DefaultCellStyle.BackColor = Color.Beige;
         }
         private void RefreshGridView()

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dgvLogs = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dgvLogs).BeginInit();
             SuspendLayout();
@@ -35,12 +36,23 @@
             // dgvLogs
             // 
             dgvLogs.BackgroundColor = Color.FromArgb(0, 0, 24);
+            dgvLogs.BorderStyle = BorderStyle.None;
             dgvLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvLogs.DefaultCellStyle = dataGridViewCellStyle1;
+            dgvLogs.EnableHeadersVisualStyles = false;
             dgvLogs.GridColor = SystemColors.Menu;
-            dgvLogs.Location = new Point(60, 60);
+            dgvLogs.Location = new Point(12, -1);
             dgvLogs.Name = "dgvLogs";
+            dgvLogs.ReadOnly = true;
             dgvLogs.RowTemplate.Height = 25;
-            dgvLogs.Size = new Size(750, 450);
+            dgvLogs.Size = new Size(834, 587);
             dgvLogs.TabIndex = 0;
             dgvLogs.CellContentClick += dgvLogs_CellContentClick;
             // 
