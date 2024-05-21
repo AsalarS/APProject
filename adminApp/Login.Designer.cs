@@ -32,7 +32,7 @@
             label2 = new Label();
             label3 = new Label();
             txtUserName = new TextBox();
-            textBox2 = new TextBox();
+            txtPassword = new TextBox();
             loginBtn = new Button();
             SuspendLayout();
             // 
@@ -78,17 +78,17 @@
             txtUserName.Size = new Size(406, 28);
             txtUserName.TabIndex = 3;
             // 
-            // textBox2
+            // txtPassword
             // 
-            textBox2.BackColor = Color.FromArgb(50, 50, 77);
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(322, 353);
-            textBox2.Name = "textBox2";
-            textBox2.PasswordChar = '*';
-            textBox2.Size = new Size(406, 28);
-            textBox2.TabIndex = 4;
+            txtPassword.BackColor = Color.FromArgb(50, 50, 77);
+            txtPassword.BorderStyle = BorderStyle.None;
+            txtPassword.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtPassword.ForeColor = Color.White;
+            txtPassword.Location = new Point(322, 353);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(406, 28);
+            txtPassword.TabIndex = 4;
             // 
             // loginBtn
             // 
@@ -112,7 +112,7 @@
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(1064, 611);
             Controls.Add(loginBtn);
-            Controls.Add(textBox2);
+            Controls.Add(txtPassword);
             Controls.Add(txtUserName);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -132,7 +132,7 @@
         private Label label2;
         private Label label3;
         private TextBox txtUserName;
-        private TextBox textBox2;
+        private TextBox txtPassword;
         private Button loginBtn;
     }
 }

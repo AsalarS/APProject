@@ -13,59 +13,63 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using adminApp;
 using HomeCareObjects.Model;
+using Microsoft.EntityFrameworkCore;
 namespace AdminApp
 {
     public partial class Login : Form
     {
         private IServiceProvider serviceProvider;
+        HomeCareDBContext Context;
 
         public Login()
         {
             InitializeComponent();
+            Context = new HomeCareDBContext();
         }
 
-        private void loginBtn_Click(object sender, EventArgs e)
+        private async void loginBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            //this comment below is for debugging purposes
+
+            /*this.Hide();
             dashboard dashboard = new dashboard();
-            dashboard.Show();
+            dashboard.Show();*/
+
+            var signInResults = await VerifyUserNamePassword(txtUserName.Text, txtPassword.Text);
+            if (signInResults == true) //if user is verified
+            {
+                //do something.. i.e. navigate to next forms
+                dashboard dashboard = new dashboard();
+                this.Hide();
+                dashboard.Show();
+            }
+            else
+            {
+                MessageBox.Show("Error. The username or password are not correct");
+            }
         }
+        
         public async Task<bool> VerifyUserNamePassword(string userName, string password)
         {
             try
             {
-
-
-                var services = new ServiceCollection();
-                ConfigureServices(services);
-                serviceProvider = services.BuildServiceProvider();
-
-                var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var founduser = await userManager.FindByEmailAsync(txtUserName.Text);
-
-                if (founduser != null)
+                using (var context = new HomeCareDBContext())
                 {
-                    var passCheck = await userManager.CheckPasswordAsync(founduser, password) == true;
+                    var user = await context.Users
+                        .Where(u => u.Username == userName && u.Password == password) // Again, consider hashing passwords
+                        .FirstOrDefaultAsync();
 
-                    if (passCheck)
+                    if (user != null)
                     {
-                        var roles = await userManager.GetRolesAsync(founduser);
-
-                        //save into global class
-                        Global.User = founduser;
-
-                        Global.RoleName = roles.FirstOrDefault();
-
-                        //Those are added as extra just to show how you can query all users in a certain role
-                        Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
-                        Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
-                        Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
-                        Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
+                        // User is verified, do something...
+                        return true;
                     }
-                    return passCheck;
+                    else
+                    {
+                        MessageBox.Show("Error. The username or password are not correct");
+                        return false;
+                    }
                 }
-                return false;
             }
             catch (Exception ex)
             {

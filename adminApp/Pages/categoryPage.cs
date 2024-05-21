@@ -65,7 +65,7 @@ namespace AdminApp.Pages
 
                     context.SaveChanges();
 
-                    MessageBox.Show("Added successfully. ");
+                    MessageBox.Show("Deleted successfully. ");
 
                     RefreshGridView();
                 }
