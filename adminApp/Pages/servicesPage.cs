@@ -1,4 +1,5 @@
-﻿using HomeCareObjects.Model;
+﻿using adminApp.Dialogue;
+using HomeCareObjects.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,6 +73,17 @@ namespace AdminApp
                     // MessageBox.Show(ex.Message);
                     MessageBox.Show($"Error: {ex.InnerException?.Message}");
                 }
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            servicesDialogue frmservicedialouge = new servicesDialogue();
+            frmservicedialouge.ShowDialog();
+            if (frmservicedialouge.DialogResult == DialogResult.OK)
+            {
+                MessageBox.Show("Added successfully."); //Show feedback to the user
+                RefreshGridView(); //refresh only if the user added a new record
             }
         }
     }

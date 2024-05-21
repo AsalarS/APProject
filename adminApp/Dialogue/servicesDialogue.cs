@@ -75,6 +75,13 @@ namespace adminApp.Dialogue
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
                 service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
 
+                if (ddlCategory.SelectedValue == null || ddlTechnician.SelectedValue == null)
+                {
+                    MessageBox.Show("Please select a category and a technician.");
+                    return;
+                }
+
+
                 if (service.CategoryId > 0)
                 {
                     context.Services.Update(service);
@@ -92,11 +99,12 @@ namespace adminApp.Dialogue
                 //close the form
                 this.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                // MessageBox.Show(ex.Message);
+                // MessageBox.Show($"Error: {ex.InnerException?.Message}");
+                MessageBox.Show("Error: " + ex.Message);
             }
-        }
+            }
     }
 }
