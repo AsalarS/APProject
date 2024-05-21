@@ -48,7 +48,7 @@ namespace AdminApp
                 MessageBox.Show("Error. The username or password are not correct");
             }
         }
-        
+
         public async Task<bool> VerifyUserNamePassword(string userName, string password)
         {
             try
@@ -103,6 +103,15 @@ namespace AdminApp
         private void Login_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnDebugLogin_Click(object sender, EventArgs e)
+        {
+            //this comment below is for debugging purposes
+
+            this.Hide();
+            dashboard dashboard = new dashboard();
+            dashboard.Show();
         }
     }
 
