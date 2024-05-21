@@ -74,12 +74,37 @@ namespace adminApp.Dialogue
                 service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
                 service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
-            }
-            catch (Exception)
-            {
 
-                throw;
+                if (ddlCategory.SelectedValue == null || ddlTechnician.SelectedValue == null)
+                {
+                    MessageBox.Show("Please select a category and a technician.");
+                    return;
+                }
+
+
+                if (service.CategoryId > 0)
+                {
+                    context.Services.Update(service);
+                }
+                else
+                {
+                    //add the order to the orders DBSet
+                    context.Services.Add(service);
+                }
+                //Execute the insert SQL
+                context.SaveChanges();
+
+                //Only if the insert was successful, we can 
+                this.DialogResult = DialogResult.OK;
+                //close the form
+                this.Close();
             }
-        }
+            catch (Exception ex)
+            {
+                // MessageBox.Show(ex.Message);
+                // MessageBox.Show($"Error: {ex.InnerException?.Message}");
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            }
     }
 }

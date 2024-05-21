@@ -1,4 +1,5 @@
-﻿using HomeCareObjects.Model;
+﻿using adminApp.Popup;
+using HomeCareObjects.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +50,13 @@ namespace AdminApp.Pages
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            categoryDialogue frmcategoryAdd = new categoryDialogue();
+            frmcategoryAdd.ShowDialog();
+            if (frmcategoryAdd.DialogResult == DialogResult.OK)
+            {
+                MessageBox.Show("Added successfully."); //Show feedback to the user
+                RefreshGridView(); //refresh only if the user added a new record
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
