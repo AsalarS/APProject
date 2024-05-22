@@ -174,6 +174,7 @@
             Controls.Add(nameTxt);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "categoryDialogue";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "editWindow";
             Load += categoryDialogue_Load;
             ResumeLayout(false);

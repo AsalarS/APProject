@@ -225,6 +225,7 @@
             Controls.Add(nameTxt);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "servicesDialogue";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "servicesCategory";
             Load += servicesDialogue_Load;
             ResumeLayout(false);
