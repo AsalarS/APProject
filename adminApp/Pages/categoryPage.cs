@@ -28,6 +28,9 @@ namespace AdminApp.Pages
             RefreshGridView();
             //this is to change the text color
             this.ForeColor = Color.Black;
+
+            //btnAdd.Enabled = false;
+            //btnAdd.Hide();
         }
         private void RefreshGridView()
         {

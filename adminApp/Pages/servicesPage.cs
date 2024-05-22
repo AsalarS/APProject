@@ -41,7 +41,7 @@ namespace AdminApp
                 ServiceName = o.ServiceName,
                 ServiceDescription = o.ServiceDescription,
                 ServicePrice = o.ServicePrice,
-                categoryID = o.CategoryId,
+                Category = o.Category.CategoryName,
                 TechnicianID = o.TechnicianId,
 
             }).ToList();
@@ -84,6 +84,26 @@ namespace AdminApp
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
                 RefreshGridView(); //refresh only if the user added a new record
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
+                Service selectedService = context.Services.Find(SelectedServiceID);
+                servicesDialogue frmServiceEdit = new servicesDialogue(selectedService);
+                frmServiceEdit.ShowDialog();
+
+                if (frmServiceEdit.DialogResult == DialogResult.OK)
+                {
+                    RefreshGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -32,13 +32,16 @@
             btnAdd = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
+            groupBox1 = new GroupBox();
+            textBox1 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvServices
             // 
             dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServices.Location = new Point(110, 55);
+            dgvServices.Location = new Point(110, 107);
             dgvServices.Name = "dgvServices";
             dgvServices.RowTemplate.Height = 25;
             dgvServices.Size = new Size(640, 376);
@@ -72,6 +75,24 @@
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(textBox1);
+            groupBox1.Location = new Point(110, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(640, 89);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "groupBox1";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(154, 40);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 0;
             // 
             // servicesPage
             // 
@@ -79,6 +100,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(858, 611);
+            Controls.Add(groupBox1);
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
@@ -88,6 +110,8 @@
             Text = "servicesPage";
             Load += servicesPage_Load;
             ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -97,5 +121,7 @@
         private Button btnAdd;
         private Button btnDelete;
         private Button btnUpdate;
+        private GroupBox groupBox1;
+        private TextBox textBox1;
     }
 }

@@ -48,11 +48,11 @@
             dgvLogs.DefaultCellStyle = dataGridViewCellStyle1;
             dgvLogs.EnableHeadersVisualStyles = false;
             dgvLogs.GridColor = SystemColors.Menu;
-            dgvLogs.Location = new Point(12, -1);
+            dgvLogs.Location = new Point(12, 12);
             dgvLogs.Name = "dgvLogs";
             dgvLogs.ReadOnly = true;
             dgvLogs.RowTemplate.Height = 25;
-            dgvLogs.Size = new Size(834, 587);
+            dgvLogs.Size = new Size(834, 574);
             dgvLogs.TabIndex = 0;
             dgvLogs.CellContentClick += dgvLogs_CellContentClick;
             // 

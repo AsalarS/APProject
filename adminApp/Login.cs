@@ -53,23 +53,41 @@ namespace AdminApp
         {
             try
             {
-                using (var context = new HomeCareDBContext())
-                {
-                    var user = await context.Users
-                        .Where(u => u.Username == userName && u.Password == password) // Again, consider hashing passwords
-                        .FirstOrDefaultAsync();
+                
+                    var services = new ServiceCollection();
+                    ConfigureServices(services);
+                    serviceProvider = services.BuildServiceProvider();
+                    
+                    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                    var founduser = await userManager.FindByEmailAsync(txtUserName.Text);
 
-                    if (user != null)
+                    if (founduser != null)
                     {
-                        // User is verified, do something...
-                        return true;
+                        var passCheck = await userManager.CheckPasswordAsync(founduser, password) == true;
+
+                        if (passCheck)
+                        {
+                            var roles = await userManager.GetRolesAsync(founduser);
+
+                            //save into global class
+                            Global.User = founduser;
+
+                            Global.RoleName = roles.FirstOrDefault();
+
+                            //Those are added as extra just to show how you can query all users in a certain role
+                            Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
+                            Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
+                            Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
+                            Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
+                            // User is verified, do something...
+                            return true;
+                            // User is verified, do something...
+                        }
+                        return passCheck;
                     }
-                    else
-                    {
-                        MessageBox.Show("Error. The username or password are not correct");
-                        return false;
-                    }
-                }
+                   return false;
+                
             }
             catch (Exception ex)
             {

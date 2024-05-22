@@ -14,8 +14,8 @@ namespace adminApp
 
         public static IEnumerable<IdentityUser> AllAdmins;
         public static IEnumerable<IdentityUser> AllTechnicicans;
-        //public static IEnumerable<IdentityUser> AllManagers;
-        //public static IEnumerable<IdentityUser> AllUsers;
+        public static IEnumerable<IdentityUser> AllManagers;
+        public static IEnumerable<IdentityUser> AllUsers;
         public static IEnumerable<IdentityUser> AllCustomers;
     }
 }

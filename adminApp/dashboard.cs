@@ -1,18 +1,28 @@
 using adminApp;
 using AdminApp.Pages;
+using HomeCareObjects.Model;
 
 namespace AdminApp
 {
     public partial class dashboard : Form
     {
+        HomeCareDBContext context;
         public dashboard()
         {
             InitializeComponent();
+            context = new HomeCareDBContext();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            if (Global.User != null)
+            {
+                label2.Text = Global.User.UserName;
+            }
+            else
+            {
+                label2.Text = "User not set";
+            }
         }
 
         //VISUAL ELEMENTS
@@ -159,6 +169,11 @@ namespace AdminApp
         private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
