@@ -68,25 +68,34 @@ namespace AdminApp
                     {
                         var roles = await userManager.GetRolesAsync(founduser);
 
-                        //save into global class
-
-                        ProjectFormApp.Global.User = founduser;
-
-                        ProjectFormApp.Global.RoleName = roles.FirstOrDefault();
-
-                        //Those are added as extra just to show how you can query all users in a certain role
-                        ProjectFormApp.Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
-                        ProjectFormApp.Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
-                        ProjectFormApp.Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
-                        ProjectFormApp.Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
-                        try
+                        if (roles.Contains("Admin") || roles.Contains("Manager"))
                         {
-                            Global.HomeCareUser = Context.Users.Where(x => x.Email == ProjectFormApp.Global.User.Email).FirstOrDefault();
+                            //save into global class
+                            Global.User = founduser;
+                            Global.RoleName = roles.FirstOrDefault();
+
+                            // Those are added as extra just to show how you can query all users in a certain role
+                            Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
+                            Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
+                            Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
+                            Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
+                            try
+                            {
+                                Global.HomeCareUser = Context.Users.Where(x => x.Email == ProjectFormApp.Global.User.Email).FirstOrDefault();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message);
+                            }
+                            return true;
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show("Error: " +  ex.Message);
+                            // User does not have the required role
+                            MessageBox.Show("Must be admin or manager");
+                            return false;
                         }
+
                     }
                     return passCheck;
                 }
