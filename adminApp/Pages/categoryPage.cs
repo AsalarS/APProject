@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjectFormApp;
+using adminApp.Dialogue;
 
 namespace AdminApp.Pages
 {
@@ -40,14 +41,31 @@ namespace AdminApp.Pages
                 btnUpdate.Enabled = false;
                 btnUpdate.Hide();
             }
+            ddlManager.DataSource = context.Users.Where(x => x.UserRole == "Manager").ToList();
+            ddlManager.DisplayMember = "FullName";
+            ddlManager.ValueMember = "UserID";
+            ddlManager.SelectedItem = null;
 
         }
         private void RefreshGridView()
         {
-            
-            
+
+
             dgvCategory.DataSource = null;
             var categoriesToShow = context.Categories.AsQueryable();
+            if (txtCategoryID.Text != "")
+            {
+                categoriesToShow = categoriesToShow
+                    .Where(x => x.CategoryId == Convert.ToInt32(txtCategoryID.Text));
+                //if order id is specified in the filters, get the order with that id
+            }
+            else if (ddlManager.SelectedValue != null)
+            {
+                categoriesToShow = categoriesToShow
+                    .Where(x => x.ManagerId == Convert.ToInt32(ddlManager.SelectedValue.ToString()));
+                //if customer is selected from the combobox, get orders of that customer
+            }
+            
             dgvCategory.DataSource = categoriesToShow.OrderByDescending(m => m.CategoryId).Select(o => new
             {
                 categoryID = o.CategoryId,
@@ -56,8 +74,8 @@ namespace AdminApp.Pages
                 ManagerID = o.ManagerId,
             }).ToList();
 
-            
-            
+
+
 
         }
 
@@ -74,10 +92,10 @@ namespace AdminApp.Pages
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int  firstcell = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
+            int firstcell = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
             Category category = context.Categories.Single(x => x.CategoryId == firstcell);
 
-           if (MessageBox.Show("Are you sure you want to delete category (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete category (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
                 {
@@ -97,6 +115,37 @@ namespace AdminApp.Pages
             }
         }
 
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
 
+            try
+            {
+                int SelectedCategoryID = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
+                Category selectedCategory = context.Categories.Find(SelectedCategoryID);
+                categoryDialogue frmCategoryEdit = new categoryDialogue(selectedCategory);
+                frmCategoryEdit.ShowDialog();
+
+                if (frmCategoryEdit.DialogResult == DialogResult.OK)
+                {
+                    RefreshGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnFilter_Click(object sender, EventArgs e)
+        {
+            RefreshGridView();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtCategoryID.Text = "";
+            ddlManager.SelectedItem = null;
+            RefreshGridView();
+        }
     }
 }

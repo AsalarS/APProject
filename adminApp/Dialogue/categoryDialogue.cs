@@ -1,4 +1,6 @@
 ﻿using HomeCareObjects.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProjectFormApp;
 
 namespace adminApp.Popup
 {
@@ -70,7 +73,7 @@ namespace adminApp.Popup
                 category.ManagerId = Convert.ToInt32(ddlManager.SelectedValue.ToString());
                 if (category != null && category.CategoryId > 0)
                 {
-                    context.Categories.Update(category);
+                    context.Categories.Update(category);// TODO: resolve error when updating
                 }
                 else
                 {
@@ -90,6 +93,11 @@ namespace adminApp.Popup
 
                 MessageBox.Show("Error: " + ex.Message);
             }
+        }
+
+        private void ddlManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

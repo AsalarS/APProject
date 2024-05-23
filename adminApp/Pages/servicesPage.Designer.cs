@@ -33,7 +33,14 @@
             btnDelete = new Button();
             btnUpdate = new Button();
             groupBox1 = new GroupBox();
-            textBox1 = new TextBox();
+            lblTechnician = new Label();
+            lblCategory = new Label();
+            lblServieID = new Label();
+            btnReset = new Button();
+            btnFilter = new Button();
+            ddlTechnician = new ComboBox();
+            ddlCategory = new ComboBox();
+            txtServiceID = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -41,10 +48,10 @@
             // dgvServices
             // 
             dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServices.Location = new Point(110, 107);
+            dgvServices.Location = new Point(24, 107);
             dgvServices.Name = "dgvServices";
             dgvServices.RowTemplate.Height = 25;
-            dgvServices.Size = new Size(640, 376);
+            dgvServices.Size = new Size(802, 376);
             dgvServices.TabIndex = 0;
             // 
             // btnAdd
@@ -79,20 +86,91 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Location = new Point(110, 12);
+            groupBox1.Controls.Add(lblTechnician);
+            groupBox1.Controls.Add(lblCategory);
+            groupBox1.Controls.Add(lblServieID);
+            groupBox1.Controls.Add(btnReset);
+            groupBox1.Controls.Add(btnFilter);
+            groupBox1.Controls.Add(ddlTechnician);
+            groupBox1.Controls.Add(ddlCategory);
+            groupBox1.Controls.Add(txtServiceID);
+            groupBox1.ForeColor = Color.FromArgb(131, 140, 163);
+            groupBox1.Location = new Point(24, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(640, 89);
+            groupBox1.Size = new Size(802, 89);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
+            groupBox1.Text = "Search and Filter";
             // 
-            // textBox1
+            // lblTechnician
             // 
-            textBox1.Location = new Point(154, 40);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 0;
+            lblTechnician.AutoSize = true;
+            lblTechnician.Location = new Point(456, 48);
+            lblTechnician.Name = "lblTechnician";
+            lblTechnician.Size = new Size(63, 15);
+            lblTechnician.TabIndex = 7;
+            lblTechnician.Text = "Technician";
+            // 
+            // lblCategory
+            // 
+            lblCategory.AutoSize = true;
+            lblCategory.Location = new Point(226, 48);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(55, 15);
+            lblCategory.TabIndex = 6;
+            lblCategory.Text = "Category";
+            // 
+            // lblServieID
+            // 
+            lblServieID.AutoSize = true;
+            lblServieID.Location = new Point(46, 48);
+            lblServieID.Name = "lblServieID";
+            lblServieID.Size = new Size(58, 15);
+            lblServieID.TabIndex = 5;
+            lblServieID.Text = "Service ID";
+            // 
+            // btnReset
+            // 
+            btnReset.Location = new Point(721, 60);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(75, 23);
+            btnReset.TabIndex = 4;
+            btnReset.Text = "Reset";
+            btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
+            // 
+            // btnFilter
+            // 
+            btnFilter.Location = new Point(721, 22);
+            btnFilter.Name = "btnFilter";
+            btnFilter.Size = new Size(75, 23);
+            btnFilter.TabIndex = 3;
+            btnFilter.Text = "Filter";
+            btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.Click += btnFilter_Click;
+            // 
+            // ddlTechnician
+            // 
+            ddlTechnician.FormattingEnabled = true;
+            ddlTechnician.Location = new Point(534, 40);
+            ddlTechnician.Name = "ddlTechnician";
+            ddlTechnician.Size = new Size(121, 23);
+            ddlTechnician.TabIndex = 2;
+            // 
+            // ddlCategory
+            // 
+            ddlCategory.FormattingEnabled = true;
+            ddlCategory.Location = new Point(315, 40);
+            ddlCategory.Name = "ddlCategory";
+            ddlCategory.Size = new Size(121, 23);
+            ddlCategory.TabIndex = 1;
+            // 
+            // txtServiceID
+            // 
+            txtServiceID.Location = new Point(120, 40);
+            txtServiceID.Name = "txtServiceID";
+            txtServiceID.Size = new Size(100, 23);
+            txtServiceID.TabIndex = 0;
             // 
             // servicesPage
             // 
@@ -122,6 +200,13 @@
         private Button btnDelete;
         private Button btnUpdate;
         private GroupBox groupBox1;
-        private TextBox textBox1;
+        private TextBox txtServiceID;
+        private ComboBox ddlTechnician;
+        private ComboBox ddlCategory;
+        private Label lblTechnician;
+        private Label lblCategory;
+        private Label lblServieID;
+        private Button btnReset;
+        private Button btnFilter;
     }
 }

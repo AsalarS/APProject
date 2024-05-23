@@ -61,6 +61,7 @@
             ddlManager.Name = "ddlManager";
             ddlManager.Size = new Size(300, 38);
             ddlManager.TabIndex = 10;
+            ddlManager.SelectedIndexChanged += ddlManager_SelectedIndexChanged;
             // 
             // label2
             // 
