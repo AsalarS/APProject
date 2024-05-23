@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ProjectFormApp;
 
 namespace AdminApp.Pages
 {
@@ -29,8 +29,18 @@ namespace AdminApp.Pages
             //this is to change the text color
             this.ForeColor = Color.Black;
 
-            //btnAdd.Enabled = false;
-            //btnAdd.Hide();
+            if (Global.HomeCareUser.UserRole == "Manager")
+            {
+                btnAdd.Enabled = false;
+                btnAdd.Hide();
+
+                btnDelete.Enabled = false;
+                btnDelete.Hide();
+
+                btnUpdate.Enabled = false;
+                btnUpdate.Hide();
+            }
+
         }
         private void RefreshGridView()
         {

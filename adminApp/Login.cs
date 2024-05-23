@@ -14,12 +14,15 @@ using Microsoft.Extensions.DependencyInjection;
 using adminApp;
 using HomeCareObjects.Model;
 using Microsoft.EntityFrameworkCore;
+using ProjectFormApp;
 namespace AdminApp
 {
     public partial class Login : Form
     {
         private IServiceProvider serviceProvider;
         HomeCareDBContext Context;
+         FormsIdentityContext IdentityContext = new FormsIdentityContext();
+        
 
         public Login()
         {
@@ -29,19 +32,13 @@ namespace AdminApp
 
         private async void loginBtn_Click(object sender, EventArgs e)
         {
-            //this comment below is for debugging purposes
-
-            /*this.Hide();
-            dashboard dashboard = new dashboard();
-            dashboard.Show();*/
-
             var signInResults = await VerifyUserNamePassword(txtUserName.Text, txtPassword.Text);
             if (signInResults == true) //if user is verified
             {
                 //do something.. i.e. navigate to next forms
-                dashboard dashboard = new dashboard();
+                dashboard dash = new dashboard();
                 this.Hide();
-                dashboard.Show();
+                dash.Show();
             }
             else
             {
@@ -53,41 +50,47 @@ namespace AdminApp
         {
             try
             {
-                
-                    var services = new ServiceCollection();
-                    ConfigureServices(services);
-                    serviceProvider = services.BuildServiceProvider();
-                    
-                    var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                    var founduser = await userManager.FindByEmailAsync(txtUserName.Text);
 
-                    if (founduser != null)
+
+                var services = new ServiceCollection();
+                ConfigureServices(services);
+                serviceProvider = services.BuildServiceProvider();
+
+                var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var founduser = await userManager.FindByEmailAsync(txtUserName.Text);
+
+                if (founduser != null)
+                {
+                    var passCheck = await userManager.CheckPasswordAsync(founduser, password) == true  ;
+
+                    if (passCheck)
                     {
-                        var passCheck = await userManager.CheckPasswordAsync(founduser, password) == true;
+                        var roles = await userManager.GetRolesAsync(founduser);
 
-                        if (passCheck)
+                        //save into global class
+
+                        ProjectFormApp.Global.User = founduser;
+
+                        ProjectFormApp.Global.RoleName = roles.FirstOrDefault();
+
+                        //Those are added as extra just to show how you can query all users in a certain role
+                        ProjectFormApp.Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
+                        ProjectFormApp.Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
+                        ProjectFormApp.Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
+                        ProjectFormApp.Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
+                        try
                         {
-                            var roles = await userManager.GetRolesAsync(founduser);
-
-                            //save into global class
-                            Global.User = founduser;
-
-                            Global.RoleName = roles.FirstOrDefault();
-
-                            //Those are added as extra just to show how you can query all users in a certain role
-                            Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
-                            Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
-                            Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
-                            Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
-                            // User is verified, do something...
-                            return true;
-                            // User is verified, do something...
+                            Global.HomeCareUser = Context.Users.Where(x => x.Email == ProjectFormApp.Global.User.Email).FirstOrDefault();
                         }
-                        return passCheck;
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " +  ex.Message);
+                        }
                     }
-                   return false;
-                
+                    return passCheck;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -101,11 +104,11 @@ namespace AdminApp
             try
             {
                 services.AddEntityFrameworkSqlServer()
-                    .AddDbContext<HomeCareDBContext>();
+                    .AddDbContext<FormsIdentityContext>();
 
                 // Register UserManager & RoleManager
                 services.AddIdentity<IdentityUser, IdentityRole>()
-                   .AddEntityFrameworkStores<HomeCareDBContext>()
+                   .AddEntityFrameworkStores<FormsIdentityContext>()
                    .AddDefaultTokenProviders();
 
                 // UserManager & RoleManager require logging and HttpContext dependencies

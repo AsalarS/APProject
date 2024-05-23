@@ -1,12 +1,15 @@
 using adminApp;
 using AdminApp.Pages;
 using HomeCareObjects.Model;
+using ProjectFormApp;
 
 namespace AdminApp
 {
     public partial class dashboard : Form
     {
         HomeCareDBContext context;
+        FormsIdentityContext IdentityContext = new FormsIdentityContext();
+
         public dashboard()
         {
             InitializeComponent();
@@ -15,9 +18,10 @@ namespace AdminApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Global.User != null)
+            if (ProjectFormApp.Global.HomeCareUser != null)
             {
-                label2.Text = Global.User.UserName;
+
+                label2.Text = Global.HomeCareUser.FullName;
             }
             else
             {
@@ -115,7 +119,9 @@ namespace AdminApp
             Global.User = null;
             Global.RoleName = null;
             Global.AllAdmins = null;
-            Global.AllCustomers = null;
+            Global.AllUsers = null;
+            Global.AllManagers = null;
+            Global.AllTechnicicans = null;
             goToPage(new Login());
         }
 

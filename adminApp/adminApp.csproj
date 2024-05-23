@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Downloads\Identity Guidelines and Samples\ProjectFormApp\ProjectFormApp\ProjectFormApp.csproj" />
     <ProjectReference Include="..\HomeCareObjects\HomeCareObjects.csproj" />
   </ItemGroup>
 
