@@ -129,10 +129,12 @@ namespace AdminApp
         private void btnDebugLogin_Click(object sender, EventArgs e)
         {
             //this comment below is for debugging purposes
+            txtUserName.Text = "admin@test.com";
+            txtPassword.Text = "Test@123";
 
-            this.Hide();
+           /* this.Hide();
             dashboard dashboard = new dashboard();
-            dashboard.Show();
+            dashboard.Show();*/
         }
     }
 
