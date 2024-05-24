@@ -1,9 +1,10 @@
+using HomeCareObjects.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjectWebApp.Data;
 var builder = WebApplication.CreateBuilder(args);
 var identityConnectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
-
+builder.Services.AddDbContext<HomeCareDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseSqlServer(identityConnectionString));
 
