@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HomeCareObjects\HomeCareObjects.csproj" />
+  </ItemGroup>
+
 </Project>

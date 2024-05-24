@@ -12,6 +12,7 @@ namespace ProjectFormApp
     {
         public static IdentityUser User;
         public static string RoleName;
+        public static HomeCareObjects.Model.User HomeCareUser;
 
         public static IEnumerable<IdentityUser> AllAdmins;
         public static IEnumerable<IdentityUser> AllTechnicicans;
