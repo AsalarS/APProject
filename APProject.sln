@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeCareObjects", "HomeCare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeCareWebApp", "HomeCareWebApp\HomeCareWebApp.csproj", "{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectFormApp", "..\..\..\Downloads\Identity Guidelines and Samples\ProjectFormApp\ProjectFormApp\ProjectFormApp.csproj", "{339907EF-8D1B-4518-A719-2861F02FCFC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectFormApp", "..\..\..\Downloads\Identity Guidelines and Samples2\ProjectFormApp\ProjectFormApp\ProjectFormApp.csproj", "{2599F7B7-7DA3-4553-BE1C-3F646A3995FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C4F1654-F0DB-49E9-B7CA-3BA090F68AB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{339907EF-8D1B-4518-A719-2861F02FCFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{339907EF-8D1B-4518-A719-2861F02FCFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{339907EF-8D1B-4518-A719-2861F02FCFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{339907EF-8D1B-4518-A719-2861F02FCFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2599F7B7-7DA3-4553-BE1C-3F646A3995FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2599F7B7-7DA3-4553-BE1C-3F646A3995FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2599F7B7-7DA3-4553-BE1C-3F646A3995FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2599F7B7-7DA3-4553-BE1C-3F646A3995FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

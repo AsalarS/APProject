@@ -72,9 +72,12 @@ namespace adminApp.Dialogue
             {
                 service.ServiceName = nameTxt.Text;
                 service.ServiceDescription = descTxt.Text;
+                if (!Double.TryParse(priceTxt.Text, out _))
+                {
+                    MessageBox.Show("Please enter a valid price.");
+                    return;
+                }
                 service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
-                service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
-                service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
 
                 if (ddlCategory.SelectedValue == null || ddlTechnician.SelectedValue == null)
                 {
@@ -82,6 +85,8 @@ namespace adminApp.Dialogue
                     return;
                 }
 
+                service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
+                service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
 
                 if (service != null && service.ServiceId > 0)
                 {

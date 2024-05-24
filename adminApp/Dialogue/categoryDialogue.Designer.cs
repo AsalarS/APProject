@@ -56,6 +56,7 @@
             ddlManager.BackColor = Color.FromArgb(50, 50, 77);
             ddlManager.FlatStyle = FlatStyle.Flat;
             ddlManager.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlManager.ForeColor = Color.White;
             ddlManager.FormattingEnabled = true;
             ddlManager.Location = new Point(230, 227);
             ddlManager.Name = "ddlManager";
@@ -79,6 +80,7 @@
             descTxt.BackColor = Color.FromArgb(50, 50, 77);
             descTxt.BorderStyle = BorderStyle.None;
             descTxt.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            descTxt.ForeColor = Color.White;
             descTxt.Location = new Point(230, 164);
             descTxt.Name = "descTxt";
             descTxt.Size = new Size(300, 28);
@@ -100,6 +102,7 @@
             nameTxt.BackColor = Color.FromArgb(50, 50, 77);
             nameTxt.BorderStyle = BorderStyle.None;
             nameTxt.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            nameTxt.ForeColor = Color.White;
             nameTxt.Location = new Point(230, 100);
             nameTxt.Name = "nameTxt";
             nameTxt.Size = new Size(300, 28);
@@ -112,7 +115,7 @@
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(401, 297);
+            cancelBtn.Location = new Point(401, 301);
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(129, 40);
             cancelBtn.TabIndex = 21;
@@ -127,7 +130,7 @@
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             saveBtn.ForeColor = Color.White;
-            saveBtn.Location = new Point(39, 297);
+            saveBtn.Location = new Point(39, 301);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(129, 40);
             saveBtn.TabIndex = 20;
@@ -151,6 +154,7 @@
             txtCategoryId.BackColor = Color.FromArgb(50, 50, 77);
             txtCategoryId.BorderStyle = BorderStyle.None;
             txtCategoryId.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtCategoryId.ForeColor = Color.White;
             txtCategoryId.Location = new Point(230, 35);
             txtCategoryId.Name = "txtCategoryId";
             txtCategoryId.ReadOnly = true;

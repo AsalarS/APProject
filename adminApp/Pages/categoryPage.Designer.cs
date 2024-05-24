@@ -52,37 +52,52 @@
             dgvCategory.Name = "dgvCategory";
             dgvCategory.RowHeadersWidth = 62;
             dgvCategory.RowTemplate.Height = 33;
-            dgvCategory.Size = new Size(802, 376);
+            dgvCategory.Size = new Size(802, 407);
             dgvCategory.TabIndex = 1;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(24, 510);
+            btnAdd.BackColor = Color.FromArgb(13, 13, 37);
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(24, 530);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
+            btnAdd.Size = new Size(140, 50);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(394, 510);
+            btnDelete.BackColor = Color.FromArgb(13, 13, 37);
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(355, 530);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 23);
+            btnDelete.Size = new Size(140, 50);
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(745, 510);
+            btnUpdate.BackColor = Color.FromArgb(13, 13, 37);
+            btnUpdate.FlatAppearance.BorderSize = 0;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUpdate.ForeColor = Color.White;
+            btnUpdate.Location = new Point(680, 530);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.Size = new Size(140, 50);
             btnUpdate.TabIndex = 4;
             btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // groupBox1
@@ -104,7 +119,7 @@
             // lblManager
             // 
             lblManager.AutoSize = true;
-            lblManager.Location = new Point(456, 48);
+            lblManager.Location = new Point(402, 18);
             lblManager.Name = "lblManager";
             lblManager.Size = new Size(54, 15);
             lblManager.TabIndex = 7;
@@ -113,7 +128,7 @@
             // lblCategoryID
             // 
             lblCategoryID.AutoSize = true;
-            lblCategoryID.Location = new Point(46, 48);
+            lblCategoryID.Location = new Point(54, 18);
             lblCategoryID.Name = "lblCategoryID";
             lblCategoryID.Size = new Size(69, 15);
             lblCategoryID.TabIndex = 5;
@@ -121,37 +136,53 @@
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(721, 60);
+            btnReset.BackColor = Color.FromArgb(13, 13, 37);
+            btnReset.FlatAppearance.BorderSize = 0;
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.ForeColor = Color.White;
+            btnReset.Location = new Point(716, 56);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(75, 23);
             btnReset.TabIndex = 4;
             btnReset.Text = "Reset";
-            btnReset.UseVisualStyleBackColor = true;
+            btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnFilter
             // 
-            btnFilter.Location = new Point(721, 22);
+            btnFilter.BackColor = Color.FromArgb(13, 13, 37);
+            btnFilter.FlatAppearance.BorderSize = 0;
+            btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.ForeColor = Color.White;
+            btnFilter.Location = new Point(716, 18);
             btnFilter.Name = "btnFilter";
             btnFilter.Size = new Size(75, 23);
             btnFilter.TabIndex = 3;
             btnFilter.Text = "Filter";
-            btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.UseVisualStyleBackColor = false;
             btnFilter.Click += btnFilter_Click;
             // 
             // ddlManager
             // 
+            ddlManager.BackColor = Color.FromArgb(50, 50, 77);
+            ddlManager.FlatStyle = FlatStyle.Flat;
+            ddlManager.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlManager.ForeColor = Color.White;
             ddlManager.FormattingEnabled = true;
-            ddlManager.Location = new Point(534, 40);
+            ddlManager.Location = new Point(402, 37);
             ddlManager.Name = "ddlManager";
-            ddlManager.Size = new Size(121, 23);
+            ddlManager.Size = new Size(290, 29);
             ddlManager.TabIndex = 2;
             // 
             // txtCategoryID
             // 
-            txtCategoryID.Location = new Point(120, 40);
+            txtCategoryID.BackColor = Color.FromArgb(50, 50, 77);
+            txtCategoryID.BorderStyle = BorderStyle.None;
+            txtCategoryID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtCategoryID.ForeColor = Color.White;
+            txtCategoryID.Location = new Point(54, 37);
             txtCategoryID.Name = "txtCategoryID";
-            txtCategoryID.Size = new Size(100, 23);
+            txtCategoryID.Size = new Size(290, 22);
             txtCategoryID.TabIndex = 0;
             // 
             // categoryPage

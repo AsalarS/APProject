@@ -51,37 +51,52 @@
             dgvServices.Location = new Point(24, 107);
             dgvServices.Name = "dgvServices";
             dgvServices.RowTemplate.Height = 25;
-            dgvServices.Size = new Size(802, 376);
+            dgvServices.Size = new Size(802, 404);
             dgvServices.TabIndex = 0;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(110, 505);
+            btnAdd.BackColor = Color.FromArgb(13, 13, 37);
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(24, 528);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
+            btnAdd.Size = new Size(140, 50);
             btnAdd.TabIndex = 1;
             btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(399, 505);
+            btnDelete.BackColor = Color.FromArgb(13, 13, 37);
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(355, 528);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(75, 23);
+            btnDelete.Size = new Size(140, 50);
             btnDelete.TabIndex = 2;
             btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(675, 505);
+            btnUpdate.BackColor = Color.FromArgb(13, 13, 37);
+            btnUpdate.FlatAppearance.BorderSize = 0;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUpdate.ForeColor = Color.White;
+            btnUpdate.Location = new Point(686, 528);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 23);
+            btnUpdate.Size = new Size(140, 50);
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // groupBox1
@@ -105,7 +120,7 @@
             // lblTechnician
             // 
             lblTechnician.AutoSize = true;
-            lblTechnician.Location = new Point(456, 48);
+            lblTechnician.Location = new Point(456, 24);
             lblTechnician.Name = "lblTechnician";
             lblTechnician.Size = new Size(63, 15);
             lblTechnician.TabIndex = 7;
@@ -114,7 +129,7 @@
             // lblCategory
             // 
             lblCategory.AutoSize = true;
-            lblCategory.Location = new Point(226, 48);
+            lblCategory.Location = new Point(234, 24);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(55, 15);
             lblCategory.TabIndex = 6;
@@ -123,7 +138,7 @@
             // lblServieID
             // 
             lblServieID.AutoSize = true;
-            lblServieID.Location = new Point(46, 48);
+            lblServieID.Location = new Point(34, 24);
             lblServieID.Name = "lblServieID";
             lblServieID.Size = new Size(58, 15);
             lblServieID.TabIndex = 5;
@@ -131,45 +146,67 @@
             // 
             // btnReset
             // 
-            btnReset.Location = new Point(721, 60);
+            btnReset.BackColor = Color.FromArgb(13, 13, 37);
+            btnReset.FlatAppearance.BorderSize = 0;
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnReset.ForeColor = Color.White;
+            btnReset.Location = new Point(688, 50);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(75, 23);
+            btnReset.Size = new Size(108, 29);
             btnReset.TabIndex = 4;
             btnReset.Text = "Reset";
-            btnReset.UseVisualStyleBackColor = true;
+            btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnFilter
             // 
-            btnFilter.Location = new Point(721, 22);
+            btnFilter.BackColor = Color.FromArgb(13, 13, 37);
+            btnFilter.FlatAppearance.BorderSize = 0;
+            btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnFilter.ForeColor = Color.White;
+            btnFilter.Location = new Point(688, 15);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(75, 23);
+            btnFilter.Size = new Size(108, 29);
             btnFilter.TabIndex = 3;
             btnFilter.Text = "Filter";
-            btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.UseVisualStyleBackColor = false;
             btnFilter.Click += btnFilter_Click;
             // 
             // ddlTechnician
             // 
+            ddlTechnician.BackColor = Color.FromArgb(50, 50, 77);
+            ddlTechnician.FlatStyle = FlatStyle.Flat;
+            ddlTechnician.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlTechnician.ForeColor = Color.White;
             ddlTechnician.FormattingEnabled = true;
-            ddlTechnician.Location = new Point(534, 40);
+            ddlTechnician.Location = new Point(456, 40);
             ddlTechnician.Name = "ddlTechnician";
-            ddlTechnician.Size = new Size(121, 23);
+            ddlTechnician.Size = new Size(199, 29);
             ddlTechnician.TabIndex = 2;
             // 
             // ddlCategory
             // 
+            ddlCategory.BackColor = Color.FromArgb(50, 50, 77);
+            ddlCategory.FlatStyle = FlatStyle.Flat;
+            ddlCategory.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlCategory.ForeColor = Color.White;
             ddlCategory.FormattingEnabled = true;
-            ddlCategory.Location = new Point(315, 40);
+            ddlCategory.Location = new Point(234, 40);
             ddlCategory.Name = "ddlCategory";
-            ddlCategory.Size = new Size(121, 23);
+            ddlCategory.Size = new Size(202, 29);
             ddlCategory.TabIndex = 1;
             // 
             // txtServiceID
             // 
-            txtServiceID.Location = new Point(120, 40);
+            txtServiceID.BackColor = Color.FromArgb(50, 50, 77);
+            txtServiceID.BorderStyle = BorderStyle.None;
+            txtServiceID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtServiceID.ForeColor = Color.White;
+            txtServiceID.Location = new Point(34, 43);
             txtServiceID.Name = "txtServiceID";
-            txtServiceID.Size = new Size(100, 23);
+            txtServiceID.Size = new Size(186, 22);
             txtServiceID.TabIndex = 0;
             // 
             // servicesPage

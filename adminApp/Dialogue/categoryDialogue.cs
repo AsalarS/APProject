@@ -70,7 +70,14 @@ namespace adminApp.Popup
             {
                 category.CategoryName = nameTxt.Text;
                 category.Description = descTxt.Text;
+                if(ddlManager.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a manager");
+                    return;
+                }
+
                 category.ManagerId = Convert.ToInt32(ddlManager.SelectedValue.ToString());
+
                 if (category != null && category.CategoryId > 0)
                 {
                     context.Categories.Update(category);// TODO: resolve error when updating

@@ -60,6 +60,7 @@
             nameTxt.BackColor = Color.FromArgb(50, 50, 77);
             nameTxt.BorderStyle = BorderStyle.None;
             nameTxt.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            nameTxt.ForeColor = Color.White;
             nameTxt.Location = new Point(226, 80);
             nameTxt.Name = "nameTxt";
             nameTxt.Size = new Size(300, 28);
@@ -81,6 +82,7 @@
             descTxt.BackColor = Color.FromArgb(50, 50, 77);
             descTxt.BorderStyle = BorderStyle.None;
             descTxt.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            descTxt.ForeColor = Color.White;
             descTxt.Location = new Point(226, 133);
             descTxt.Name = "descTxt";
             descTxt.Size = new Size(300, 28);
@@ -102,10 +104,12 @@
             priceTxt.BackColor = Color.FromArgb(50, 50, 77);
             priceTxt.BorderStyle = BorderStyle.None;
             priceTxt.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            priceTxt.ForeColor = Color.White;
             priceTxt.Location = new Point(226, 190);
             priceTxt.Name = "priceTxt";
             priceTxt.Size = new Size(300, 28);
             priceTxt.TabIndex = 12;
+            priceTxt.WordWrap = false;
             // 
             // label4
             // 
@@ -123,6 +127,7 @@
             ddlCategory.BackColor = Color.FromArgb(50, 50, 77);
             ddlCategory.FlatStyle = FlatStyle.Flat;
             ddlCategory.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlCategory.ForeColor = Color.White;
             ddlCategory.FormattingEnabled = true;
             ddlCategory.Location = new Point(226, 244);
             ddlCategory.Name = "ddlCategory";
@@ -145,6 +150,7 @@
             ddlTechnician.BackColor = Color.FromArgb(50, 50, 77);
             ddlTechnician.FlatStyle = FlatStyle.Flat;
             ddlTechnician.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlTechnician.ForeColor = Color.White;
             ddlTechnician.FormattingEnabled = true;
             ddlTechnician.Location = new Point(226, 309);
             ddlTechnician.Name = "ddlTechnician";
@@ -158,7 +164,7 @@
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             saveBtn.ForeColor = Color.White;
-            saveBtn.Location = new Point(35, 369);
+            saveBtn.Location = new Point(35, 384);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(129, 40);
             saveBtn.TabIndex = 18;
@@ -173,7 +179,7 @@
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(397, 369);
+            cancelBtn.Location = new Point(397, 384);
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(129, 40);
             cancelBtn.TabIndex = 19;
@@ -197,6 +203,7 @@
             txtServiceId.BackColor = Color.FromArgb(50, 50, 77);
             txtServiceId.BorderStyle = BorderStyle.None;
             txtServiceId.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtServiceId.ForeColor = Color.White;
             txtServiceId.Location = new Point(226, 31);
             txtServiceId.Name = "txtServiceId";
             txtServiceId.ReadOnly = true;

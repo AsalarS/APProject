@@ -18,6 +18,9 @@ namespace AdminApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Default Page
+            showScreen(new DashboardPage()); 
+
             if (ProjectFormApp.Global.HomeCareUser != null)
             {
 
@@ -122,6 +125,7 @@ namespace AdminApp
             Global.AllUsers = null;
             Global.AllManagers = null;
             Global.AllTechnicicans = null;
+            Global.HomeCareUser = null;
             goToPage(new Login());
         }
 

@@ -34,7 +34,8 @@
             txtUserName = new TextBox();
             txtPassword = new TextBox();
             loginBtn = new Button();
-            btnDebugLogin = new Button();
+            btnDebugAdmin = new Button();
+            btnDebugManager = new Button();
             SuspendLayout();
             // 
             // label1
@@ -106,15 +107,25 @@
             loginBtn.UseVisualStyleBackColor = false;
             loginBtn.Click += loginBtn_Click;
             // 
-            // btnDebugLogin
+            // btnDebugAdmin
             // 
-            btnDebugLogin.Location = new Point(850, 459);
-            btnDebugLogin.Name = "btnDebugLogin";
-            btnDebugLogin.Size = new Size(75, 23);
-            btnDebugLogin.TabIndex = 6;
-            btnDebugLogin.Text = "Login";
-            btnDebugLogin.UseVisualStyleBackColor = true;
-            btnDebugLogin.Click += btnDebugLogin_Click;
+            btnDebugAdmin.Location = new Point(877, 467);
+            btnDebugAdmin.Name = "btnDebugAdmin";
+            btnDebugAdmin.Size = new Size(75, 23);
+            btnDebugAdmin.TabIndex = 6;
+            btnDebugAdmin.Text = "Admin";
+            btnDebugAdmin.UseVisualStyleBackColor = true;
+            btnDebugAdmin.Click += btnDebugLogin_Click;
+            // 
+            // btnDebugManager
+            // 
+            btnDebugManager.Location = new Point(877, 421);
+            btnDebugManager.Name = "btnDebugManager";
+            btnDebugManager.Size = new Size(75, 23);
+            btnDebugManager.TabIndex = 7;
+            btnDebugManager.Text = "Manager";
+            btnDebugManager.UseVisualStyleBackColor = true;
+            btnDebugManager.Click += btnDebugManager_Click;
             // 
             // Login
             // 
@@ -122,7 +133,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(1064, 611);
-            Controls.Add(btnDebugLogin);
+            Controls.Add(btnDebugManager);
+            Controls.Add(btnDebugAdmin);
             Controls.Add(loginBtn);
             Controls.Add(txtPassword);
             Controls.Add(txtUserName);
@@ -146,6 +158,7 @@
         private TextBox txtUserName;
         private TextBox txtPassword;
         private Button loginBtn;
-        private Button btnDebugLogin;
+        private Button btnDebugAdmin;
+        private Button btnDebugManager;
     }
 }

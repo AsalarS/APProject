@@ -11,41 +11,43 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using adminApp;
-using HomeCareObjects.Model;
-using Microsoft.EntityFrameworkCore;
-using ProjectFormApp;
-namespace AdminApp
+
+
+namespace ProjectFormApp
 {
     public partial class Login : Form
     {
-        private IServiceProvider serviceProvider;
-        HomeCareDBContext Context;
+        private  IServiceProvider serviceProvider;
+
         FormsIdentityContext IdentityContext = new FormsIdentityContext();
-
-
+       
         public Login()
         {
             InitializeComponent();
-            Context = new HomeCareDBContext();
         }
 
-        private async void loginBtn_Click(object sender, EventArgs e)
+        private void Login_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private async void btnLogin_Click(object sender, EventArgs e)
+        {
+         
             var signInResults = await VerifyUserNamePassword(txtUserName.Text, txtPassword.Text);
-            if (signInResults == true) //if user is verified
+            if(signInResults == true) //if user is verified
             {
                 //do something.. i.e. navigate to next forms
-                dashboard dash = new dashboard();
+                Home home = new Home();
                 this.Hide();
-                dash.Show();
+                home.Show();
             }
             else
             {
                 MessageBox.Show("Error. The username or password are not correct");
             }
+           
         }
-
         public async Task<bool> VerifyUserNamePassword(string userName, string password)
         {
             try
@@ -69,7 +71,6 @@ namespace AdminApp
                         var roles = await userManager.GetRolesAsync(founduser);
 
                         //save into global class
-
                         Global.User = founduser;
 
                         Global.RoleName = roles.FirstOrDefault();
@@ -79,44 +80,33 @@ namespace AdminApp
                         Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
                         Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
                         Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
-                        try
-                        {
-                            Global.HomeCareUser = Context.Users.Where(x => x.Email == Global.User.Email).FirstOrDefault();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error: " + ex.Message);
-                        }
                     }
                     return passCheck;
                 }
                 return false;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show("Error");
-                return false;
+                return false; 
             }
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
-            try
-            {
-                services.AddEntityFrameworkSqlServer()
-                    .AddDbContext<FormsIdentityContext>();
+            try { 
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<FormsIdentityContext>();
 
-                // Register UserManager & RoleManager
-                services.AddIdentity<IdentityUser, IdentityRole>()
-                   .AddEntityFrameworkStores<FormsIdentityContext>()
-                   .AddDefaultTokenProviders();
+            // Register UserManager & RoleManager
+            services.AddIdentity<IdentityUser, IdentityRole>()
+               .AddEntityFrameworkStores<FormsIdentityContext>()
+               .AddDefaultTokenProviders();
 
-                // UserManager & RoleManager require logging and HttpContext dependencies
-                services.AddLogging();
-                services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // UserManager & RoleManager require logging and HttpContext dependencies
+            services.AddLogging();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             }
-            catch (Exception ex)
-            {
+            catch(Exception ex) {
                 MessageBox.Show("Error");
             }
         }
@@ -125,23 +115,5 @@ namespace AdminApp
         {
             Application.Exit();
         }
-
-        private void btnDebugLogin_Click(object sender, EventArgs e)
-        {
-            //this comment below is for debugging purposes
-            txtUserName.Text = "admin@test.com";
-            txtPassword.Text = "Test@123";
-
-            /* this.Hide();
-             dashboard dashboard = new dashboard();
-             dashboard.Show();*/
-        }
-
-        private void btnDebugManager_Click(object sender, EventArgs e)
-        {
-            txtUserName.Text = "manager@test.com";
-            txtPassword.Text = "Test@123";
-        }
     }
-
 }
