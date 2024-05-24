@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -19,9 +20,11 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: ServiceRequests
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var homeCareDBContext = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
+
             return View(await homeCareDBContext.ToListAsync());
         }
 
@@ -132,6 +135,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: ServiceRequests/Delete/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ServiceRequests == null)
