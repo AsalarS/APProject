@@ -14,7 +14,6 @@ namespace AdminApp
 {
     public partial class DashboardPage : Form
     {
-        //TODO: REMAKE DASHBOARD
         HomeCareDBContext context;
         public DashboardPage()
         {
@@ -58,9 +57,9 @@ namespace AdminApp
 
             // Pending Requests
             lblPendingRequests.Text = context.ServiceRequests
-                                          .Where(x => x.DateNeeded > x.RequestDate)
-                                          .Count()
-                                          .ToString();
+                                              .Where(x => x.DateNeeded > x.RequestDate)
+                                              .Count()
+                                              .ToString();
             // Completed Requests
             lblCompletedRequests.Text = context.ServiceRequests
                                             .Where(x => x.DateNeeded <= x.RequestDate)
@@ -71,13 +70,21 @@ namespace AdminApp
                                             .Where(x => x.DateNeeded < x.RequestDate)
                                             .Count()
                                             .ToString();
-            // All Requests
-            lblAllRequests.Text = context.ServiceRequests.Count().ToString();
-            // Category Requests
-            lblCategoryRequests.Text = context.ServiceRequests
-                                             .Where(x => x.Service.CategoryId == selectedCategoryId)
-                                             .Count()
-                                             .ToString();
+            //Top Service
+            lblTopService.Text = context.ServiceRequests
+                                            .GroupBy(x => x.ServiceId)
+                                            .OrderByDescending(x => x.Count())
+                                            .Select(x => x.Key)
+                                            .FirstOrDefault()
+                                            .ToString();
+            //Number of services
+            lblNumberOfServices.Text = context.ServiceRequests.Where(x => x.Service.CategoryId == selectedCategoryId)
+                                            .Count()
+                                            .ToString();
+            //Number of technicians
+            lblNumberOfTechnicians.Text = technicians
+                                            .Count()
+                                            .ToString();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
