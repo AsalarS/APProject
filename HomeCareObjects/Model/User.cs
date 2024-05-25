@@ -36,6 +36,8 @@ namespace HomeCareObjects.Model
         [StringLength(50)]
         public string? LastName { get; set; }
 
+        public string? FullName => $"{FirstName} {LastName}";
+
         [InverseProperty("Manager")]
         public virtual ICollection<Category> Categories { get; set; }
         [InverseProperty("User")]
