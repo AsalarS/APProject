@@ -205,10 +205,10 @@
             // 
             // lblTopService
             // 
-            lblTopService.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblTopService.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTopService.AutoSize = true;
             lblTopService.ForeColor = Color.White;
-            lblTopService.Location = new Point(166, 31);
+            lblTopService.Location = new Point(129, 30);
             lblTopService.Name = "lblTopService";
             lblTopService.Size = new Size(29, 15);
             lblTopService.TabIndex = 17;

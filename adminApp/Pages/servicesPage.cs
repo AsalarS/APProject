@@ -87,6 +87,13 @@ namespace AdminApp
         {
             int firstcell = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
             Service service = context.Services.Single(x => x.ServiceId == firstcell);
+            int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
+
+            if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
+            {
+                MessageBox.Show("the Service your trying to Delete is assigned to another manager");
+                return;
+            }
 
             if (MessageBox.Show("Are you sure you want to delete service (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -125,11 +132,11 @@ namespace AdminApp
             {
 
                 int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
-                int SelectedManagerID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
+                int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
                 Service selectedService = context.Services.Find(SelectedServiceID);
                 servicesDialogue frmServiceEdit = new servicesDialogue(selectedService);
 
-                if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedManagerID).FirstOrDefault().ManagerId.ToString()))
+                if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
                 {
                     MessageBox.Show("the Service your trying to update is assigned to another manager");
                     return;
@@ -139,11 +146,11 @@ namespace AdminApp
                     frmServiceEdit.ShowDialog();
                 }
 
-
                 if (frmServiceEdit.DialogResult == DialogResult.OK)
                 {
                     RefreshGridView();
                 }
+
             }
             catch (Exception ex)
             {

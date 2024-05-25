@@ -39,6 +39,14 @@ namespace AdminApp
             {
                 label2.Text = "User not set";
             }
+            //this is to hide logs from managers
+            if (Global.HomeCareUser.UserRole == "Manager")
+            {
+                logsBtn.Enabled = false;
+                logsBtn.Hide();
+
+                
+            }
         }
 
         // Visual Elements

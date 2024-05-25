@@ -1,4 +1,5 @@
 ﻿using HomeCareObjects.Model;
+using ProjectFormApp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,10 +40,23 @@ namespace adminApp.Dialogue
         {
             try
             {
-                ddlCategory.DataSource = context.Categories.ToList();
-                ddlCategory.DisplayMember = "CategoryName";
-                ddlCategory.ValueMember = "CategoryId";
-                ddlCategory.SelectedItem = null;
+                // this if statement alows the manager to add services to his assigned category only
+                if (context.Categories.Any(x => x.ManagerId == Global.HomeCareUser.UserId) && Global.HomeCareUser.UserRole == "Manager")
+                {
+                    ddlCategory.DataSource = context.Categories.Where(x => x.ManagerId == Global.HomeCareUser.UserId).ToList();
+                    ddlCategory.DisplayMember = "CategoryName";
+                    ddlCategory.ValueMember = "CategoryId";
+                    
+
+                }
+                if (Global.HomeCareUser.UserRole == "Admin")
+                {
+                    ddlCategory.DataSource = context.Categories.ToList();
+                    ddlCategory.DisplayMember = "CategoryName";
+                    ddlCategory.ValueMember = "CategoryId";
+                    ddlCategory.SelectedItem = null;
+
+                }
 
                 ddlTechnician.DataSource = context.Users.Where(x => x.UserRole == "Technician").ToList();
                 ddlTechnician.DisplayMember = "FullName";

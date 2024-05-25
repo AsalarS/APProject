@@ -121,8 +121,7 @@ namespace AdminApp.Pages
             try
             {
                 int SelectedCategoryID = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
-                Category selectedCategory = context.Categories.Find(SelectedCategoryID);
-                categoryDialogue frmCategoryEdit = new categoryDialogue(selectedCategory);
+                categoryDialogue frmCategoryEdit = new categoryDialogue(SelectedCategoryID);
                 frmCategoryEdit.ShowDialog();
 
                 if (frmCategoryEdit.DialogResult == DialogResult.OK)

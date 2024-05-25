@@ -21,7 +21,7 @@ namespace AdminApp
             context = new HomeCareDBContext();
         }
 
-        private void RefreshData() //TODO: triple check > < bigger thans less thans
+        private void RefreshData() 
         {
             // Get the selected category ID from the dropdown
             int selectedCategoryId = (int)ddlCategory.SelectedValue;
@@ -57,26 +57,32 @@ namespace AdminApp
 
             // Pending Requests
             lblPendingRequests.Text = context.ServiceRequests
-                                              .Where(x => x.DateNeeded > x.RequestDate)
+                                              .Where(x => x.DateNeeded < x.RequestDate)
                                               .Count()
                                               .ToString();
             // Completed Requests
             lblCompletedRequests.Text = context.ServiceRequests
-                                            .Where(x => x.DateNeeded <= x.RequestDate)
+                                            .Where(x => x.DateNeeded > x.RequestDate)
                                             .Count()
                                             .ToString();
             // Overdue Requests
             lblCompletedRequests.Text = context.ServiceRequests
-                                            .Where(x => x.DateNeeded < x.RequestDate)
+                                            .Where(x => x.DateNeeded > x.RequestDate)
                                             .Count()
                                             .ToString();
             //Top Service
-            lblTopService.Text = context.ServiceRequests
-                                            .GroupBy(x => x.ServiceId)
-                                            .OrderByDescending(x => x.Count())
-                                            .Select(x => x.Key)
-                                            .FirstOrDefault()
-                                            .ToString();
+            var topServiceId = context.ServiceRequests
+                                      .GroupBy(x => x.ServiceId)
+                                      .OrderByDescending(x => x.Count())
+                                      .Select(x => x.Key)
+                                      .FirstOrDefault();
+
+            var topServiceName = context.Services
+                                        .Where(s => s.ServiceId == topServiceId)
+                                        .Select(s => s.ServiceName)
+                                        .FirstOrDefault();
+
+            lblTopService.Text = topServiceName;
             //Number of services
             lblNumberOfServices.Text = context.ServiceRequests.Where(x => x.Service.CategoryId == selectedCategoryId)
                                             .Count()
