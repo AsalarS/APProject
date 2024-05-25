@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeCareObjects;
 
-namespace adminApp
+namespace ProjectFormApp
 {
-    internal static class Global
+    public static class Global
     {
         public static IdentityUser User;
         public static string RoleName;
+        public static HomeCareObjects.Model.User HomeCareUser;
 
         public static IEnumerable<IdentityUser> AllAdmins;
         public static IEnumerable<IdentityUser> AllTechnicicans;
@@ -18,4 +21,3 @@ namespace adminApp
         public static IEnumerable<IdentityUser> AllUsers;
     }
 }
-    

@@ -16,5 +16,16 @@ namespace AdminApp
         {
             InitializeComponent();
         }
+
+        private void RefreshData()
+        {
+            // Load data from database
+            // Display data in the grid
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
     }
 }

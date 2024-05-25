@@ -32,14 +32,14 @@
             panel1 = new Panel();
             mainScreen = new Panel();
             panel3 = new Panel();
+            label2 = new Label();
+            label1 = new Label();
             servicesBtn = new Button();
             categoryBtn = new Button();
             logsBtn = new Button();
             logoutBtn = new Button();
             bellBtn = new Button();
             dashboardBtn = new Button();
-            label1 = new Label();
-            label2 = new Label();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,6 +59,7 @@
             mainScreen.Name = "mainScreen";
             mainScreen.Size = new Size(858, 611);
             mainScreen.TabIndex = 1;
+            mainScreen.Paint += mainScreen_Paint;
             // 
             // panel3
             // 
@@ -70,6 +71,29 @@
             panel3.Size = new Size(206, 82);
             panel3.TabIndex = 3;
             panel3.Paint += panel3_Paint;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(30, 34);
+            label2.Name = "label2";
+            label2.Size = new Size(136, 40);
+            label2.TabIndex = 1;
+            label2.Text = "John Doe";
+            label2.Click += label2_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.FromArgb(131, 140, 163);
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(60, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Welcome,";
+            label1.Click += label1_Click;
             // 
             // servicesBtn
             // 
@@ -193,28 +217,6 @@
             dashboardBtn.MouseEnter += dashboardBtn_MouseEnter;
             dashboardBtn.MouseLeave += dashboardBtn_MouseLeave;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = Color.FromArgb(131, 140, 163);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(60, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Welcome,";
-            label1.Click += label1_Click;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(30, 34);
-            label2.Name = "label2";
-            label2.Size = new Size(136, 40);
-            label2.TabIndex = 1;
-            label2.Text = "John Doe";
-            // 
             // dashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -235,6 +237,7 @@
             Name = "dashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";
+            FormClosing += dashboard_FormClosing;
             Load += Form1_Load;
             panel3.ResumeLayout(false);
             panel3.PerformLayout();

@@ -1,17 +1,35 @@
+using adminApp;
 using AdminApp.Pages;
+using HomeCareObjects.Model;
+using ProjectFormApp;
 
 namespace AdminApp
 {
     public partial class dashboard : Form
     {
+        HomeCareDBContext context;
+        FormsIdentityContext IdentityContext = new FormsIdentityContext();
+
         public dashboard()
         {
             InitializeComponent();
+            context = new HomeCareDBContext();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Default Page
+            showScreen(new DashboardPage()); 
 
+            if (ProjectFormApp.Global.HomeCareUser != null)
+            {
+
+                label2.Text = Global.HomeCareUser.FullName;
+            }
+            else
+            {
+                label2.Text = "User not set";
+            }
         }
 
         //VISUAL ELEMENTS
@@ -100,6 +118,14 @@ namespace AdminApp
 
         private void logoutBtn_Click(object sender, EventArgs e)
         {
+            //clear out everything in Global class
+            Global.User = null;
+            Global.RoleName = null;
+            Global.AllAdmins = null;
+            Global.AllUsers = null;
+            Global.AllManagers = null;
+            Global.AllTechnicicans = null;
+            Global.HomeCareUser = null;
             goToPage(new Login());
         }
 
@@ -141,6 +167,21 @@ namespace AdminApp
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainScreen_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

@@ -32,8 +32,10 @@
             label2 = new Label();
             label3 = new Label();
             txtUserName = new TextBox();
-            textBox2 = new TextBox();
+            txtPassword = new TextBox();
             loginBtn = new Button();
+            btnDebugAdmin = new Button();
+            btnDebugManager = new Button();
             SuspendLayout();
             // 
             // label1
@@ -78,17 +80,17 @@
             txtUserName.Size = new Size(406, 28);
             txtUserName.TabIndex = 3;
             // 
-            // textBox2
+            // txtPassword
             // 
-            textBox2.BackColor = Color.FromArgb(50, 50, 77);
-            textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(322, 353);
-            textBox2.Name = "textBox2";
-            textBox2.PasswordChar = '*';
-            textBox2.Size = new Size(406, 28);
-            textBox2.TabIndex = 4;
+            txtPassword.BackColor = Color.FromArgb(50, 50, 77);
+            txtPassword.BorderStyle = BorderStyle.None;
+            txtPassword.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            txtPassword.ForeColor = Color.White;
+            txtPassword.Location = new Point(322, 353);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(406, 28);
+            txtPassword.TabIndex = 4;
             // 
             // loginBtn
             // 
@@ -105,14 +107,36 @@
             loginBtn.UseVisualStyleBackColor = false;
             loginBtn.Click += loginBtn_Click;
             // 
+            // btnDebugAdmin
+            // 
+            btnDebugAdmin.Location = new Point(877, 467);
+            btnDebugAdmin.Name = "btnDebugAdmin";
+            btnDebugAdmin.Size = new Size(75, 23);
+            btnDebugAdmin.TabIndex = 6;
+            btnDebugAdmin.Text = "Admin";
+            btnDebugAdmin.UseVisualStyleBackColor = true;
+            btnDebugAdmin.Click += btnDebugLogin_Click;
+            // 
+            // btnDebugManager
+            // 
+            btnDebugManager.Location = new Point(877, 421);
+            btnDebugManager.Name = "btnDebugManager";
+            btnDebugManager.Size = new Size(75, 23);
+            btnDebugManager.TabIndex = 7;
+            btnDebugManager.Text = "Manager";
+            btnDebugManager.UseVisualStyleBackColor = true;
+            btnDebugManager.Click += btnDebugManager_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(1064, 611);
+            Controls.Add(btnDebugManager);
+            Controls.Add(btnDebugAdmin);
             Controls.Add(loginBtn);
-            Controls.Add(textBox2);
+            Controls.Add(txtPassword);
             Controls.Add(txtUserName);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -132,7 +156,9 @@
         private Label label2;
         private Label label3;
         private TextBox txtUserName;
-        private TextBox textBox2;
+        private TextBox txtPassword;
         private Button loginBtn;
+        private Button btnDebugAdmin;
+        private Button btnDebugManager;
     }
 }
