@@ -6,12 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+//using Microsoft.AspNet.Identity;
 
 namespace HomeCareWebApp.Controllers
 {
     public class ServiceRequestsController : Controller
     {
         private readonly HomeCareDBContext _context;
+        //private readonly UserManager<IdentityUser> _userManager;
 
         public ServiceRequestsController(HomeCareDBContext context)
         {
@@ -19,10 +25,25 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: ServiceRequests
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public async Task<IActionResult> Index(string SearchString)
         {
-            var homeCareDBContext = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
-            return View(await homeCareDBContext.ToListAsync());
+            var userEmail = User.Identity.GetUserName();
+            IEnumerable<ServiceRequest> serviceReqs = null;
+            if (User.IsInRole("User"))
+            {
+                serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Customer.Email == userEmail);
+            }
+            else if (User.IsInRole("Technician"))
+            {
+                serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Technician.Email == userEmail);
+            }
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                serviceReqs = serviceReqs.Where(x => x.RequestDescription!.Contains(SearchString));
+            }
+            return View(serviceReqs);
         }
 
         // GET: ServiceRequests/Details/5
@@ -132,6 +153,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: ServiceRequests/Delete/5
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ServiceRequests == null)
