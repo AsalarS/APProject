@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,8 +36,6 @@ namespace HomeCareObjects.Model
         [StringLength(50)]
         public string? LastName { get; set; }
 
-        public string? FullName => $"{FirstName} {LastName}";
-
         [InverseProperty("Manager")]
         public virtual ICollection<Category> Categories { get; set; }
         [InverseProperty("User")]
@@ -57,6 +54,5 @@ namespace HomeCareObjects.Model
         [ForeignKey("TechnicianId")]
         [InverseProperty("Technicians")]
         public virtual ICollection<Service> ServicesNavigation { get; set; }
-
     }
 }

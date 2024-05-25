@@ -30,7 +30,7 @@ namespace HomeCareObjects.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HomeCare;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=HomeCare;Trusted_Connection=True;");
             }
         }
 
@@ -54,7 +54,6 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Request)
                     .WithMany()
                     .HasForeignKey(d => d.RequestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comments_ServiceRequests");
 
                 entity.HasOne(d => d.User)
@@ -69,7 +68,6 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Request)
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.RequestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Documents_ServiceRequests");
 
                 entity.HasOne(d => d.User)
@@ -102,18 +100,18 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Services_Categories");
 
                 entity.HasOne(d => d.Technician)
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.TechnicianId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Services_Users");
             });
 
             modelBuilder.Entity<ServiceRequest>(entity =>
             {
+                entity.Property(e => e.RequestStatus).HasDefaultValueSql("((1))");
+
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.ServiceRequestCustomers)
                     .HasForeignKey(d => d.CustomerId)
@@ -123,7 +121,6 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Service)
                     .WithMany(p => p.ServiceRequests)
                     .HasForeignKey(d => d.ServiceId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceRequests_Services");
 
                 entity.HasOne(d => d.Technician)
@@ -139,7 +136,7 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.Technicians)
                     .UsingEntity<Dictionary<string, object>>(
                         "TechniciansService",
-                        l => l.HasOne<Service>().WithMany().HasForeignKey("ServiceId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Technicians_Services_Services"),
+                        l => l.HasOne<Service>().WithMany().HasForeignKey("ServiceId").HasConstraintName("FK_Technicians_Services_Services"),
                         r => r.HasOne<User>().WithMany().HasForeignKey("TechnicianId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_Technicians_Services_Users"),
                         j =>
                         {
