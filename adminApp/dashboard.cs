@@ -1,4 +1,5 @@
 using adminApp;
+using adminApp.Pages;
 using AdminApp.Pages;
 using HomeCareObjects.Model;
 using ProjectFormApp;
@@ -15,6 +16,7 @@ namespace AdminApp
         private bool isServicesActive = false;
         private bool isCategoryActive = false;
         private bool isLogsActive = false;
+        private bool isCommentsActive = false;
 
         public dashboard()
         {
@@ -25,7 +27,7 @@ namespace AdminApp
         private void Form1_Load(object sender, EventArgs e)
         {
             // Default Page
-            showScreen(new DashboardPage());
+            showScreen(new pageDashboard());
             // Set active state
             SetActiveButtonState(dashboardBtn);
             // Update images and colors
@@ -45,7 +47,7 @@ namespace AdminApp
                 logsBtn.Enabled = false;
                 logsBtn.Hide();
 
-                
+
             }
         }
 
@@ -119,6 +121,23 @@ namespace AdminApp
             }
         }
 
+        // Comments Button
+        private void btnComments_MouseEnter(object sender, EventArgs e)
+        {
+            if (!isCommentsActive)
+            {
+                hoverText(btnComments, Color.White);
+            }
+        }
+
+        private void btnComments_MouseLeave(object sender, EventArgs e)
+        {
+            if (!isCommentsActive)
+            {
+                hoverText(btnComments, Color.FromArgb(131, 140, 163));
+            }
+        }
+
         // Logout Button
         private void logoutBtn_MouseEnter(object sender, EventArgs e)
         {
@@ -137,7 +156,7 @@ namespace AdminApp
 
         private void logsBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new logsPage());
+            showScreen(new pageLogs());
 
             // Set active state
             SetActiveButtonState(logsBtn);
@@ -148,7 +167,7 @@ namespace AdminApp
 
         private void dashboardBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new DashboardPage());
+            showScreen(new pageDashboard());
 
             // Set active state
             SetActiveButtonState(dashboardBtn);
@@ -159,7 +178,7 @@ namespace AdminApp
 
         private void servicesBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new servicesPage());
+            showScreen(new pageServies());
 
             // Set active state
             SetActiveButtonState(servicesBtn);
@@ -170,10 +189,21 @@ namespace AdminApp
 
         private void categoryBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new categoryPage());
+            showScreen(new pageCategory());
 
             // Set active state
             SetActiveButtonState(categoryBtn);
+
+            // Update images and colors
+            UpdateButtonStyles();
+        }
+
+        private void btnComments_Click(object sender, EventArgs e)
+        {
+            showScreen(new pageComments());
+
+            // Set active state
+            SetActiveButtonState(btnComments);
 
             // Update images and colors
             UpdateButtonStyles();
@@ -185,25 +215,30 @@ namespace AdminApp
             isServicesActive = activeButton == servicesBtn;
             isCategoryActive = activeButton == categoryBtn;
             isLogsActive = activeButton == logsBtn;
+            isCommentsActive = activeButton == btnComments;
         }
 
         private void UpdateButtonStyles()
         {
             // Dashboard button
             dashboardBtn.ForeColor = isDashboardActive ? Color.White : Color.FromArgb(131, 140, 163);
-            dashboardBtn.Image = isDashboardActive ? Properties.Resources.menu_white : Properties.Resources.menu_32px;
+            dashboardBtn.Image = isDashboardActive ? adminApp.Properties.Resources.menu_white : adminApp.Properties.Resources.menu_32px;
 
             // Services button
             servicesBtn.ForeColor = isServicesActive ? Color.White : Color.FromArgb(131, 140, 163);
-            servicesBtn.Image = isServicesActive ? Properties.Resources.whire_repair_tool : Properties.Resources.repair_tool;
+            servicesBtn.Image = isServicesActive ? adminApp.Properties.Resources.whire_repair_tool : adminApp.Properties.Resources.repair_tool;
 
             // Category button
             categoryBtn.ForeColor = isCategoryActive ? Color.White : Color.FromArgb(131, 140, 163);
-            categoryBtn.Image = isCategoryActive ? Properties.Resources.white_options_lines : Properties.Resources.options_lines;
+            categoryBtn.Image = isCategoryActive ? adminApp.Properties.Resources.white_options_lines : adminApp.Properties.Resources.options_lines;
 
             // Logs button
             logsBtn.ForeColor = isLogsActive ? Color.White : Color.FromArgb(131, 140, 163);
-            logsBtn.Image = isLogsActive ? Properties.Resources.white_edit : Properties.Resources.edit;
+            logsBtn.Image = isLogsActive ? adminApp.Properties.Resources.white_editNEW : adminApp.Properties.Resources.editNEW;
+
+            // Comments button
+            btnComments.ForeColor = isCommentsActive ? Color.White : Color.FromArgb(131, 140, 163);
+            btnComments.Image = isCommentsActive ? adminApp.Properties.Resources.WhiteComment : adminApp.Properties.Resources.comment;
         }
 
         private void goToPage(Form form)
@@ -251,5 +286,6 @@ namespace AdminApp
         {
             // Implementation for label2 click
         }
+
     }
 }

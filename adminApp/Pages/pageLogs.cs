@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace AdminApp.Pages
 {
-    public partial class logsPage : Form
+    public partial class pageLogs : Form
     {
         HomeCareDBContext context;
 
-        public logsPage()
+        public pageLogs()
         {
             InitializeComponent();
             context = new HomeCareDBContext();

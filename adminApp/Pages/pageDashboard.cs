@@ -12,11 +12,11 @@ using System.Windows.Forms;
 using ProjectFormApp;
 namespace AdminApp
 {
-    public partial class DashboardPage : Form
+    public partial class pageDashboard : Form
     {
         HomeCareDBContext context;
         FormsIdentityContext formsIdentityContext;
-        public DashboardPage()
+        public pageDashboard()
         {
             InitializeComponent();
             context = new HomeCareDBContext();

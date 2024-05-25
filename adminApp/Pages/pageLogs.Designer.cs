@@ -1,6 +1,6 @@
 ﻿namespace AdminApp.Pages
 {
-    partial class logsPage
+    partial class pageLogs
     {
         /// <summary>
         /// Required designer variable.

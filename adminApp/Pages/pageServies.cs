@@ -13,10 +13,10 @@ using ProjectFormApp;
 
 namespace AdminApp
 {
-    public partial class servicesPage : Form
+    public partial class pageServies : Form
     {
         HomeCareDBContext context;
-        public servicesPage()
+        public pageServies()
         {
             InitializeComponent();
             context = new HomeCareDBContext();

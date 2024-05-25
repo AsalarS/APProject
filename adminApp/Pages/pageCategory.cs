@@ -14,10 +14,10 @@ using adminApp.Dialogue;
 
 namespace AdminApp.Pages
 {
-    public partial class categoryPage : Form
+    public partial class pageCategory : Form
     {
         HomeCareDBContext context;
-        public categoryPage()
+        public pageCategory()
         {
             InitializeComponent();
             context = new HomeCareDBContext();

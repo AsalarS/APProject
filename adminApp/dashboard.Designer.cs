@@ -38,8 +38,8 @@
             categoryBtn = new Button();
             logsBtn = new Button();
             logoutBtn = new Button();
-            bellBtn = new Button();
             dashboardBtn = new Button();
+            btnComments = new Button();
             panel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -73,12 +73,14 @@
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(30, 34);
+            label2.MaximumSize = new Size(204, 0);
             label2.Name = "label2";
-            label2.Size = new Size(136, 40);
+            label2.Size = new Size(141, 40);
             label2.TabIndex = 1;
             label2.Text = "John Doe";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             label2.Click += label2_Click;
             // 
             // label1
@@ -142,8 +144,8 @@
             logsBtn.FlatStyle = FlatStyle.Flat;
             logsBtn.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             logsBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            logsBtn.Image = (Image)resources.GetObject("logsBtn.Image");
-            logsBtn.Location = new Point(0, 267);
+            logsBtn.Image = adminApp.Properties.Resources.editNEW;
+            logsBtn.Location = new Point(0, 330);
             logsBtn.Name = "logsBtn";
             logsBtn.Size = new Size(204, 60);
             logsBtn.TabIndex = 6;
@@ -165,30 +167,13 @@
             logoutBtn.ForeColor = Color.FromArgb(131, 140, 163);
             logoutBtn.Location = new Point(0, 536);
             logoutBtn.Name = "logoutBtn";
-            logoutBtn.Size = new Size(131, 73);
+            logoutBtn.Size = new Size(206, 73);
             logoutBtn.TabIndex = 7;
             logoutBtn.Text = "Logout";
             logoutBtn.UseVisualStyleBackColor = false;
             logoutBtn.Click += logoutBtn_Click;
             logoutBtn.MouseEnter += logoutBtn_MouseEnter;
             logoutBtn.MouseLeave += logoutBtn_MouseLeave;
-            // 
-            // bellBtn
-            // 
-            bellBtn.BackColor = Color.Transparent;
-            bellBtn.FlatAppearance.BorderSize = 0;
-            bellBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(13, 13, 37);
-            bellBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 24);
-            bellBtn.FlatStyle = FlatStyle.Flat;
-            bellBtn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            bellBtn.ForeColor = Color.FromArgb(131, 140, 163);
-            bellBtn.Image = (Image)resources.GetObject("bellBtn.Image");
-            bellBtn.Location = new Point(137, 536);
-            bellBtn.Name = "bellBtn";
-            bellBtn.Size = new Size(68, 72);
-            bellBtn.TabIndex = 8;
-            bellBtn.UseVisualStyleBackColor = false;
-            bellBtn.Click += bellBtn_Click;
             // 
             // dashboardBtn
             // 
@@ -211,6 +196,27 @@
             dashboardBtn.MouseEnter += dashboardBtn_MouseEnter;
             dashboardBtn.MouseLeave += dashboardBtn_MouseLeave;
             // 
+            // btnComments
+            // 
+            btnComments.BackColor = Color.Transparent;
+            btnComments.FlatAppearance.BorderSize = 0;
+            btnComments.FlatAppearance.MouseDownBackColor = Color.FromArgb(13, 13, 37);
+            btnComments.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 24);
+            btnComments.FlatStyle = FlatStyle.Flat;
+            btnComments.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnComments.ForeColor = Color.FromArgb(131, 140, 163);
+            btnComments.Image = adminApp.Properties.Resources.comment;
+            btnComments.Location = new Point(0, 267);
+            btnComments.Name = "btnComments";
+            btnComments.Size = new Size(204, 60);
+            btnComments.TabIndex = 10;
+            btnComments.Text = "Comments";
+            btnComments.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnComments.UseVisualStyleBackColor = false;
+            btnComments.Click += btnComments_Click;
+            btnComments.MouseEnter += btnComments_MouseEnter;
+            btnComments.MouseLeave += btnComments_MouseLeave;
+            // 
             // dashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -218,8 +224,8 @@
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(1064, 611);
             Controls.Add(panel1);
+            Controls.Add(btnComments);
             Controls.Add(dashboardBtn);
-            Controls.Add(bellBtn);
             Controls.Add(logoutBtn);
             Controls.Add(logsBtn);
             Controls.Add(categoryBtn);
@@ -248,9 +254,9 @@
         private Button categoryBtn;
         private Button logsBtn;
         private Button logoutBtn;
-        private Button bellBtn;
         private Button dashboardBtn;
         private Label label1;
         private Label label2;
+        private Button btnComments;
     }
 }
