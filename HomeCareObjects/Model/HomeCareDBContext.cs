@@ -126,7 +126,6 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Technician)
                     .WithMany(p => p.ServiceRequestTechnicians)
                     .HasForeignKey(d => d.TechnicianId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceRequests_Users1");
             });
 
