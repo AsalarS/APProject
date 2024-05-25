@@ -65,7 +65,7 @@ namespace HomeCareWebApp.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName");
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "Email");
             return View();
         }
 

@@ -60,7 +60,7 @@ namespace HomeCareWebApp.Controllers
         [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email");
             return View();
         }
 
@@ -78,7 +78,7 @@ namespace HomeCareWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email", category.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email", category.ManagerId);
             return View(category);
         }
 
@@ -96,7 +96,7 @@ namespace HomeCareWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email", category.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email", category.ManagerId);
             return View(category);
         }
 
