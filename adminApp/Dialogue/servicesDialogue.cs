@@ -23,11 +23,11 @@ namespace adminApp.Dialogue
             service = new Service();
         }
 
-        public servicesDialogue(Service service)
+        public servicesDialogue(int service)
         {
             InitializeComponent();
             context = new HomeCareDBContext();
-            this.service = service;
+            this.service = context.Services.Find(service);
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)

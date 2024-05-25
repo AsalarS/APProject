@@ -9,16 +9,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ProjectFormApp;
 namespace AdminApp
 {
     public partial class DashboardPage : Form
     {
         HomeCareDBContext context;
+        FormsIdentityContext formsIdentityContext;
         public DashboardPage()
         {
             InitializeComponent();
             context = new HomeCareDBContext();
+            formsIdentityContext = new FormsIdentityContext();
+
         }
 
         private void RefreshData() 
@@ -37,7 +40,7 @@ namespace AdminApp
 
             pnlTechnicianData.Controls.Clear(); // Clear existing controls
             pnlTechnicianData.Refresh();
-
+         
             foreach (var technician in technicians)
             {
                 technicianCustomRow row = new technicianCustomRow();

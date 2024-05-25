@@ -133,8 +133,8 @@ namespace AdminApp
 
                 int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
                 int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
-                Service selectedService = context.Services.Find(SelectedServiceID);
-                servicesDialogue frmServiceEdit = new servicesDialogue(selectedService);
+               // Service selectedService = context.Services.Find(SelectedServiceID);
+                servicesDialogue frmServiceEdit = new servicesDialogue(SelectedServiceID);
 
                 if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
                 {
