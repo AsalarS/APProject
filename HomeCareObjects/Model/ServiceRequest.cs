@@ -11,6 +11,7 @@ namespace HomeCareObjects.Model
     {
         public ServiceRequest()
         {
+            Comments = new HashSet<Comment>();
             Documents = new HashSet<Document>();
         }
 
@@ -40,6 +41,8 @@ namespace HomeCareObjects.Model
         [ForeignKey("TechnicianId")]
         [InverseProperty("ServiceRequestTechnicians")]
         public virtual User? Technician { get; set; }
+        [InverseProperty("Request")]
+        public virtual ICollection<Comment> Comments { get; set; }
         [InverseProperty("Request")]
         public virtual ICollection<Document> Documents { get; set; }
     }

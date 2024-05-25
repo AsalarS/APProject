@@ -47,17 +47,19 @@ namespace HomeCareObjects.Model
 
             modelBuilder.Entity<Comment>(entity =>
             {
+                entity.Property(e => e.CommentId).ValueGeneratedNever();
+
                 entity.Property(e => e.CommentTime)
                     .IsRowVersion()
                     .IsConcurrencyToken();
 
                 entity.HasOne(d => d.Request)
-                    .WithMany()
+                    .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Comments_ServiceRequests");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Comments_Users");

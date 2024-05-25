@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HomeCareObjects.Model
 {
-    [Keyless]
     public partial class Comment
     {
+        [Key]
         [Column("CommentID")]
         public int CommentId { get; set; }
         [StringLength(500)]
@@ -23,8 +23,10 @@ namespace HomeCareObjects.Model
         public int RequestId { get; set; }
 
         [ForeignKey("RequestId")]
+        [InverseProperty("Comments")]
         public virtual ServiceRequest Request { get; set; } = null!;
         [ForeignKey("UserId")]
+        [InverseProperty("Comments")]
         public virtual User User { get; set; } = null!;
     }
 }
