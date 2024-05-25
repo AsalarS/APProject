@@ -10,6 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+Search using Request Description:
 <form asp-asp-controller="ServiceRequests" asp-action="Index" method="get">
     <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
     <input type="submit" value="Search" class="btn- btn-secondary mx-2" />
@@ -38,38 +39,88 @@
             <th>
                 @Html.DisplayNameFor(model => model.Technician)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestStatus)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequestDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequestDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateNeeded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Customer.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Service.ServiceName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Technician.FullName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.RequestId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
-                    </td>
-                </tr>
-             
-         } 
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateNeeded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.ServiceName)
+            </td>
+            <td>
+                @if(item.TechnicianId != null){
+                @Html.DisplayFor(modelItem => item.Technician.FullName)
+                }else{
+                    <text>TBA</text>
+                }
+            </td>
+                <td>
+                    @{
+                        string statusClass = "";
+                        switch (item.RequestStatus)
+                        {
+                            case 1:
+                                statusClass = "text-warning";
+                                break;
+                            case 2:
+                                statusClass = "text-primary";
+                                break;
+                            case 3:
+                                statusClass = "text-success";
+                                break;
+                            case 4:
+                                statusClass = "text-danger";
+                                break;
+                            default:
+                                statusClass = "text-muted";
+                                break;
+                        }
+                    }
+                    <span class="@statusClass">
+                        @{
+                            switch (item.RequestStatus)
+                            {
+                                case 1:
+                                    <text>Pending</text>
+                                    break;
+                                case 2:
+                                    <text>Active</text>
+                                    break;
+                                case 3:
+                                    <text>Completed</text>
+                                    break;
+                                case 4:
+                                    <text>Canceled</text>
+                                    break;
+                                default:
+                                    <text>Unknown</text>
+                                    break;
+                            }
+                        }
+                    </span>
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RequestId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>

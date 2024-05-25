@@ -14,34 +14,25 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RequestDescription" class="control-label"></label>
+                <label asp-for="RequestDescription" class="control-label">Request Description</label>
                 <input asp-for="RequestDescription" class="form-control" />
                 <span asp-validation-for="RequestDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RequestDate" class="control-label"></label>
-                <input asp-for="RequestDate" class="form-control" />
-                <span asp-validation-for="RequestDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateNeeded" class="control-label"></label>
+                <label asp-for="DateNeeded" class="control-label">Date Needed</label>
                 <input asp-for="DateNeeded" class="form-control" />
                 <span asp-validation-for="DateNeeded" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
+                <label asp-for="CustomerId" class="control-label">Customer Name</label>
                 <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="TechnicianId" class="control-label"></label>
-                <select asp-for="TechnicianId" class ="form-control" asp-items="ViewBag.TechnicianId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ServiceId" class="control-label"></label>
+                <label asp-for="ServiceId" class="control-label">Service Type</label>
                 <select asp-for="ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create Request" class="btn btn-primary" />
             </div>
         </form>
     </div>
