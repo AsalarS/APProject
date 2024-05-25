@@ -10,6 +10,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-asp-controller="ServiceRequests" asp-action="Index" method="get">
+    <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
+    <input type="submit" value="Search" class="btn- btn-secondary mx-2" />
+    <a asp-asp-controller="ServiceRequests" asp-action="Index" class="btn btn-outline-danger">
+        Clear
+    </a>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -37,8 +44,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @* if (item.Customer.Email == Microsoft.AspNetCore.Identity.UserManager.GetUserName(User))
-            { *@
+              
 
 
                 <tr>
@@ -52,13 +58,13 @@
                         @Html.DisplayFor(modelItem => item.DateNeeded)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Customer.Email)
+                        @Html.DisplayFor(modelItem => item.Customer.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Service.ServiceName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Technician.Email)
+                        @Html.DisplayFor(modelItem => item.Technician.FullName)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
@@ -66,7 +72,7 @@
                         <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
                     </td>
                 </tr>
-            }
-        @* } *@
+             
+         } 
     </tbody>
 </table>
