@@ -19,7 +19,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Services
-        public async Task<IActionResult> Index(string SearchString)
+        public async Task<IActionResult> Index(string SearchString, string SearchCategory)
         {
 
             IEnumerable<Service> homeCareDBContext;
@@ -29,6 +29,13 @@ namespace HomeCareWebApp.Controllers
             {
                 homeCareDBContext = homeCareDBContext.Where(x => x.ServiceName.Contains(SearchString));
             }
+            if (!String.IsNullOrEmpty(SearchCategory))
+            {
+                homeCareDBContext = homeCareDBContext.Where(x => x.CategoryId == Convert.ToInt32(SearchCategory));
+            }
+
+            var catList = new SelectList(_context.Categories, "CategoryId", "CategoryName", SearchCategory);
+            ViewBag.catList = catList;
 
 
             return View(homeCareDBContext);
