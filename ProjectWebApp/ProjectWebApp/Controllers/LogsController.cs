@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -19,6 +20,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Logs
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var homeCareDBContext = _context.Logs.Include(l => l.User);
@@ -26,6 +28,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Logs/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Logs == null)
