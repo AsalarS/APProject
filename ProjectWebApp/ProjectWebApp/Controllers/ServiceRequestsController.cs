@@ -30,15 +30,26 @@ namespace HomeCareWebApp.Controllers
         {
             var userEmail = User.Identity.GetUserName();
             IEnumerable<ServiceRequest> serviceReqs = null;
+            //Get requests related to customer
             if (User.IsInRole("User"))
             {
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Customer.Email == userEmail);
             }
+            //Get requests related to technican
             else if (User.IsInRole("Technician"))
             {
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Technician.Email == userEmail);
             }
+            //Get all requests for manager 
+            else if (User.IsInRole("Manager"))
+            {
+                serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Service.Category.Manager.Email == userEmail);
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
 
+            }
             if (!String.IsNullOrEmpty(SearchString))
             {
                 serviceReqs = serviceReqs.Where(x => x.RequestDescription!.Contains(SearchString));
