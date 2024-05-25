@@ -64,7 +64,7 @@ namespace HomeCareWebApp.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+            ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName");
             ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email");
             return View();
         }
@@ -82,7 +82,7 @@ namespace HomeCareWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
             ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId);
             return View(service);
         }

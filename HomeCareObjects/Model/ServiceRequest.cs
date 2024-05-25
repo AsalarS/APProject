@@ -1,5 +1,4 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -29,6 +28,7 @@ namespace HomeCareObjects.Model
         public int TechnicianId { get; set; }
         [Column("ServiceID")]
         public int ServiceId { get; set; }
+        public int RequestStatus { get; set; }
 
         [ForeignKey("CustomerId")]
         [InverseProperty("ServiceRequestCustomers")]
