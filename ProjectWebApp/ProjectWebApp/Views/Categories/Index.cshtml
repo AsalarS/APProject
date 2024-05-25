@@ -6,10 +6,19 @@
 }
 
 <h1>Index</h1>
-
+@if(User.IsInRole("Admin")){
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+}
+Search using Category Name:
+<form asp-asp-controller="Categories" asp-action="Index" method="get">
+    <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
+    <input type="submit" value="Search"  class="btn- btn-secondary mx-2" />
+    <a asp-asp-controller="Categories" asp-action="Index" class="btn btn-outline-danger">
+        Clear
+    </a>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -38,9 +47,15 @@
                 @Html.DisplayFor(modelItem => item.Manager.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
+                    @if (User.IsInRole("Admin"))
+                    {
+                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> 
+                    }
+                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> 
+                    @if (User.IsInRole("Admin"))
+                    {
                 <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                    }
             </td>
         </tr>
 }

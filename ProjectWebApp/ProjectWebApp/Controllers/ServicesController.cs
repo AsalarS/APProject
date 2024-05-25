@@ -19,10 +19,19 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Services
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
-            var homeCareDBContext = _context.Services.Include(s => s.Category).Include(s => s.Technician);
-            return View(await homeCareDBContext.ToListAsync());
+
+            IEnumerable<Service> homeCareDBContext;
+            homeCareDBContext= _context.Services.Include(s => s.Category).Include(s => s.Technician);
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                homeCareDBContext = homeCareDBContext.Where(x => x.ServiceName.Contains(SearchString));
+            }
+
+
+            return View(homeCareDBContext);
         }
 
         // GET: Services/Details/5

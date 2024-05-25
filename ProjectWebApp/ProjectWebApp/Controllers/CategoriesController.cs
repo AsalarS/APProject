@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
+using Microsoft.AspNetCore.Authorization;
+using ProjectWebApp.ViewModels;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -19,10 +21,19 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
+
         {
-            var homeCareDBContext = _context.Categories.Include(c => c.Manager);
-            return View(await homeCareDBContext.ToListAsync());
+            IEnumerable<Category> categories;
+            categories = _context.Categories.Include(c => c.Manager);
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                categories = categories.Where(x => x.CategoryName!.Contains(SearchString));
+            }
+
+          
+            return View(categories);
         }
 
         // GET: Categories/Details/5
@@ -45,6 +56,8 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Categories/Create
+
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email");
@@ -54,6 +67,7 @@ namespace HomeCareWebApp.Controllers
         // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,Description,ManagerId")] Category category)
@@ -69,6 +83,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Categories/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -88,6 +103,7 @@ namespace HomeCareWebApp.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,Description,ManagerId")] Category category)
@@ -122,6 +138,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -141,6 +158,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // POST: Categories/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
