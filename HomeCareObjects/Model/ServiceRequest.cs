@@ -25,7 +25,7 @@ namespace HomeCareObjects.Model
         [Column("CustomerID")]
         public int CustomerId { get; set; }
         [Column("TechnicianID")]
-        public int TechnicianId { get; set; }
+        public int? TechnicianId { get; set; }
         [Column("ServiceID")]
         public int ServiceId { get; set; }
         public int RequestStatus { get; set; }
@@ -38,7 +38,7 @@ namespace HomeCareObjects.Model
         public virtual Service Service { get; set; } = null!;
         [ForeignKey("TechnicianId")]
         [InverseProperty("ServiceRequestTechnicians")]
-        public virtual User Technician { get; set; } = null!;
+        public virtual User? Technician { get; set; }
         [InverseProperty("Request")]
         public virtual ICollection<Document> Documents { get; set; }
     }
