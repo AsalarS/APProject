@@ -50,7 +50,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(2, 545);
             panel1.TabIndex = 0;
-            panel1.Paint += panel1_Paint;
             // 
             // mainScreen
             // 
@@ -59,7 +58,6 @@
             mainScreen.Name = "mainScreen";
             mainScreen.Size = new Size(858, 611);
             mainScreen.TabIndex = 1;
-            mainScreen.Paint += mainScreen_Paint;
             // 
             // panel3
             // 
@@ -70,7 +68,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(206, 82);
             panel3.TabIndex = 3;
-            panel3.Paint += panel3_Paint;
             // 
             // label2
             // 
@@ -93,7 +90,6 @@
             label1.Size = new Size(60, 15);
             label1.TabIndex = 0;
             label1.Text = "Welcome,";
-            label1.Click += label1_Click;
             // 
             // servicesBtn
             // 
@@ -193,8 +189,6 @@
             bellBtn.TabIndex = 8;
             bellBtn.UseVisualStyleBackColor = false;
             bellBtn.Click += bellBtn_Click;
-            bellBtn.MouseEnter += bellBtn_MouseEnter;
-            bellBtn.MouseLeave += bellBtn_MouseLeave;
             // 
             // dashboardBtn
             // 
@@ -234,6 +228,7 @@
             Controls.Add(servicesBtn);
             ForeColor = SystemColors.Control;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "dashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Dashboard";

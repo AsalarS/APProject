@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -41,13 +42,13 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 48F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI Semibold", 72F, FontStyle.Bold, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(276, 106);
+            label1.Location = new Point(274, 79);
             label1.Name = "label1";
-            label1.Size = new Size(504, 86);
+            label1.Size = new Size(540, 128);
             label1.TabIndex = 0;
-            label1.Text = "Company Name";
+            label1.Text = "Home Care";
             // 
             // label2
             // 
@@ -142,6 +143,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
