@@ -66,9 +66,15 @@ Search using Serice Name:
                 @Html.DisplayFor(modelItem => item.Technician.Email)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ServiceId">Edit</a> |
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager")){
+                        <a asp-action="Edit" asp-route-id="@item.ServiceId">Edit</a>
+
+                    } |
                 <a asp-action="Details" asp-route-id="@item.ServiceId">Details</a> |
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
                 <a asp-action="Delete" asp-route-id="@item.ServiceId">Delete</a>
+                    }
             </td>
         </tr>
 }
