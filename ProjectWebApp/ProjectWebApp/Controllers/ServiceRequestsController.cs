@@ -95,13 +95,13 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.TechnicianId = null; // Set Technician Id to null (manager will assign later)
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
-                serviceRequest.RequestStatus = 1; // Set Request Status to 0 (Pending)
+                serviceRequest.RequestStatus = 1; // Set Request Status to 1 (Pending)
                 _context.Add(serviceRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", serviceRequest.ServiceId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
             return View(serviceRequest);
         }
 

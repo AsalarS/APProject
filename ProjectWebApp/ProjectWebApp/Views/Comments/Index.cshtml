@@ -9,7 +9,7 @@
 
 <p>
     <a asp-action="Create">Create New</a>
-    <a asp-controller="ServiceRequests" asp-action="Index">Back</a>
+    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" /></a>
 </p>
 <table class="table">
     <thead>
@@ -21,19 +21,19 @@
                 @Html.DisplayNameFor(model => model.CommentDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Request)
+                @Html.DisplayNameFor(model => model.Request.RequestId)
             </th>
             @if(User.IsInRole("User")){
-                <th>@Html.DisplayNameFor(model => model.Request.Customer)</th>
+                <th>@Html.DisplayNameFor(model => model.Request.Customer) Name</th>
             }
             else if (User.IsInRole("Technician"))
             {
-                <th>@Html.DisplayNameFor(model => model.Request.TechnicianId)</th>
+                <th>@Html.DisplayNameFor(model => model.Request.Technician) Name</th>
                 
             }
             else if (User.IsInRole("Manager")){
 
-                <th>@Html.DisplayNameFor(model => model.Request.Service.Category.ManagerId)</th>
+                <th>@Html.DisplayNameFor(model => model.Request.Service.Category.Manager) Name</th>
             }
             <th></th>
         </tr>

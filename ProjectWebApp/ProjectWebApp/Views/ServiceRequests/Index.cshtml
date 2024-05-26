@@ -6,10 +6,12 @@
 }
 
 <h1>Service Requests</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("User"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 Search using Request Description:
 <form asp-asp-controller="ServiceRequests" asp-action="Index" method="get">
     <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
@@ -17,7 +19,8 @@ Search using Request Description:
     <a asp-asp-controller="ServiceRequests" asp-action="Index" class="btn btn-outline-danger">
         Clear
     </a>
-    <a asp-area="" asp-controller="Comments" asp-action="Index">Comments</a>
+    <a asp-area="" asp-controller="Comments" asp-action="Index"><input type="button" value="View Comments"/></a>
+    <a asp-area="" asp-controller="Documents" asp-action="Index"><input type="button" value="View Files" /></a>
 </form>
 <table class="table">
     <thead>
@@ -121,11 +124,12 @@ Search using Request Description:
                     </span>
                 </td>
                 <td>
-                    @if(item.RequestStatus != 3 || item.RequestStatus != 4)
+                    @if(item.RequestStatus != 3 && item.RequestStatus != 4)
                     {
                         <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a>
-                        <p>|</p>
+                        if(User.IsInRole("Manager")){
                     <a asp-action="Delete" asp-route-id = "@item.RequestId">Cancel</a>
+                        }
                         }
             </td>
         </tr>
