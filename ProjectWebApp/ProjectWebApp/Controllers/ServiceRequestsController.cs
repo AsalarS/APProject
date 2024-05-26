@@ -6,18 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using Microsoft.AspNet.Identity;
-//using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeCareWebApp.Controllers
 {
     public class ServiceRequestsController : Controller
     {
         private readonly HomeCareDBContext _context;
-        //private readonly UserManager<IdentityUser> _userManager;
 
         public ServiceRequestsController(HomeCareDBContext context)
         {
@@ -40,11 +36,12 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Technician.Email == userEmail);
             }
-            //Get all requests for manager 
+            //Get requests related to manager 
             else if (User.IsInRole("Manager"))
             {
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician).Where(s => s.Service.Category.Manager.Email == userEmail);
             }
+            //Get all requests for admin
             else if (User.IsInRole("Admin"))
             {
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
@@ -81,9 +78,9 @@ namespace HomeCareWebApp.Controllers
         // GET: ServiceRequests/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "Email");
+            var userEmail = User.Identity.GetUserName();
+            ViewData["CustomerId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName");
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email");
             return View();
         }
 
@@ -92,17 +89,19 @@ namespace HomeCareWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RequestId,RequestDescription,RequestDate,DateNeeded,CustomerId,TechnicianId,ServiceId")] ServiceRequest serviceRequest)
+        public async Task<IActionResult> Create([Bind("RequestId,RequestDescription,DateNeeded,CustomerId,ServiceId")] ServiceRequest serviceRequest)
         {
             if (ModelState.IsValid)
             {
+                serviceRequest.TechnicianId = null; // Set Technician Id to null (manager will assign later)
+                serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
+                serviceRequest.RequestStatus = 0; // Set Request Status to 0 (Pending)
                 _context.Add(serviceRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.CustomerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.TechnicianId);
+            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", serviceRequest.ServiceId);
             return View(serviceRequest);
         }
 
@@ -119,9 +118,9 @@ namespace HomeCareWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.CustomerId);
+            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "FullName", serviceRequest.CustomerId);
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.TechnicianId);
+            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "FullName", serviceRequest.TechnicianId);
             return View(serviceRequest);
         }
 
@@ -130,7 +129,8 @@ namespace HomeCareWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RequestId,RequestDescription,RequestDate,DateNeeded,CustomerId,TechnicianId,ServiceId")] ServiceRequest serviceRequest)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("RequestId,RequestDescription,RequestDate,DateNeeded,CustomerId,TechnicianId,ServiceId,RequestStatus")] ServiceRequest serviceRequest)
         {
             if (id != serviceRequest.RequestId)
             {
@@ -141,6 +141,13 @@ namespace HomeCareWebApp.Controllers
             {
                 try
                 {
+                    if (serviceRequest.TechnicianId != null)
+                    {
+                        
+                        //serviceRequest.RequestStatus = serviceRequest.IsCompleted ? 3 : 2;
+                    }
+
+
                     _context.Update(serviceRequest);
                     await _context.SaveChangesAsync();
                 }
@@ -157,14 +164,13 @@ namespace HomeCareWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.CustomerId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", serviceRequest.TechnicianId);
+            ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceId", serviceRequest.ServiceId);
+            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.TechnicianId);
             return View(serviceRequest);
         }
 
         // GET: ServiceRequests/Delete/5
-        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ServiceRequests == null)
@@ -199,14 +205,14 @@ namespace HomeCareWebApp.Controllers
             {
                 _context.ServiceRequests.Remove(serviceRequest);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ServiceRequestExists(int id)
         {
-          return (_context.ServiceRequests?.Any(e => e.RequestId == id)).GetValueOrDefault();
+            return _context.ServiceRequests.Any(e => e.RequestId == id);
         }
     }
 }

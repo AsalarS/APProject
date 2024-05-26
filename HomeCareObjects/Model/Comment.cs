@@ -7,24 +7,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HomeCareObjects.Model
 {
-    [Keyless]
     public partial class Comment
     {
+        [Key]
         [Column("CommentID")]
         public int CommentId { get; set; }
         [StringLength(500)]
         public string CommentText { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime CommentDate { get; set; }
-        public byte[] CommentTime { get; set; } = null!;
         [Column("UserID")]
         public int UserId { get; set; }
         [Column("RequestID")]
         public int RequestId { get; set; }
 
         [ForeignKey("RequestId")]
+        [InverseProperty("Comments")]
         public virtual ServiceRequest Request { get; set; } = null!;
         [ForeignKey("UserId")]
+        [InverseProperty("Comments")]
         public virtual User User { get; set; } = null!;
     }
 }
