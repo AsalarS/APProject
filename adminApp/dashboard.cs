@@ -255,7 +255,7 @@ namespace AdminApp
             Global.AllAdmins = null;
             Global.AllUsers = null;
             Global.AllManagers = null;
-            Global.AllTechnicicans = null;
+            Global.AllTechnicians = null;
             Global.HomeCareUser = null;
             goToPage(new Login());
         }

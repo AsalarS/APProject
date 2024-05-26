@@ -37,7 +37,7 @@
             label13 = new Label();
             label8 = new Label();
             label7 = new Label();
-            pnlTechnicianData = new FlowLayoutPanel();
+            flpTechnicianData = new FlowLayoutPanel();
             label10 = new Label();
             lblNumberOfServices = new Label();
             lblTopService = new Label();
@@ -170,12 +170,12 @@
             label7.TabIndex = 1;
             label7.Text = "Total";
             // 
-            // pnlTechnicianData
+            // flpTechnicianData
             // 
-            pnlTechnicianData.Location = new Point(55, 265);
-            pnlTechnicianData.Name = "pnlTechnicianData";
-            pnlTechnicianData.Size = new Size(495, 297);
-            pnlTechnicianData.TabIndex = 0;
+            flpTechnicianData.Location = new Point(55, 265);
+            flpTechnicianData.Name = "flpTechnicianData";
+            flpTechnicianData.Size = new Size(495, 297);
+            flpTechnicianData.TabIndex = 0;
             // 
             // label10
             // 
@@ -364,7 +364,7 @@
             lblNumberOfTechnicians.Text = "0";
             lblNumberOfTechnicians.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // DashboardPage
+            // pageDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -373,7 +373,7 @@
             Controls.Add(panel6);
             Controls.Add(panel5);
             Controls.Add(panel4);
-            Controls.Add(pnlTechnicianData);
+            Controls.Add(flpTechnicianData);
             Controls.Add(label13);
             Controls.Add(label8);
             Controls.Add(label7);
@@ -385,7 +385,7 @@
             Controls.Add(ddlCategory);
             Controls.Add(btnRefresh);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "DashboardPage";
+            Name = "pageDashboard";
             Text = "DashboardPage";
             Load += DashboardPage_Load;
             panel1.ResumeLayout(false);
@@ -415,7 +415,7 @@
         private Label lblTopService;
         private Button btnRefresh;
         private ComboBox ddlCategory;
-        private FlowLayoutPanel pnlTechnicianData;
+        private FlowLayoutPanel flpTechnicianData;
         private Label label7;
         private Label label8;
         private Label label13;

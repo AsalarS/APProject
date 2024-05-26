@@ -54,7 +54,7 @@
             // mainScreen
             // 
             mainScreen.Dock = DockStyle.Right;
-            mainScreen.Location = new Point(206, 0);
+            mainScreen.Location = new Point(204, 0);
             mainScreen.Name = "mainScreen";
             mainScreen.Size = new Size(858, 611);
             mainScreen.TabIndex = 1;
@@ -66,12 +66,12 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(206, 82);
+            panel3.Size = new Size(204, 82);
             panel3.TabIndex = 3;
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             label2.Location = new Point(30, 34);
@@ -210,7 +210,7 @@
             btnComments.Name = "btnComments";
             btnComments.Size = new Size(204, 60);
             btnComments.TabIndex = 10;
-            btnComments.Text = "Comments";
+            btnComments.Text = " Comments";
             btnComments.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnComments.UseVisualStyleBackColor = false;
             btnComments.Click += btnComments_Click;
@@ -222,7 +222,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
-            ClientSize = new Size(1064, 611);
+            ClientSize = new Size(1062, 611);
             Controls.Add(panel1);
             Controls.Add(btnComments);
             Controls.Add(dashboardBtn);

@@ -1,6 +1,6 @@
 ﻿namespace adminApp.CustomRows
 {
-    partial class technicianCustomRow
+    partial class UCTechnician
     {
         /// <summary> 
         /// Required designer variable.

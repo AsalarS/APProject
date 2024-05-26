@@ -38,12 +38,12 @@ namespace AdminApp
                                                        .Contains(x.UserId))
                                      .ToList();
 
-            pnlTechnicianData.Controls.Clear(); // Clear existing controls
-            pnlTechnicianData.Refresh();
+            flpTechnicianData.Controls.Clear(); // Clear existing controls
+            flpTechnicianData.Refresh();
          
             foreach (var technician in technicians)
             {
-                technicianCustomRow row = new technicianCustomRow();
+                UCTechnician row = new UCTechnician();
                 row.technicianName = technician.FullName;
                 row.totalRequests = context.ServiceRequests
                                             .Where(x => x.TechnicianId == technician.UserId && x.Service.CategoryId == selectedCategoryId)
@@ -55,7 +55,7 @@ namespace AdminApp
                                                      && x.Service.CategoryId == selectedCategoryId)
                                              .Count()
                                              .ToString();
-                pnlTechnicianData.Controls.Add(row);
+                flpTechnicianData.Controls.Add(row);
             }
 
             // Pending Requests

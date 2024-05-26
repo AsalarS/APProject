@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace adminApp.CustomRows
 {
-    public partial class technicianCustomRow : UserControl
+    public partial class UCTechnician : UserControl
     {
-        public technicianCustomRow()
+        public UCTechnician()
         {
             InitializeComponent();
         }
