@@ -47,12 +47,6 @@ namespace HomeCareObjects.Model
 
             modelBuilder.Entity<Comment>(entity =>
             {
-                entity.Property(e => e.CommentId).ValueGeneratedNever();
-
-                entity.Property(e => e.CommentTime)
-                    .IsRowVersion()
-                    .IsConcurrencyToken();
-
                 entity.HasOne(d => d.Request)
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.RequestId)

@@ -16,7 +16,6 @@ namespace HomeCareObjects.Model
         public string CommentText { get; set; } = null!;
         [Column(TypeName = "datetime")]
         public DateTime CommentDate { get; set; }
-        public byte[] CommentTime { get; set; } = null!;
         [Column("UserID")]
         public int UserId { get; set; }
         [Column("RequestID")]
