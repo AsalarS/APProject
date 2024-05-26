@@ -15,6 +15,7 @@ using adminApp;
 using HomeCareObjects.Model;
 using Microsoft.EntityFrameworkCore;
 using ProjectFormApp;
+using System.Drawing.Text;
 namespace AdminApp
 {
     public partial class Login : Form
@@ -77,7 +78,7 @@ namespace AdminApp
                         //Those are added as extra just to show how you can query all users in a certain role
                         Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
                         Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
-                        Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
+                        Global.AllTechnicians = await userManager.GetUsersInRoleAsync("Technician");
                         Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
                         try
                         {

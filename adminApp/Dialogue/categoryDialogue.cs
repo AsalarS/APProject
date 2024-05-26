@@ -25,11 +25,11 @@ namespace adminApp.Popup
             category = new Category();
         }
 
-        public categoryDialogue(Category category)
+        public categoryDialogue(int categoryID)
         {
             InitializeComponent();
             context = new HomeCareDBContext();
-            this.category = category;
+            this.category = context.Categories.Find(categoryID);
 
         }
 
@@ -80,7 +80,7 @@ namespace adminApp.Popup
 
                 if (category != null && category.CategoryId > 0)
                 {
-                    context.Categories.Update(category);// TODO: resolve error when updating
+                    context.Categories.Update(category);
                 }
                 else
                 {

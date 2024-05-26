@@ -78,7 +78,7 @@ namespace ProjectFormApp
                         //Those are added as extra just to show how you can query all users in a certain role
                         Global.AllAdmins = await userManager.GetUsersInRoleAsync("Admin");
                         Global.AllManagers = await userManager.GetUsersInRoleAsync("Manager");
-                        Global.AllTechnicicans = await userManager.GetUsersInRoleAsync("Technician");
+                        Global.AllTechnicians = await userManager.GetUsersInRoleAsync("Technician");
                         Global.AllUsers = await userManager.GetUsersInRoleAsync("User");
                     }
                     return passCheck;

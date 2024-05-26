@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdminApp.Properties {
+namespace adminApp.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace AdminApp.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace AdminApp.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AdminApp.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("adminApp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace AdminApp.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,27 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bell_ring_white {
+        public static System.Drawing.Bitmap _128wall_clock {
+            get {
+                object obj = ResourceManager.GetObject("128wall-clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap _64wall_clock {
+            get {
+                object obj = ResourceManager.GetObject("64wall-clock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap bell_ring_white {
             get {
                 object obj = ResourceManager.GetObject("bell-ring-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +93,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bell_ring_white1 {
+        public static System.Drawing.Bitmap bell_ring_white1 {
             get {
                 object obj = ResourceManager.GetObject("bell-ring-white1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +103,17 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap edit {
+        public static System.Drawing.Bitmap comment {
+            get {
+                object obj = ResourceManager.GetObject("comment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +123,17 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menu_16px {
+        public static System.Drawing.Bitmap editNEW {
+            get {
+                object obj = ResourceManager.GetObject("editNEW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap menu_16px {
             get {
                 object obj = ResourceManager.GetObject("menu-16px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +143,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menu_32px {
+        public static System.Drawing.Bitmap menu_32px {
             get {
                 object obj = ResourceManager.GetObject("menu-32px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +153,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menu_white {
+        public static System.Drawing.Bitmap menu_white {
             get {
                 object obj = ResourceManager.GetObject("menu-white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +163,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap options_lines {
+        public static System.Drawing.Bitmap options_lines {
             get {
                 object obj = ResourceManager.GetObject("options-lines", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +173,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap repair_tool {
+        public static System.Drawing.Bitmap repair_tool {
             get {
                 object obj = ResourceManager.GetObject("repair-tool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +183,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap whire_repair_tool {
+        public static System.Drawing.Bitmap whire_repair_tool {
             get {
                 object obj = ResourceManager.GetObject("whire-repair-tool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +193,7 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_edit {
+        public static System.Drawing.Bitmap white_edit {
             get {
                 object obj = ResourceManager.GetObject("white-edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,9 +203,29 @@ namespace AdminApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap white_options_lines {
+        public static System.Drawing.Bitmap white_editNEW {
+            get {
+                object obj = ResourceManager.GetObject("white-editNEW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap white_options_lines {
             get {
                 object obj = ResourceManager.GetObject("white-options-lines", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap WhiteComment {
+            get {
+                object obj = ResourceManager.GetObject("WhiteComment", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

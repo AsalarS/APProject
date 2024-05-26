@@ -1,6 +1,6 @@
-﻿namespace AdminApp.Pages
+﻿namespace AdminApp
 {
-    partial class categoryPage
+    partial class pageServies
     {
         /// <summary>
         /// Required designer variable.
@@ -28,32 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvCategory = new DataGridView();
+            dgvServices = new DataGridView();
             btnAdd = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
             groupBox1 = new GroupBox();
-            lblManager = new Label();
-            lblCategoryID = new Label();
+            lblTechnician = new Label();
+            lblCategory = new Label();
+            lblServieID = new Label();
             btnReset = new Button();
             btnFilter = new Button();
-            ddlManager = new ComboBox();
-            txtCategoryID = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
+            ddlTechnician = new ComboBox();
+            ddlCategory = new ComboBox();
+            txtServiceID = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // dgvCategory
+            // dgvServices
             // 
-            dgvCategory.BackgroundColor = Color.FromArgb(224, 224, 224);
-            dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCategory.Location = new Point(24, 107);
-            dgvCategory.Margin = new Padding(2);
-            dgvCategory.Name = "dgvCategory";
-            dgvCategory.RowHeadersWidth = 62;
-            dgvCategory.RowTemplate.Height = 33;
-            dgvCategory.Size = new Size(802, 407);
-            dgvCategory.TabIndex = 1;
+            dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvServices.Location = new Point(24, 107);
+            dgvServices.Name = "dgvServices";
+            dgvServices.RowTemplate.Height = 25;
+            dgvServices.Size = new Size(802, 404);
+            dgvServices.TabIndex = 0;
             // 
             // btnAdd
             // 
@@ -62,10 +61,10 @@
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(24, 530);
+            btnAdd.Location = new Point(24, 528);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(140, 50);
-            btnAdd.TabIndex = 2;
+            btnAdd.TabIndex = 1;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
@@ -77,10 +76,10 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(355, 530);
+            btnDelete.Location = new Point(355, 528);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(140, 50);
-            btnDelete.TabIndex = 3;
+            btnDelete.TabIndex = 2;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
@@ -92,57 +91,69 @@
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnUpdate.ForeColor = Color.White;
-            btnUpdate.Location = new Point(680, 530);
+            btnUpdate.Location = new Point(686, 528);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(140, 50);
-            btnUpdate.TabIndex = 4;
+            btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(lblManager);
-            groupBox1.Controls.Add(lblCategoryID);
+            groupBox1.Controls.Add(lblTechnician);
+            groupBox1.Controls.Add(lblCategory);
+            groupBox1.Controls.Add(lblServieID);
             groupBox1.Controls.Add(btnReset);
             groupBox1.Controls.Add(btnFilter);
-            groupBox1.Controls.Add(ddlManager);
-            groupBox1.Controls.Add(txtCategoryID);
+            groupBox1.Controls.Add(ddlTechnician);
+            groupBox1.Controls.Add(ddlCategory);
+            groupBox1.Controls.Add(txtServiceID);
             groupBox1.ForeColor = Color.FromArgb(131, 140, 163);
-            groupBox1.Location = new Point(24, 13);
+            groupBox1.Location = new Point(24, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(802, 89);
-            groupBox1.TabIndex = 5;
+            groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Search and Filter";
             // 
-            // lblManager
+            // lblTechnician
             // 
-            lblManager.AutoSize = true;
-            lblManager.Location = new Point(402, 18);
-            lblManager.Name = "lblManager";
-            lblManager.Size = new Size(54, 15);
-            lblManager.TabIndex = 7;
-            lblManager.Text = "Manager";
+            lblTechnician.AutoSize = true;
+            lblTechnician.Location = new Point(456, 24);
+            lblTechnician.Name = "lblTechnician";
+            lblTechnician.Size = new Size(63, 15);
+            lblTechnician.TabIndex = 7;
+            lblTechnician.Text = "Technician";
             // 
-            // lblCategoryID
+            // lblCategory
             // 
-            lblCategoryID.AutoSize = true;
-            lblCategoryID.Location = new Point(54, 18);
-            lblCategoryID.Name = "lblCategoryID";
-            lblCategoryID.Size = new Size(69, 15);
-            lblCategoryID.TabIndex = 5;
-            lblCategoryID.Text = "Category ID";
+            lblCategory.AutoSize = true;
+            lblCategory.Location = new Point(234, 24);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(55, 15);
+            lblCategory.TabIndex = 6;
+            lblCategory.Text = "Category";
+            // 
+            // lblServieID
+            // 
+            lblServieID.AutoSize = true;
+            lblServieID.Location = new Point(34, 24);
+            lblServieID.Name = "lblServieID";
+            lblServieID.Size = new Size(58, 15);
+            lblServieID.TabIndex = 5;
+            lblServieID.Text = "Service ID";
             // 
             // btnReset
             // 
             btnReset.BackColor = Color.FromArgb(13, 13, 37);
             btnReset.FlatAppearance.BorderSize = 0;
             btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnReset.ForeColor = Color.White;
-            btnReset.Location = new Point(716, 56);
+            btnReset.Location = new Point(688, 50);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(75, 23);
+            btnReset.Size = new Size(108, 29);
             btnReset.TabIndex = 4;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = false;
@@ -153,39 +164,52 @@
             btnFilter.BackColor = Color.FromArgb(13, 13, 37);
             btnFilter.FlatAppearance.BorderSize = 0;
             btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             btnFilter.ForeColor = Color.White;
-            btnFilter.Location = new Point(716, 18);
+            btnFilter.Location = new Point(688, 15);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(75, 23);
+            btnFilter.Size = new Size(108, 29);
             btnFilter.TabIndex = 3;
             btnFilter.Text = "Filter";
             btnFilter.UseVisualStyleBackColor = false;
             btnFilter.Click += btnFilter_Click;
             // 
-            // ddlManager
+            // ddlTechnician
             // 
-            ddlManager.BackColor = Color.FromArgb(50, 50, 77);
-            ddlManager.FlatStyle = FlatStyle.Flat;
-            ddlManager.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ddlManager.ForeColor = Color.White;
-            ddlManager.FormattingEnabled = true;
-            ddlManager.Location = new Point(402, 37);
-            ddlManager.Name = "ddlManager";
-            ddlManager.Size = new Size(290, 29);
-            ddlManager.TabIndex = 2;
+            ddlTechnician.BackColor = Color.FromArgb(50, 50, 77);
+            ddlTechnician.FlatStyle = FlatStyle.Flat;
+            ddlTechnician.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlTechnician.ForeColor = Color.White;
+            ddlTechnician.FormattingEnabled = true;
+            ddlTechnician.Location = new Point(456, 40);
+            ddlTechnician.Name = "ddlTechnician";
+            ddlTechnician.Size = new Size(199, 29);
+            ddlTechnician.TabIndex = 2;
             // 
-            // txtCategoryID
+            // ddlCategory
             // 
-            txtCategoryID.BackColor = Color.FromArgb(50, 50, 77);
-            txtCategoryID.BorderStyle = BorderStyle.None;
-            txtCategoryID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtCategoryID.ForeColor = Color.White;
-            txtCategoryID.Location = new Point(54, 37);
-            txtCategoryID.Name = "txtCategoryID";
-            txtCategoryID.Size = new Size(290, 22);
-            txtCategoryID.TabIndex = 0;
+            ddlCategory.BackColor = Color.FromArgb(50, 50, 77);
+            ddlCategory.FlatStyle = FlatStyle.Flat;
+            ddlCategory.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            ddlCategory.ForeColor = Color.White;
+            ddlCategory.FormattingEnabled = true;
+            ddlCategory.Location = new Point(234, 40);
+            ddlCategory.Name = "ddlCategory";
+            ddlCategory.Size = new Size(202, 29);
+            ddlCategory.TabIndex = 1;
             // 
-            // categoryPage
+            // txtServiceID
+            // 
+            txtServiceID.BackColor = Color.FromArgb(50, 50, 77);
+            txtServiceID.BorderStyle = BorderStyle.None;
+            txtServiceID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtServiceID.ForeColor = Color.White;
+            txtServiceID.Location = new Point(34, 43);
+            txtServiceID.Name = "txtServiceID";
+            txtServiceID.Size = new Size(186, 22);
+            txtServiceID.TabIndex = 0;
+            // 
+            // servicesPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -195,28 +219,31 @@
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
-            Controls.Add(dgvCategory);
+            Controls.Add(dgvServices);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "categoryPage";
-            Text = "categoryPage";
-            Load += categoryPage_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
+            Name = "servicesPage";
+            Text = "servicesPage";
+            Load += servicesPage_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private DataGridView dgvCategory;
+
+        private DataGridView dgvServices;
         private Button btnAdd;
         private Button btnDelete;
         private Button btnUpdate;
         private GroupBox groupBox1;
-        private Label lblManager;
-        private Label lblCategoryID;
+        private TextBox txtServiceID;
+        private ComboBox ddlTechnician;
+        private ComboBox ddlCategory;
+        private Label lblTechnician;
+        private Label lblCategory;
+        private Label lblServieID;
         private Button btnReset;
         private Button btnFilter;
-        private ComboBox ddlManager;
-        private TextBox txtCategoryID;
     }
 }
