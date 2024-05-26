@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HomeCareObjects\HomeCareObjects.csproj" />
+    <ProjectReference Include="..\ProjectFormApp\ProjectFormApp.csproj" />
   </ItemGroup>
 
 </Project>

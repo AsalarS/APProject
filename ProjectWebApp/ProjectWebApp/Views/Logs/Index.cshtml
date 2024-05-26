@@ -1,0 +1,72 @@
+﻿@model IEnumerable<HomeCareObjects.Model.Log>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Logs</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Source)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExceptionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginalValues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentValues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExceptionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginalValues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentValues)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+@*             <td>
+                <a asp-action="Edit" asp-route-id="@item.LogId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LogId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LogId">Delete</a>
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>
