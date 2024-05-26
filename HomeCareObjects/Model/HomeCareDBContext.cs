@@ -51,12 +51,6 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Comments_ServiceRequests");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comments_Users");
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -65,12 +59,6 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Documents_ServiceRequests");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Documents)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Documents_Users");
             });
 
             modelBuilder.Entity<Log>(entity =>
@@ -101,6 +89,7 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Technician)
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.TechnicianId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Services_Users");
             });
 
