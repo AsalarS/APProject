@@ -27,14 +27,14 @@ namespace HomeCareObjects.Model
         [Column("CategoryID")]
         public int CategoryId { get; set; }
         [Column("TechnicianID")]
-        public int TechnicianId { get; set; }
+        public int? TechnicianId { get; set; }
 
         [ForeignKey("CategoryId")]
         [InverseProperty("Services")]
         public virtual Category Category { get; set; } = null!;
         [ForeignKey("TechnicianId")]
         [InverseProperty("Services")]
-        public virtual User Technician { get; set; } = null!;
+        public virtual User? Technician { get; set; }
         [InverseProperty("Service")]
         public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
 

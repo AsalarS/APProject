@@ -26,11 +26,11 @@ namespace HomeCareObjects.Model
         public DateTime DateNeeded { get; set; }
         [Column("CustomerID")]
         public int CustomerId { get; set; }
-        [Column("TechnicianID")]
-        public int? TechnicianId { get; set; }
         [Column("ServiceID")]
         public int ServiceId { get; set; }
         public int RequestStatus { get; set; }
+        [Column("TechnicianID")]
+        public int? TechnicianId { get; set; }
 
         [ForeignKey("CustomerId")]
         [InverseProperty("ServiceRequestCustomers")]

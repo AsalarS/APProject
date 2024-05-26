@@ -95,7 +95,7 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.TechnicianId = null; // Set Technician Id to null (manager will assign later)
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
-                serviceRequest.RequestStatus = 0; // Set Request Status to 0 (Pending)
+                serviceRequest.RequestStatus = 1; // Set Request Status to 0 (Pending)
                 _context.Add(serviceRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -120,7 +120,7 @@ namespace HomeCareWebApp.Controllers
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "FullName", serviceRequest.CustomerId);
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "FullName", serviceRequest.TechnicianId);
+            ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "FullName", serviceRequest.TechnicianId);
             return View(serviceRequest);
         }
 
@@ -143,8 +143,8 @@ namespace HomeCareWebApp.Controllers
                 {
                     if (serviceRequest.TechnicianId != null)
                     {
-                        
-                        //serviceRequest.RequestStatus = serviceRequest.IsCompleted ? 3 : 2;
+
+                        serviceRequest.RequestStatus = 2;
                     }
 
 
