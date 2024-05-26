@@ -141,11 +141,12 @@ namespace HomeCareWebApp.Controllers
             {
                 try
                 {
-                    if (serviceRequest.TechnicianId != null)
-                    {
+                    
 
                         serviceRequest.RequestStatus = 2;
-                    }
+                    
+
+                    
 
 
                     _context.Update(serviceRequest);
@@ -203,7 +204,7 @@ namespace HomeCareWebApp.Controllers
             var serviceRequest = await _context.ServiceRequests.FindAsync(id);
             if (serviceRequest != null)
             {
-                _context.ServiceRequests.Remove(serviceRequest);
+                serviceRequest.RequestStatus = 4;
             }
 
             await _context.SaveChangesAsync();
