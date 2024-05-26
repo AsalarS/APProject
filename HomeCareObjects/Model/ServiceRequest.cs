@@ -29,13 +29,18 @@ namespace HomeCareObjects.Model
         [Column("ServiceID")]
         public int ServiceId { get; set; }
         public int RequestStatus { get; set; }
+        [Column("TechnicianID")]
+        public int? TechnicianId { get; set; }
 
         [ForeignKey("CustomerId")]
-        [InverseProperty("ServiceRequests")]
+        [InverseProperty("ServiceRequestCustomers")]
         public virtual User Customer { get; set; } = null!;
         [ForeignKey("ServiceId")]
         [InverseProperty("ServiceRequests")]
         public virtual Service Service { get; set; } = null!;
+        [ForeignKey("TechnicianId")]
+        [InverseProperty("ServiceRequestTechnicians")]
+        public virtual User? Technician { get; set; }
         [InverseProperty("Request")]
         public virtual ICollection<Comment> Comments { get; set; }
         [InverseProperty("Request")]

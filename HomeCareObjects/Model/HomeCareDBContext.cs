@@ -98,7 +98,7 @@ namespace HomeCareObjects.Model
                 entity.Property(e => e.RequestStatus).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.ServiceRequests)
+                    .WithMany(p => p.ServiceRequestCustomers)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceRequests_Users");
@@ -107,6 +107,11 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.ServiceRequests)
                     .HasForeignKey(d => d.ServiceId)
                     .HasConstraintName("FK_ServiceRequests_Services");
+
+                entity.HasOne(d => d.Technician)
+                    .WithMany(p => p.ServiceRequestTechnicians)
+                    .HasForeignKey(d => d.TechnicianId)
+                    .HasConstraintName("FK_ServiceRequests_Users1");
             });
 
             modelBuilder.Entity<User>(entity =>

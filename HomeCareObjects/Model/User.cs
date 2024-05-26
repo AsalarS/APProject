@@ -14,7 +14,8 @@ namespace HomeCareObjects.Model
             Categories = new HashSet<Category>();
             Logs = new HashSet<Log>();
             Notifications = new HashSet<Notification>();
-            ServiceRequests = new HashSet<ServiceRequest>();
+            ServiceRequestCustomers = new HashSet<ServiceRequest>();
+            ServiceRequestTechnicians = new HashSet<ServiceRequest>();
             Services = new HashSet<Service>();
             ServicesNavigation = new HashSet<Service>();
         }
@@ -42,7 +43,9 @@ namespace HomeCareObjects.Model
         [InverseProperty("User")]
         public virtual ICollection<Notification> Notifications { get; set; }
         [InverseProperty("Customer")]
-        public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
+        public virtual ICollection<ServiceRequest> ServiceRequestCustomers { get; set; }
+        [InverseProperty("Technician")]
+        public virtual ICollection<ServiceRequest> ServiceRequestTechnicians { get; set; }
         [InverseProperty("Technician")]
         public virtual ICollection<Service> Services { get; set; }
 
