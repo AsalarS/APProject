@@ -51,12 +51,6 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Comments_ServiceRequests");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Comments)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comments_Users");
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -65,12 +59,6 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => d.RequestId)
                     .HasConstraintName("FK_Documents_ServiceRequests");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Documents)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Documents_Users");
             });
 
             modelBuilder.Entity<Log>(entity =>
@@ -101,6 +89,7 @@ namespace HomeCareObjects.Model
                 entity.HasOne(d => d.Technician)
                     .WithMany(p => p.Services)
                     .HasForeignKey(d => d.TechnicianId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Services_Users");
             });
 
@@ -109,7 +98,7 @@ namespace HomeCareObjects.Model
                 entity.Property(e => e.RequestStatus).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.ServiceRequestCustomers)
+                    .WithMany(p => p.ServiceRequests)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceRequests_Users");
@@ -118,11 +107,6 @@ namespace HomeCareObjects.Model
                     .WithMany(p => p.ServiceRequests)
                     .HasForeignKey(d => d.ServiceId)
                     .HasConstraintName("FK_ServiceRequests_Services");
-
-                entity.HasOne(d => d.Technician)
-                    .WithMany(p => p.ServiceRequestTechnicians)
-                    .HasForeignKey(d => d.TechnicianId)
-                    .HasConstraintName("FK_ServiceRequests_Users1");
             });
 
             modelBuilder.Entity<User>(entity =>

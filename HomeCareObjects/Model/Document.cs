@@ -20,16 +20,11 @@ namespace HomeCareObjects.Model
         public string DocumentType { get; set; } = null!;
         [StringLength(200)]
         public string DocumentPath { get; set; } = null!;
-        [Column("UserID")]
-        public int UserId { get; set; }
         [Column("RequestID")]
         public int RequestId { get; set; }
 
         [ForeignKey("RequestId")]
         [InverseProperty("Documents")]
         public virtual ServiceRequest Request { get; set; } = null!;
-        [ForeignKey("UserId")]
-        [InverseProperty("Documents")]
-        public virtual User User { get; set; } = null!;
     }
 }

@@ -20,17 +20,70 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var homeCareDBContext = _context.Comments.Include(c => c.Request).Include(c => c.User).Where(x => x.RequestId == id);
-            return View(await homeCareDBContext.ToListAsync());
+            var userEmail = User.Identity.GetUserName();
+            IEnumerable<Comment> homeCareDBContext = null;
+            if (User.IsInRole("User"))
+            {
+                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Customer).Where(s => s.Request.Customer.Email == userEmail);
+            }
+            //Get requests related to technican
+            else if (User.IsInRole("Technician"))
+            {
+                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Technician).Where(s => s.Request.Technician.Email == userEmail);
+            }
+            //Get requests related to manager 
+            else if (User.IsInRole("Manager"))
+            {
+                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Service).ThenInclude(s => s.Category).ThenInclude(c => c.Manager).Where(s => s.Request.Service.Category.Manager.Email == userEmail);
+            }
+            //Get all requests for admin
+            else if (User.IsInRole("Admin"))
+            {
+                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Customer).Include(s => s.Request).ThenInclude(r => r.Technician).Include(s => s.Request).ThenInclude(r => r.Service).ThenInclude(s => s.Category).ThenInclude(c => c.Manager);
+            }
+            return View(homeCareDBContext);
+        }
+
+        // GET: Comments/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Comments == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comments
+                .Include(c => c.Request)
+                .FirstOrDefaultAsync(m => m.CommentId == id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
         }
 
         // GET: Comments/Create
         public IActionResult Create()
         {
-            ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            var userEmail = User.Identity.GetUserName();
+            if (User.IsInRole("User"))
+            {
+                ViewData["RequestId"] = new SelectList(_context.ServiceRequests.Where(x => x.Customer.Email == userEmail), "RequestId", "RequestId");
+            }
+            else if (User.IsInRole("Technician"))
+            {
+
+                ViewData["RequestId"] = new SelectList(_context.ServiceRequests.Where(x => x.Technician.Email == userEmail), "RequestId", "RequestId");
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                ViewData["RequestId"] = new SelectList(_context.ServiceRequests.Where(x => x.Service.Category.Manager.Email == userEmail), "RequestId", "RequestId");
+
+            }
+            ViewData["UserId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");
             return View();
         }
 
@@ -39,16 +92,16 @@ namespace HomeCareWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CommentId,CommentText,CommentDate,UserId,RequestId")] Comment comment)
+        public async Task<IActionResult> Create([Bind("CommentId,CommentText,CommentDate,RequestId")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+                comment.CommentDate = DateTime.Now;
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId", comment.RequestId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -66,7 +119,6 @@ namespace HomeCareWebApp.Controllers
                 return NotFound();
             }
             ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId", comment.RequestId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -75,7 +127,7 @@ namespace HomeCareWebApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CommentId,CommentText,CommentDate,UserId,RequestId")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("CommentId,CommentText,CommentDate,RequestId")] Comment comment)
         {
             if (id != comment.CommentId)
             {
@@ -103,7 +155,6 @@ namespace HomeCareWebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId", comment.RequestId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", comment.UserId);
             return View(comment);
         }
 
@@ -117,7 +168,6 @@ namespace HomeCareWebApp.Controllers
 
             var comment = await _context.Comments
                 .Include(c => c.Request)
-                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {

@@ -26,21 +26,16 @@ namespace HomeCareObjects.Model
         public DateTime DateNeeded { get; set; }
         [Column("CustomerID")]
         public int CustomerId { get; set; }
-        [Column("TechnicianID")]
-        public int? TechnicianId { get; set; }
         [Column("ServiceID")]
         public int ServiceId { get; set; }
         public int RequestStatus { get; set; }
 
         [ForeignKey("CustomerId")]
-        [InverseProperty("ServiceRequestCustomers")]
+        [InverseProperty("ServiceRequests")]
         public virtual User Customer { get; set; } = null!;
         [ForeignKey("ServiceId")]
         [InverseProperty("ServiceRequests")]
         public virtual Service Service { get; set; } = null!;
-        [ForeignKey("TechnicianId")]
-        [InverseProperty("ServiceRequestTechnicians")]
-        public virtual User? Technician { get; set; }
         [InverseProperty("Request")]
         public virtual ICollection<Comment> Comments { get; set; }
         [InverseProperty("Request")]

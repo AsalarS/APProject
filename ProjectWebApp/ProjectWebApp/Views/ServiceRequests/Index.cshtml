@@ -17,10 +17,12 @@ Search using Request Description:
     <a asp-asp-controller="ServiceRequests" asp-action="Index" class="btn btn-outline-danger">
         Clear
     </a>
+    <a asp-area="" asp-controller="Comments" asp-action="Index">Comments</a>
 </form>
 <table class="table">
     <thead>
         <tr>
+            <th>@Html.DisplayNameFor(model => model.RequestId)</th>
             <th>
                 @Html.DisplayNameFor(model => model.RequestDescription)
             </th>
@@ -48,6 +50,9 @@ Search using Request Description:
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                    @Html.DisplayFor(model => item.RequestId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RequestDescription)
             </td>
@@ -117,7 +122,7 @@ Search using Request Description:
                 </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
-                <a asp-controller="Comments" asp-action="Index" asp-route-id="@item.RequestId">Comment</a> |
+                
                 <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
             </td>
         </tr>
