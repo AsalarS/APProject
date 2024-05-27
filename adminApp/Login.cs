@@ -44,6 +44,8 @@ namespace AdminApp
             else
             {
                 MessageBox.Show("Error. The username or password are not correct");
+                txtUserName.Text = "";
+                txtPassword.Text = "";
             }
         }
 
@@ -87,6 +89,10 @@ namespace AdminApp
                         catch (Exception ex)
                         {
                             MessageBox.Show("Error: " + ex.Message);
+                        }
+                        if (Global.HomeCareUser == null)
+                        {
+                            return false;
                         }
                     }
                     return passCheck;
