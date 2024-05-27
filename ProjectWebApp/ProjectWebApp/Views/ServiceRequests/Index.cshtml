@@ -12,7 +12,12 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-Search using Request Description:
+@if (Model.Count() == 0)
+{
+    <caption>No Records Found</caption>
+}
+else{
+<text>Search using Request Description:</text>
 <form asp-asp-controller="ServiceRequests" asp-action="Index" method="get">
     <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
     <input type="submit" value="Search" class="btn- btn-secondary mx-2" />
@@ -136,3 +141,4 @@ Search using Request Description:
 }
     </tbody>
 </table>
+}
