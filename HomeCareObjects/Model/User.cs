@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,6 @@ namespace HomeCareObjects.Model
         public User()
         {
             Categories = new HashSet<Category>();
-            Documents = new HashSet<Document>();
             Logs = new HashSet<Log>();
             Notifications = new HashSet<Notification>();
             ServiceRequestCustomers = new HashSet<ServiceRequest>();
@@ -35,13 +35,9 @@ namespace HomeCareObjects.Model
         public string? FirstName { get; set; }
         [StringLength(50)]
         public string? LastName { get; set; }
-
         public string? FullName => $"{FirstName} {LastName}";
-
         [InverseProperty("Manager")]
         public virtual ICollection<Category> Categories { get; set; }
-        [InverseProperty("User")]
-        public virtual ICollection<Document> Documents { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<Log> Logs { get; set; }
         [InverseProperty("User")]
@@ -56,6 +52,5 @@ namespace HomeCareObjects.Model
         [ForeignKey("TechnicianId")]
         [InverseProperty("Technicians")]
         public virtual ICollection<Service> ServicesNavigation { get; set; }
-
     }
 }

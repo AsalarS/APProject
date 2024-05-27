@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +11,7 @@ namespace HomeCareObjects.Model
     {
         public ServiceRequest()
         {
+            Comments = new HashSet<Comment>();
             Documents = new HashSet<Document>();
         }
 
@@ -24,10 +26,11 @@ namespace HomeCareObjects.Model
         public DateTime DateNeeded { get; set; }
         [Column("CustomerID")]
         public int CustomerId { get; set; }
-        [Column("TechnicianID")]
-        public int TechnicianId { get; set; }
         [Column("ServiceID")]
         public int ServiceId { get; set; }
+        public int RequestStatus { get; set; }
+        [Column("TechnicianID")]
+        public int? TechnicianId { get; set; }
 
         [ForeignKey("CustomerId")]
         [InverseProperty("ServiceRequestCustomers")]
@@ -37,7 +40,9 @@ namespace HomeCareObjects.Model
         public virtual Service Service { get; set; } = null!;
         [ForeignKey("TechnicianId")]
         [InverseProperty("ServiceRequestTechnicians")]
-        public virtual User Technician { get; set; } = null!;
+        public virtual User? Technician { get; set; }
+        [InverseProperty("Request")]
+        public virtual ICollection<Comment> Comments { get; set; }
         [InverseProperty("Request")]
         public virtual ICollection<Document> Documents { get; set; }
     }
