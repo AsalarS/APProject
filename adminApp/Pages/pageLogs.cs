@@ -51,29 +51,29 @@ namespace AdminApp.Pages
             try
             {
                 // Fetch logs along with UserName
-                var logs = from log in context.Logs
-                           join user in context.Users on log.UserId equals user.UserId
-                           select new
-                           {
-                               log.Message,
-                               log.Source,
-                               UserName = user.FullName,
-                               log.DateTime
-                           };
+                var logs = context.Logs
+                    .Select(log => new
+                    {
+                        log.Message,
+                        log.Source,
+                        UserName = log.User.FullName,
+                        log.DateTime
+                    })
+                    .ToList();
 
                 // Sort the logs based on the current sort type and order
                 logs = currentSortType switch
                 {
                     SortType.Date => isAscendingOrder
-                        ? logs.OrderBy(l => l.DateTime)
-                        : logs.OrderByDescending(l => l.DateTime),
+                        ? logs.OrderBy(l => l.DateTime).ToList()
+                        : logs.OrderByDescending(l => l.DateTime).ToList(),
                     SortType.Source => isAscendingOrder
-                        ? logs.OrderBy(l => l.Source)
-                        : logs.OrderByDescending(l => l.Source),
+                        ? logs.OrderBy(l => l.Source).ToList()
+                        : logs.OrderByDescending(l => l.Source).ToList(),
                     SortType.User => isAscendingOrder
-                        ? logs.OrderBy(l => l.UserName)
-                        : logs.OrderByDescending(l => l.UserName),
-                    _ => logs
+                        ? logs.OrderBy(l => l.UserName).ToList()
+                        : logs.OrderByDescending(l => l.UserName).ToList(),
+                    _ => logs // Default case to handle missing patterns
                 };
 
                 flpLogs.Controls.Clear(); // Clear existing controls
