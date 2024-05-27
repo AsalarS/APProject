@@ -87,6 +87,7 @@ namespace AdminApp.Pages
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
                 RefreshGridView(); //refresh only if the user added a new record
+                Logger("Category Added");
             }
         }
 
@@ -105,6 +106,8 @@ namespace AdminApp.Pages
 
                     MessageBox.Show("Deleted successfully. ");
 
+                    Logger("Category Deleted");
+
                     RefreshGridView();
                 }
                 catch (Exception ex)
@@ -112,6 +115,7 @@ namespace AdminApp.Pages
                     // MessageBox.Show(ex.Message);
                     MessageBox.Show($"Error: {ex.InnerException?.Message}");
                 }
+
             }
         }
 
@@ -126,6 +130,7 @@ namespace AdminApp.Pages
 
                 if (frmCategoryEdit.DialogResult == DialogResult.OK)
                 {
+                    Logger("Category Updated");
                     RefreshGridView();
                 }
             }
@@ -145,6 +150,28 @@ namespace AdminApp.Pages
             txtCategoryID.Text = "";
             ddlManager.SelectedItem = null;
             RefreshGridView();
+        }
+        private void Logger(string Message)
+        {
+
+            try
+            {
+                Log log = new Log();
+                log.Message = Message;
+                log.Source = "Desktop App";
+                log.DateTime = DateTime.Now;
+                log.UserId = Global.HomeCareUser.UserId;
+                log.ExceptionType = "N/A";
+                log.OriginalValues = "N/A";
+                log.CurrentValues = "N/A";
+
+                context.Logs.Add(log);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

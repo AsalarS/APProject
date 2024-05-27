@@ -133,6 +133,7 @@
             ddlCategory.Name = "ddlCategory";
             ddlCategory.Size = new Size(300, 38);
             ddlCategory.TabIndex = 14;
+            ddlCategory.SelectedIndexChanged += ddlCategory_SelectedIndexChanged;
             // 
             // label5
             // 

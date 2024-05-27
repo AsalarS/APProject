@@ -24,7 +24,7 @@ namespace AdminApp.Pages
             InitializeComponent();
             context = new HomeCareDBContext();
             currentSortType = SortType.Date; // Default to sorting by date
-            isAscendingOrder = true; // Default to ascending order
+            isAscendingOrder = false; // Default to ascending order
 
         }
 

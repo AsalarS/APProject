@@ -102,6 +102,7 @@ namespace AdminApp
                     context.Services.Remove(service);
                     context.SaveChanges();
                     MessageBox.Show("Deleted successfully. ");
+                    Logger("Service Deleted");
                     RefreshGridView();
                 }
                 catch (Exception ex)
@@ -118,6 +119,7 @@ namespace AdminApp
             if (frmservicedialouge.DialogResult == DialogResult.OK)
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
+                Logger("Service Added");
                 RefreshGridView(); //refresh only if the user added a new record
             }
         }
@@ -143,6 +145,7 @@ namespace AdminApp
 
                 if (frmServiceEdit.DialogResult == DialogResult.OK)
                 {
+                    Logger("Service Updated");
                     RefreshGridView();
                 }
 
@@ -164,6 +167,28 @@ namespace AdminApp
             ddlTechnician.SelectedItem = null;
             ddlCategory.SelectedItem = null;
             RefreshGridView();
+        }
+        private void Logger(string Message)
+        {
+
+            try
+            {
+                Log log = new Log();
+                log.Message = Message;
+                log.Source = "Desktop App";
+                log.DateTime = DateTime.Now;
+                log.UserId = Global.HomeCareUser.UserId;
+                log.ExceptionType = "N/A";
+                log.OriginalValues = "N/A";
+                log.CurrentValues = "N/A";
+
+                context.Logs.Add(log);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

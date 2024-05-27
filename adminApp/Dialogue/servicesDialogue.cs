@@ -97,7 +97,8 @@ namespace adminApp.Dialogue
                 }
 
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
-                service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
+                //service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
+                service.TechnicianId = ddlTechnician.SelectedValue != null ? Convert.ToInt32(ddlTechnician.SelectedValue) : null;
 
                 if (service != null && service.ServiceId > 0)
                 {
@@ -124,6 +125,31 @@ namespace adminApp.Dialogue
             }
         }
 
-        
+        private void ddlCategory_SelectedIndexChanged(object sender, EventArgs e) //TODO: please fix this
+        {
+
+            try
+            {
+                var selectedValue = Convert.ToInt32(ddlCategory.SelectedValue);
+                var technicianIds = context.Services
+                                           .Where(x => x.CategoryId == selectedValue)
+                                           .Select(x => x.TechnicianId)
+                                           .ToList();
+                // Get the unique technician IDs and then their names
+                var technicians = context.Users
+                                          .Where(u => technicianIds.Contains(u.UserId))
+                                          .ToList();
+
+                ddlTechnician.DataSource = technicians;
+                ddlTechnician.DisplayMember = "FullName";
+                ddlTechnician.ValueMember = "UserID";
+                ddlTechnician.SelectedItem = null;
+            }
+            catch (Exception ex)
+            {
+                
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 }
