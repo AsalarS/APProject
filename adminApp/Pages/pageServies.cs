@@ -100,17 +100,13 @@ namespace AdminApp
                 try
                 {
                     context.Services.Remove(service);
-
                     context.SaveChanges();
-
                     MessageBox.Show("Deleted successfully. ");
-
                     RefreshGridView();
                 }
                 catch (Exception ex)
                 {
-                    // MessageBox.Show(ex.Message);
-                    MessageBox.Show($"Error: {ex.InnerException?.Message}");
+                    MessageBox.Show($"Error when trying to delete: {ex.InnerException?.Message}");
                 }
             }
         }
@@ -133,7 +129,6 @@ namespace AdminApp
 
                 int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
                 int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
-               // Service selectedService = context.Services.Find(SelectedServiceID);
                 servicesDialogue frmServiceEdit = new servicesDialogue(SelectedServiceID);
 
                 if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
@@ -154,7 +149,7 @@ namespace AdminApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error when updating: " + ex.Message);
             }
         }
 

@@ -49,37 +49,35 @@ namespace adminApp.Pages
             try
             {
                 // Fetch Comments along with UserName, ServiceName, and CategoryName
-                var comments = from comment in context.Comments
-                               join user in context.Users on comment.UserId equals user.UserId
-                               join serviceRequest in context.ServiceRequests on comment.RequestId equals serviceRequest.RequestId
-                               join service in context.Services on serviceRequest.ServiceId equals service.ServiceId
-                               join category in context.Categories on service.CategoryId equals category.CategoryId
-                               select new
-                               {
-                                   comment.CommentText,
-                                   ServiceName = service.ServiceName,
-                                   UserName = user.FullName,
-                                   comment.CommentDate,
-                                   CategoryName = category.CategoryName
-                               };
+                var comments = context.Comments
+                .Select(c => new
+                {
+                    c.CommentText,
+                    ServiceName = c.Request.Service.ServiceName,
+                    UserName = c.Request.Customer.Username, // Assuming Username is what you meant by FullName
+                    c.CommentDate,
+                    CategoryName = c.Request.Service.Category.CategoryName // comment.Service.Category.CategoryName
+                })
+                .ToList();
 
                 // Sort the comments based on the current sort type and order
                 comments = currentSortType switch
                 {
                     SortType.Date => isAscendingOrder
-                        ? comments.OrderBy(c => c.CommentDate)
-                        : comments.OrderByDescending(c => c.CommentDate),
+                        ? comments.OrderBy(c => c.CommentDate).ToList()
+                        : comments.OrderByDescending(c => c.CommentDate).ToList(),
                     SortType.Category => isAscendingOrder
-                        ? comments.OrderBy(c => c.CategoryName)
-                        : comments.OrderByDescending(c => c.CategoryName),
+                        ? comments.OrderBy(c => c.CategoryName).ToList()
+                        : comments.OrderByDescending(c => c.CategoryName).ToList(),
                     SortType.Service => isAscendingOrder
-                        ? comments.OrderBy(c => c.ServiceName)
-                        : comments.OrderByDescending(c => c.ServiceName),
+                        ? comments.OrderBy(c => c.ServiceName).ToList()
+                        : comments.OrderByDescending(c => c.ServiceName).ToList(),
                     SortType.Customer => isAscendingOrder
-                        ? comments.OrderBy(c => c.UserName)
-                        : comments.OrderByDescending(c => c.UserName),
-                    _ => comments
+                        ? comments.OrderBy(c => c.UserName).ToList()
+                        : comments.OrderByDescending(c => c.UserName).ToList(),
+                    _ => comments // Default case to handle missing patterns
                 };
+
 
                 flpComments.Controls.Clear(); // Clear existing controls
                 flpComments.Refresh();
