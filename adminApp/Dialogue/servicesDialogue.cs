@@ -48,6 +48,7 @@ namespace adminApp.Dialogue
                     ddlCategory.DataSource = context.Categories.Where(x => x.ManagerId == Global.HomeCareUser.UserId).ToList();
                     ddlCategory.DisplayMember = "CategoryName";
                     ddlCategory.ValueMember = "CategoryID";
+                    ddlCategory.Enabled = false;
 
 
                 }
@@ -125,9 +126,8 @@ namespace adminApp.Dialogue
             }
         }
 
-        private void ddlCategory_SelectedIndexChanged(object sender, EventArgs e) //TODO: please fix this
+        private void ddlCategory_DropDownClosed(object sender, EventArgs e) //TODO: Discuss database changes
         {
-
             try
             {
                 var selectedValue = Convert.ToInt32(ddlCategory.SelectedValue);
@@ -147,7 +147,7 @@ namespace adminApp.Dialogue
             }
             catch (Exception ex)
             {
-                
+
                 MessageBox.Show("Error: " + ex.Message);
             }
         }

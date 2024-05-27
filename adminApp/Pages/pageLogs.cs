@@ -118,7 +118,7 @@ namespace AdminApp.Pages
         //User button
         private void lblUser_Click(object sender, EventArgs e)
         {
-            UpdateSort(SortType.User); //TODO: Fix User sort error
+            UpdateSort(SortType.User);
         }
 
         private void lblUser_MouseEnter(object sender, EventArgs e)

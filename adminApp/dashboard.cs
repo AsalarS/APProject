@@ -279,11 +279,6 @@ namespace AdminApp
             f.Show();
         }
 
-        private void bellBtn_Click(object sender, EventArgs e)
-        {
-            //TODO: Implement bell button click
-        }
-
         private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();

@@ -126,7 +126,7 @@ namespace adminApp.Pages
         // Sort by Customer Name
         private void lblCustomer_Click(object sender, EventArgs e)
         {
-            UpdateSort(SortType.Customer); //TODO: Fix Customer sort error
+            UpdateSort(SortType.Customer);
         }
 
         private void lblCustomer_MouseEnter(object sender, EventArgs e)
