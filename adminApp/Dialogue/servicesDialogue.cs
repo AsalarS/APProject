@@ -130,6 +130,7 @@ namespace adminApp.Dialogue
         {
             try
             {
+
                 var selectedValue = Convert.ToInt32(ddlCategory.SelectedValue);
                 var technicianIds = context.Services
                                            .Where(x => x.CategoryId == selectedValue)
@@ -147,7 +148,7 @@ namespace adminApp.Dialogue
             }
             catch (Exception ex)
             {
-
+                
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
