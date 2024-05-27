@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,28 +41,24 @@ namespace adminApp.Dialogue
         {
             try
             {
+                Debug.WriteLine(Global.HomeCareUser.UserId);
                 // this if statement alows the manager to add services to his assigned category only
                 if (context.Categories.Any(x => x.ManagerId == Global.HomeCareUser.UserId) && Global.HomeCareUser.UserRole == "Manager")
                 {
                     ddlCategory.DataSource = context.Categories.Where(x => x.ManagerId == Global.HomeCareUser.UserId).ToList();
                     ddlCategory.DisplayMember = "CategoryName";
-                    ddlCategory.ValueMember = "CategoryId";
-                    
+                    ddlCategory.ValueMember = "CategoryID";
+
 
                 }
                 if (Global.HomeCareUser.UserRole == "Admin")
                 {
                     ddlCategory.DataSource = context.Categories.ToList();
                     ddlCategory.DisplayMember = "CategoryName";
-                    ddlCategory.ValueMember = "CategoryId";
+                    ddlCategory.ValueMember = "CategoryID";
                     ddlCategory.SelectedItem = null;
 
                 }
-
-                ddlTechnician.DataSource = context.Users.Where(x => x.UserRole == "Technician").ToList();
-                ddlTechnician.DisplayMember = "FullName";
-                ddlTechnician.ValueMember = "UserId";
-                ddlTechnician.SelectedItem = null;
 
                 if (service != null && service.ServiceId > 0)
                 {
@@ -93,7 +90,7 @@ namespace adminApp.Dialogue
                 }
                 service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
 
-                if (ddlCategory.SelectedValue == null || ddlTechnician.SelectedValue == null)
+                if (ddlCategory.SelectedValue == null)
                 {
                     MessageBox.Show("Please select a category and a technician.");
                     return;
@@ -123,8 +120,10 @@ namespace adminApp.Dialogue
             {
                 // MessageBox.Show(ex.Message);
                 // MessageBox.Show($"Error: {ex.InnerException?.Message}");
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error on save: " + ex.Message);
             }
-            }
+        }
+
+        
     }
 }
