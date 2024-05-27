@@ -23,18 +23,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Request.RequestId)
             </th>
-            @if(User.IsInRole("User")){
+            
                 <th>@Html.DisplayNameFor(model => model.Request.Customer) Name</th>
-            }
-            else if (User.IsInRole("Technician"))
-            {
-                <th>@Html.DisplayNameFor(model => model.Request.Technician) Name</th>
-                
-            }
-            else if (User.IsInRole("Manager")){
-
-                <th>@Html.DisplayNameFor(model => model.Request.Service.Category.Manager) Name</th>
-            }
+            
+            
             <th></th>
         </tr>
     </thead>
@@ -50,20 +42,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Request.RequestId)
             </td>
-                @if (User.IsInRole("User"))
-                    {
+                
                     <td>@Html.DisplayFor(modelItem => item.Request.Customer.FullName)</td>
-                    }
-                    else if (User.IsInRole("Technician"))
-                    {
-                    <td>@Html.DisplayFor(modelItem => item.Request.Technician.FullName)</td>
-
-                    }
-                    else if (User.IsInRole("Manager"))
-                    {
-
-                    <td>@Html.DisplayFor(modelItem => item.Request.Service.Category.Manager.FullName)</td>
-                    }
+                    
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CommentId">Details</a> |

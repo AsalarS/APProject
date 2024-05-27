@@ -141,10 +141,16 @@ namespace HomeCareWebApp.Controllers
             {
                 try
                 {
-                    
 
+                    if (serviceRequest.TechnicianId != null)
+                    {
                         serviceRequest.RequestStatus = 2;
-                    
+                    }
+                    else
+                    {
+                        serviceRequest.RequestStatus = 1;
+
+                    }
 
                     
 
@@ -205,6 +211,7 @@ namespace HomeCareWebApp.Controllers
             if (serviceRequest != null)
             {
                 serviceRequest.RequestStatus = 4;
+                _context.Update(serviceRequest);
             }
 
             await _context.SaveChangesAsync();
@@ -215,5 +222,31 @@ namespace HomeCareWebApp.Controllers
         {
             return _context.ServiceRequests.Any(e => e.RequestId == id);
         }
+
+        /// <summary>
+        /// Marks the passed request as a completed request
+        /// </summary>
+        /// <param name="id">The ID of the request</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Completed(int id)
+        {
+            if (_context.ServiceRequests == null)
+            {
+                return Problem("Entity set 'HomeCareDBContext.ServiceRequests'  is null.");
+            }
+            var serviceRequest = await _context.ServiceRequests.FindAsync(id);
+            if (serviceRequest != null)
+            {
+                serviceRequest.RequestStatus = 3;
+                _context.Update(serviceRequest);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        
     }
 }
