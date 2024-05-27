@@ -167,9 +167,6 @@ namespace HomeCareWebApp.Controllers
 
                     }
 
-                    
-
-
                     _context.Update(serviceRequest);
                     notification.Type = "Service Request Update";
                     notification.Status = "Unread";
@@ -183,7 +180,7 @@ namespace HomeCareWebApp.Controllers
                         notification.NotificationText = "Your service request is now completed";
                     }else if(serviceRequest.RequestStatus == 4)
                     {
-                        notification.NotificationText = "Your service has been canceled";
+                        notification.NotificationText = "Your service request has been canceled";
                     }
                     _context.Notifications.Add(notificationTec);
                     _context.Notifications.Add(notification);
