@@ -36,7 +36,7 @@ namespace HomeCareWebApp.Controllers
             //Get requests related to manager 
             else if (User.IsInRole("Manager"))
             {
-                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Service).ThenInclude(s => s.Category).ThenInclude(c => c.Manager).Where(s => s.Request.Service.Category.Manager.Email == userEmail);
+                homeCareDBContext = _context.Comments.Include(s => s.Request).ThenInclude(r => r.Customer).Include(s => s.Request).ThenInclude(r => r.Service).ThenInclude(s => s.Category).ThenInclude(c => c.Manager).Where(s => s.Request.Service.Category.Manager.Email == userEmail);
             }
             //Get all requests for admin
             else if (User.IsInRole("Admin"))
