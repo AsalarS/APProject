@@ -14,12 +14,16 @@ namespace HomeCareWebApp.Controllers
     public class ServiceRequestsController : Controller
     {
         private readonly HomeCareDBContext _context;
-        private Notification notification;
+        private Notification notification; //This is for the customer
+        private Notification notificationTec; //This is for the technician
+
 
         public ServiceRequestsController(HomeCareDBContext context)
         {
             _context = context;
             notification = new Notification();
+            notificationTec = new Notification();
+            notificationTec = new Notification();
         }
 
         // GET: ServiceRequests
@@ -152,10 +156,30 @@ namespace HomeCareWebApp.Controllers
                     {
 
                         serviceRequest.RequestStatus = 2;
+                        notificationTec.NotificationText = "You have been assigned to a new Service Request";
+                        notificationTec.Status = "Unread";
+                        notificationTec.Type = "Assigned to a service request";
+                        notificationTec.UserId = Convert.ToInt32(serviceRequest.TechnicianId);
                     }
 
 
                     _context.Update(serviceRequest);
+                    notification.Type = "Service Request Update";
+                    notification.Status = "Unread";
+                    notification.UserId = serviceRequest.CustomerId;
+
+                    if (serviceRequest.RequestStatus == 2)
+                    {
+                        notification.NotificationText = "Your service request has an assigned technician and it is now Active";
+                    }else if(serviceRequest.RequestStatus == 3)
+                    {
+                        notification.NotificationText = "Your service request is now completed";
+                    }else if(serviceRequest.RequestStatus == 4)
+                    {
+                        notification.NotificationText = "Your service has been canceled";
+                    }
+                    _context.Notifications.Add(notificationTec);
+                    _context.Notifications.Add(notification);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
