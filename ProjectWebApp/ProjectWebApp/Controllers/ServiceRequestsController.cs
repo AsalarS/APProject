@@ -124,14 +124,25 @@ namespace HomeCareWebApp.Controllers
                 return NotFound();
             }
 
-            var serviceRequest = await _context.ServiceRequests.FindAsync(id);
+            //var serviceRequest = await _context.ServiceRequests.FindAsync(id);
+            var serviceRequest = await _context.ServiceRequests
+        .Include(sr => sr.Service)
+        .ThenInclude(s => s.Technicians)
+        .FirstOrDefaultAsync(sr => sr.RequestId == id);
             if (serviceRequest == null)
             {
                 return NotFound();
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "FullName", serviceRequest.CustomerId);
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "FullName", serviceRequest.TechnicianId);
+            //ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "FullName", serviceRequest.TechnicianId);
+            // Check if the technician is assigned to the service
+            var technicians = await _context.Users
+                .Where(u => u.UserRole == "Technician" && u.ServicesNavigation.Any(s => s.ServiceId == serviceRequest.ServiceId))
+                .Select(u => new { u.UserId, u.FullName })
+                .ToListAsync();
+
+            ViewData["TechnicianId"] = new SelectList(technicians, "UserId", "FullName", serviceRequest.TechnicianId);
             return View(serviceRequest);
         }
 
