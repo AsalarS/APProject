@@ -1,4 +1,5 @@
 using adminApp;
+using adminApp.Pages;
 using AdminApp.Pages;
 using HomeCareObjects.Model;
 using ProjectFormApp;
@@ -10,6 +11,13 @@ namespace AdminApp
         HomeCareDBContext context;
         FormsIdentityContext IdentityContext = new FormsIdentityContext();
 
+        // State trackers for button active states
+        private bool isDashboardActive = true;
+        private bool isServicesActive = false;
+        private bool isCategoryActive = false;
+        private bool isLogsActive = false;
+        private bool isCommentsActive = false;
+
         public dashboard()
         {
             InitializeComponent();
@@ -18,63 +26,119 @@ namespace AdminApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Default Page
-            showScreen(new DashboardPage()); 
+            // Default Page
+            showScreen(new pageDashboard());
+            // Set active state
+            SetActiveButtonState(dashboardBtn);
+            // Update images and colors
+            UpdateButtonStyles();
 
             if (ProjectFormApp.Global.HomeCareUser != null)
             {
-
                 label2.Text = Global.HomeCareUser.FullName;
             }
             else
             {
                 label2.Text = "User not set";
             }
+            //this is to hide logs from managers
+            if (Global.HomeCareUser.UserRole == "Manager")
+            {
+                logsBtn.Enabled = false;
+                logsBtn.Hide();
+
+
+            }
         }
 
-        //VISUAL ELEMENTS
+        // Visual Elements
 
-        // Dahsboard Button
+        // Dashboard Button
         private void dashboardBtn_MouseEnter(object sender, EventArgs e)
         {
-            hoverText(dashboardBtn, Color.White);
+            if (!isDashboardActive)
+            {
+                hoverText(dashboardBtn, Color.White);
+            }
         }
 
         private void dashboardBtn_MouseLeave(object sender, EventArgs e)
         {
-            hoverText(dashboardBtn, Color.FromArgb(131, 140, 163));
+            if (!isDashboardActive)
+            {
+                hoverText(dashboardBtn, Color.FromArgb(131, 140, 163));
+            }
         }
-        //Services Button
+
+        // Services Button
         private void servicesBtn_MouseEnter(object sender, EventArgs e)
         {
-            hoverText(servicesBtn, Color.White);
+            if (!isServicesActive)
+            {
+                hoverText(servicesBtn, Color.White);
+            }
         }
 
         private void servicesBtn_MouseLeave(object sender, EventArgs e)
         {
-            hoverText(servicesBtn, Color.FromArgb(131, 140, 163));
+            if (!isServicesActive)
+            {
+                hoverText(servicesBtn, Color.FromArgb(131, 140, 163));
+            }
         }
-        //Category Button
+
+        // Category Button
         private void categoryBtn_MouseEnter(object sender, EventArgs e)
         {
-            hoverText(categoryBtn, Color.White);
+            if (!isCategoryActive)
+            {
+                hoverText(categoryBtn, Color.White);
+            }
         }
 
         private void categoryBtn_MouseLeave(object sender, EventArgs e)
         {
-            hoverText(categoryBtn, Color.FromArgb(131, 140, 163));
+            if (!isCategoryActive)
+            {
+                hoverText(categoryBtn, Color.FromArgb(131, 140, 163));
+            }
         }
-        //Logs Button
+
+        // Logs Button
         private void logsBtn_MouseEnter(object sender, EventArgs e)
         {
-            hoverText(logsBtn, Color.White);
+            if (!isLogsActive)
+            {
+                hoverText(logsBtn, Color.White);
+            }
         }
 
         private void logsBtn_MouseLeave(object sender, EventArgs e)
         {
-            hoverText(logsBtn, Color.FromArgb(131, 140, 163));
+            if (!isLogsActive)
+            {
+                hoverText(logsBtn, Color.FromArgb(131, 140, 163));
+            }
         }
-        //Logout Button
+
+        // Comments Button
+        private void btnComments_MouseEnter(object sender, EventArgs e)
+        {
+            if (!isCommentsActive)
+            {
+                hoverText(btnComments, Color.White);
+            }
+        }
+
+        private void btnComments_MouseLeave(object sender, EventArgs e)
+        {
+            if (!isCommentsActive)
+            {
+                hoverText(btnComments, Color.FromArgb(131, 140, 163));
+            }
+        }
+
+        // Logout Button
         private void logoutBtn_MouseEnter(object sender, EventArgs e)
         {
             hoverText(logoutBtn, Color.White);
@@ -84,16 +148,6 @@ namespace AdminApp
         {
             hoverText(logoutBtn, Color.FromArgb(131, 140, 163));
         }
-        //Bell Button
-        private void bellBtn_MouseEnter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bellBtn_MouseLeave(object sender, EventArgs e)
-        {
-
-        }
 
         private void hoverText(Button btn, Color clr)
         {
@@ -102,12 +156,89 @@ namespace AdminApp
 
         private void logsBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new logsPage());
+            showScreen(new pageLogs());
+
+            // Set active state
+            SetActiveButtonState(logsBtn);
+
+            // Update images and colors
+            UpdateButtonStyles();
         }
 
         private void dashboardBtn_Click(object sender, EventArgs e)
         {
-            showScreen(new DashboardPage());
+            showScreen(new pageDashboard());
+
+            // Set active state
+            SetActiveButtonState(dashboardBtn);
+
+            // Update images and colors
+            UpdateButtonStyles();
+        }
+
+        private void servicesBtn_Click(object sender, EventArgs e)
+        {
+            showScreen(new pageServies());
+
+            // Set active state
+            SetActiveButtonState(servicesBtn);
+
+            // Update images and colors
+            UpdateButtonStyles();
+        }
+
+        private void categoryBtn_Click(object sender, EventArgs e)
+        {
+            showScreen(new pageCategory());
+
+            // Set active state
+            SetActiveButtonState(categoryBtn);
+
+            // Update images and colors
+            UpdateButtonStyles();
+        }
+
+        private void btnComments_Click(object sender, EventArgs e)
+        {
+            showScreen(new pageComments());
+
+            // Set active state
+            SetActiveButtonState(btnComments);
+
+            // Update images and colors
+            UpdateButtonStyles();
+        }
+
+        private void SetActiveButtonState(Button activeButton)
+        {
+            isDashboardActive = activeButton == dashboardBtn;
+            isServicesActive = activeButton == servicesBtn;
+            isCategoryActive = activeButton == categoryBtn;
+            isLogsActive = activeButton == logsBtn;
+            isCommentsActive = activeButton == btnComments;
+        }
+
+        private void UpdateButtonStyles()
+        {
+            // Dashboard button
+            dashboardBtn.ForeColor = isDashboardActive ? Color.White : Color.FromArgb(131, 140, 163);
+            dashboardBtn.Image = isDashboardActive ? adminApp.Properties.Resources.menu_white : adminApp.Properties.Resources.menu_32px;
+
+            // Services button
+            servicesBtn.ForeColor = isServicesActive ? Color.White : Color.FromArgb(131, 140, 163);
+            servicesBtn.Image = isServicesActive ? adminApp.Properties.Resources.whire_repair_tool : adminApp.Properties.Resources.repair_tool;
+
+            // Category button
+            categoryBtn.ForeColor = isCategoryActive ? Color.White : Color.FromArgb(131, 140, 163);
+            categoryBtn.Image = isCategoryActive ? adminApp.Properties.Resources.white_options_lines : adminApp.Properties.Resources.options_lines;
+
+            // Logs button
+            logsBtn.ForeColor = isLogsActive ? Color.White : Color.FromArgb(131, 140, 163);
+            logsBtn.Image = isLogsActive ? adminApp.Properties.Resources.white_editNEW : adminApp.Properties.Resources.editNEW;
+
+            // Comments button
+            btnComments.ForeColor = isCommentsActive ? Color.White : Color.FromArgb(131, 140, 163);
+            btnComments.Image = isCommentsActive ? adminApp.Properties.Resources.WhiteComment : adminApp.Properties.Resources.comment;
         }
 
         private void goToPage(Form form)
@@ -118,18 +249,18 @@ namespace AdminApp
 
         private void logoutBtn_Click(object sender, EventArgs e)
         {
-            //clear out everything in Global class
+            // Clear out everything in Global class
             Global.User = null;
             Global.RoleName = null;
             Global.AllAdmins = null;
             Global.AllUsers = null;
             Global.AllManagers = null;
-            Global.AllTechnicicans = null;
+            Global.AllTechnicians = null;
             Global.HomeCareUser = null;
             goToPage(new Login());
         }
 
-        public void showScreen(object Form) //Change Panel To Form
+        public void showScreen(object Form) // Change Panel To Form
         {
             if (this.mainScreen.Controls.Count > 0)
                 this.mainScreen.Controls.RemoveAt(0);
@@ -141,39 +272,9 @@ namespace AdminApp
             f.Show();
         }
 
-        private void servicesBtn_Click(object sender, EventArgs e)
-        {
-            showScreen(new servicesPage());
-        }
-
-        private void categoryBtn_Click(object sender, EventArgs e)
-        {
-            showScreen(new categoryPage());
-        }
-
         private void bellBtn_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mainScreen_Paint(object sender, PaintEventArgs e)
-        {
-
+            //TODO: Implement bell button click
         }
 
         private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
@@ -183,7 +284,8 @@ namespace AdminApp
 
         private void label2_Click(object sender, EventArgs e)
         {
-
+            // Implementation for label2 click
         }
+
     }
 }

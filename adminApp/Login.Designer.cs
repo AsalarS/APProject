@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
+            lblLogo = new Label();
+            lblEmail = new Label();
+            lblPass = new Label();
             txtUserName = new TextBox();
             txtPassword = new TextBox();
             loginBtn = new Button();
@@ -38,36 +39,36 @@
             btnDebugManager = new Button();
             SuspendLayout();
             // 
-            // label1
+            // lblLogo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 48F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(276, 106);
-            label1.Name = "label1";
-            label1.Size = new Size(504, 86);
-            label1.TabIndex = 0;
-            label1.Text = "Company Name";
+            lblLogo.AutoSize = true;
+            lblLogo.Font = new Font("Segoe UI Semibold", 72F, FontStyle.Bold, GraphicsUnit.Point);
+            lblLogo.ForeColor = Color.White;
+            lblLogo.Location = new Point(274, 79);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new Size(540, 128);
+            lblLogo.TabIndex = 0;
+            lblLogo.Text = "Home Care";
             // 
-            // label2
+            // lblEmail
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(324, 256);
-            label2.Name = "label2";
-            label2.Size = new Size(41, 15);
-            label2.TabIndex = 1;
-            label2.Text = "E-mail";
+            lblEmail.AutoSize = true;
+            lblEmail.ForeColor = Color.White;
+            lblEmail.Location = new Point(324, 256);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(41, 15);
+            lblEmail.TabIndex = 1;
+            lblEmail.Text = "E-mail";
             // 
-            // label3
+            // lblPass
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(325, 335);
-            label3.Name = "label3";
-            label3.Size = new Size(57, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Password";
+            lblPass.AutoSize = true;
+            lblPass.ForeColor = Color.White;
+            lblPass.Location = new Point(325, 335);
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(57, 15);
+            lblPass.TabIndex = 2;
+            lblPass.Text = "Password";
             // 
             // txtUserName
             // 
@@ -138,10 +139,11 @@
             Controls.Add(loginBtn);
             Controls.Add(txtPassword);
             Controls.Add(txtUserName);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(lblPass);
+            Controls.Add(lblEmail);
+            Controls.Add(lblLogo);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
@@ -152,9 +154,9 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label lblLogo;
+        private Label lblEmail;
+        private Label lblPass;
         private TextBox txtUserName;
         private TextBox txtPassword;
         private Button loginBtn;

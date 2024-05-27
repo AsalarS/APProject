@@ -15,7 +15,7 @@ namespace ProjectFormApp
         public static HomeCareObjects.Model.User HomeCareUser;
 
         public static IEnumerable<IdentityUser> AllAdmins;
-        public static IEnumerable<IdentityUser> AllTechnicicans;
+        public static IEnumerable<IdentityUser> AllTechnicians;
         public static IEnumerable<IdentityUser> AllManagers;
         public static IEnumerable<IdentityUser> AllUsers;
     }
