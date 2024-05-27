@@ -251,6 +251,11 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.RequestStatus = 4;
                 _context.Update(serviceRequest);
+                notification.NotificationText = "Your service request has been canceled";
+                notification.Type = "Service Request Update";
+                notification.Status = "Unread";
+                notification.UserId = serviceRequest.CustomerId;
+                _context.Notifications.Add(notification);
             }
 
             await _context.SaveChangesAsync();
@@ -280,6 +285,11 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.RequestStatus = 3;
                 _context.Update(serviceRequest);
+                notification.NotificationText = "Your service request has been completed";
+                notification.Type = "Service Request Update";
+                notification.Status = "Unread";
+                notification.UserId = serviceRequest.CustomerId;
+                _context.Notifications.Add(notification);
             }
 
             await _context.SaveChangesAsync();
