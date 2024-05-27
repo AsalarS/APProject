@@ -127,9 +127,9 @@ namespace adminApp.Dialogue
 
         private void ddlCategory_SelectedIndexChanged(object sender, EventArgs e) //TODO: please fix this
         {
-
             try
             {
+
                 var selectedValue = Convert.ToInt32(ddlCategory.SelectedValue);
                 var technicianIds = context.Services
                                            .Where(x => x.CategoryId == selectedValue)
@@ -147,9 +147,11 @@ namespace adminApp.Dialogue
             }
             catch (Exception ex)
             {
-                
-                MessageBox.Show("Error: " + ex.Message);
+                // MessageBox.Show(ex.Message);
+                // MessageBox.Show($"Error: {ex.InnerException?.Message}");
+                MessageBox.Show("Error on save: " + ex.Message);
             }
+
         }
     }
 }
