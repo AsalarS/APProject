@@ -12,10 +12,12 @@ namespace HomeCareWebApp.Controllers
     public class ServicesController : Controller
     {
         private readonly HomeCareDBContext _context;
+        private Notification notification;
 
         public ServicesController(HomeCareDBContext context)
         {
             _context = context;
+            
         }
 
         // GET: Services
@@ -23,7 +25,7 @@ namespace HomeCareWebApp.Controllers
         {
 
             IEnumerable<Service> homeCareDBContext;
-            homeCareDBContext= _context.Services.Include(s => s.Category).Include(s => s.Technician);
+            homeCareDBContext= _context.Services.Include(x => x.Category.Manager).Include(s => s.Category).Include(s => s.Technician);
 
             if (!String.IsNullOrEmpty(SearchString))
             {
@@ -64,7 +66,16 @@ namespace HomeCareWebApp.Controllers
         // GET: Services/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName");
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName");
+
+            }
             ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "Email");
             return View();
         }
@@ -76,13 +87,27 @@ namespace HomeCareWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ServiceId,ServiceName,ServiceDescription,ServicePrice,CategoryId,TechnicianId")] Service service)
         {
+            notification = new Notification();
             if (ModelState.IsValid)
             {
                 _context.Add(service);
+                notification.Status = "Unread";
+                notification.NotificationText = "You have been assigned to a  new service";
+                notification.Type = "Test";
+                notification.UserId = Convert.ToInt32(service.TechnicianId);
+                _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
+
+            }else if (User.IsInRole("Manager"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
+
+            }
             ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId);
             return View(service);
         }
@@ -100,8 +125,17 @@ namespace HomeCareWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId);
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
+
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
+
+            }
+            ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "Email", service.TechnicianId);
             return View(service);
         }
 
@@ -137,7 +171,16 @@ namespace HomeCareWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", service.CategoryId);
+
+            }
+            else if (User.IsInRole("Manager"))
+            {
+                ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
+
+            }
             ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId);
             return View(service);
         }

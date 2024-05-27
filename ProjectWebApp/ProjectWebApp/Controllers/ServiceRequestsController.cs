@@ -14,10 +14,12 @@ namespace HomeCareWebApp.Controllers
     public class ServiceRequestsController : Controller
     {
         private readonly HomeCareDBContext _context;
+        private Notification notification;
 
         public ServiceRequestsController(HomeCareDBContext context)
         {
             _context = context;
+            notification = new Notification();
         }
 
         // GET: ServiceRequests
@@ -97,6 +99,11 @@ namespace HomeCareWebApp.Controllers
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
                 serviceRequest.RequestStatus = 1; // Set Request Status to 0 (Pending)
                 _context.Add(serviceRequest);
+                notification.Status = "Unread";
+                notification.NotificationText = "A new Service request have been created";
+                notification.Type = "New Service Request";
+                notification.UserId = serviceRequest.CustomerId;
+                _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
