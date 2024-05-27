@@ -1,0 +1,58 @@
+﻿@using HomeCareWebApp.ViewModels
+@model TechniciansServicesViewModel
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Service.ServiceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technicians)
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.Technicians.) *@
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.Category) *@
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.Technician) *@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Technicians) {
+        <tr>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.ServiceName) *@
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.ServiceDescription) *@
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.ServicePrice) *@
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.Category.CategoryId) *@
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.Technician.UserId) *@
+            </td>
+            <td>
+                @* <a asp-action="Edit" asp-route-id="@item.ServiceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ServiceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ServiceId">Delete</a> *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

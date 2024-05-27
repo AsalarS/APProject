@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
+using HomeCareWebApp.ViewModels;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -43,6 +44,15 @@ namespace HomeCareWebApp.Controllers
             return View(homeCareDBContext);
         }
 
+        public async Task<IActionResult> TechsIndex(int id)
+        {
+            var techs = new TechniciansServicesViewModel
+            {
+                Service = _context.Services.FirstOrDefault(i => i.ServiceId == id),
+                //Technicians = _context.Services.
+            };
+            return View();
+        }
         // GET: Services/Details/5
         public async Task<IActionResult> Details(int? id)
         {
