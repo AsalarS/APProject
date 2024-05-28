@@ -258,7 +258,7 @@ namespace HomeCareWebApp.Controllers
             Log log = new Log();
             log.Source = "Web App";
             log.DateTime = DateTime.Now;
-            log.ExceptionType = type;
+            log.Type = type;
             log.Message = message;
             log.OriginalValues = originalValues;
             log.CurrentValues = currentValues;

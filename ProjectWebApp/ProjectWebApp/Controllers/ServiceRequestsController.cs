@@ -196,25 +196,25 @@ namespace HomeCareWebApp.Controllers
                     _context.Entry(orgReq).State = EntityState.Detached;
                     var userEmail = User.Identity.GetUserName();
                     _context.Update(serviceRequest);
-                    notification.Type = "Service Request Update";
-                    notification.Status = "Unread";
-                    notification.UserId = serviceRequest.CustomerId;
 
                     if (serviceRequest.RequestStatus == 2)
                     {
-                        notification.NotificationText = "Your service request has an assigned technician and it is now Active";
-                    }
+                    string notificationText = "Your service request has an assigned technician and it is now Active";
+                    string type = "Service Request Update";
+                    string status = "Unread";
+                    int uid = serviceRequest.CustomerId;
                     _context.Notifications.Add(notificationTec);
-                    _context.Notifications.Add(notification);
+                        addNotification(notificationText,status,type,uid);
+                    }
                     try
                     {
-                        AddLog("Audit", "Updated service request", "Original Values: " +
-                            $"Request Description: {orgReq.RequestDescription}" +
-                            $"Date Needed: {orgReq.DateNeeded.ToString()}" +
+                        AddLog("Audit", "Updated service request", 
+                            $"Request Description: {orgReq.RequestDescription}. " +
+                            $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
                             $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
-                            , "Current Values: " +
-                            $"Request Description: {serviceRequest.RequestDescription} " +
-                            $"Date Needed: {serviceRequest.DateNeeded.ToString()}" +
+                            , 
+                            $"Request Description: {serviceRequest.RequestDescription}. " +
+                            $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
                             $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
 
                             , _context.Users.SingleOrDefault(x => x.Email == userEmail));
@@ -352,7 +352,7 @@ namespace HomeCareWebApp.Controllers
             Log log = new Log();
             log.Source = "Web App";
             log.DateTime = DateTime.Now;
-            log.ExceptionType = type;
+            log.Type = type;
             log.Message = message;
             log.OriginalValues = originalValues;
             log.CurrentValues = currentValues;
