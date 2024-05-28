@@ -112,6 +112,7 @@ namespace HomeCareWebApp.Controllers
                     }
                     _context.Add(document);
                     await _context.SaveChangesAsync();
+                    TempData["Success"] = "Document Uploaded Successfully";
                     return RedirectToAction(nameof(Index));
                 
                 }catch(NullReferenceException ex)
@@ -161,6 +162,7 @@ namespace HomeCareWebApp.Controllers
             }
             
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Document Deleted Successfully";
             return RedirectToAction(nameof(Index));
         }
 

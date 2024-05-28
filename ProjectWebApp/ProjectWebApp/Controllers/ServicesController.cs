@@ -26,7 +26,7 @@ namespace HomeCareWebApp.Controllers
         {
 
             IEnumerable<Service> homeCareDBContext;
-            homeCareDBContext = _context.Services.Include(x => x.Category.Manager).Include(s => s.Category).Include(s => s.Technician)
+            homeCareDBContext = _context.Services.Include(x => x.Category.Manager).Include(s => s.Category).Include(s => s.Technician);
 
             if (!String.IsNullOrEmpty(SearchString)) //If the user entered something in the search bar
             {
