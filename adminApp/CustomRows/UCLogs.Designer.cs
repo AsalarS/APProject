@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             lblTime = new Label();
             lblDate = new Label();
             lblFullName = new Label();
             lblSource = new Label();
             lblMessage = new Label();
+            toolTipUserID = new ToolTip(components);
             SuspendLayout();
             // 
             // panel1
@@ -84,6 +86,7 @@
             lblFullName.Size = new Size(168, 25);
             lblFullName.TabIndex = 13;
             lblFullName.Text = "John Mohammed Doe";
+            toolTipUserID.SetToolTip(lblFullName, "UserID");
             // 
             // lblSource
             // 
@@ -110,6 +113,12 @@
             lblMessage.TabIndex = 16;
             lblMessage.Text = "Message";
             // 
+            // toolTipUserID
+            // 
+            toolTipUserID.BackColor = Color.FromArgb(50, 50, 77);
+            toolTipUserID.ForeColor = Color.White;
+            toolTipUserID.ToolTipTitle = "User ID";
+            // 
             // UCLogs
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -135,5 +144,6 @@
         private Label lblFullName;
         private Label lblSource;
         private Label lblMessage;
+        private ToolTip toolTipUserID;
     }
 }

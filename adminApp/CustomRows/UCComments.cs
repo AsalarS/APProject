@@ -26,8 +26,11 @@ namespace adminApp.CustomRows
 
         private String _comment;
         private String _serviceName;
+        private String _serviceId;
         private String _userName;
+        private String _userId;
         private String _category;
+        private String _categoryId;
         private String _date;
         private String _time;
 
@@ -49,15 +52,33 @@ namespace adminApp.CustomRows
             set { _serviceName = value; lblServiceName.Text = value; }
         }
 
+        public String ServiceId
+        {
+            get { return _serviceId; }
+            set { _serviceId = value; toolTipServiceID.SetToolTip(lblServiceName, value); }
+        }
+
         public String UserName
         {
             get { return _userName; }
             set { _userName = value; lblUserName.Text = value; }
         }
+        public String UserId
+        {
+            get { return _userId; }
+            set { _userId = value; toolTipUserID.SetToolTip(lblUserName, value); }
+        }
+
         public String Category
         {
             get { return _category; }
             set { _category = value; lblCategory.Text = value; }
+        }
+
+        public String CategoryId
+        {
+            get { return _categoryId; }
+            set { _categoryId = value; toolTipCategoryID.SetToolTip(lblCategory, value); }
         }
 
         public String Date

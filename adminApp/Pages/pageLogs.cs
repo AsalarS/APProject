@@ -57,6 +57,7 @@ namespace AdminApp.Pages
                         log.Message,
                         log.Source,
                         UserName = log.User.FullName,
+                        UserID = log.User.UserId,
                         log.DateTime
                     })
                     .ToList();
@@ -85,6 +86,7 @@ namespace AdminApp.Pages
                     logControl.logMessage = log.Message;
                     logControl.source = log.Source;
                     logControl.userName = log.UserName;
+                    logControl.userID = log.UserID.ToString();
                     logControl.date = log.DateTime.ToString("yyyy-MM-dd");
                     logControl.time = log.DateTime.ToString("HH:mm:ss");
 
