@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
 using HomeCareWebApp.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -97,10 +98,12 @@ namespace HomeCareWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ServiceId,ServiceName,ServiceDescription,ServicePrice,CategoryId,TechnicianId")] Service service)
         {
+            var userEmail = User.Identity.GetUserName();
             notification = new Notification();
             if (ModelState.IsValid)
             {
                 _context.Add(service);
+
                 notification.Status = "Unread";
                 notification.NotificationText = "You have been assigned to a  new service";
                 notification.Type = "Test";
@@ -109,10 +112,8 @@ namespace HomeCareWebApp.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                   //AddLog("Insert", "A new service have been inserted", "None", "None", Manager ID Should be here);
-                    _context.SaveChanges();
-
-
+                   AddLog("Insert", "A new service have been inserted", "None", "None",_context.Users.SingleOrDefault(x => x.Email == userEmail));
+                   
                 }
                 catch (Exception)
                 {
@@ -234,6 +235,7 @@ namespace HomeCareWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userEmail = User.Identity.GetUserName();
             if (_context.Services == null)
             {
                 return Problem("Entity set 'HomeCareDBContext.Services'  is null.");
@@ -243,8 +245,18 @@ namespace HomeCareWebApp.Controllers
             {
                 _context.Services.Remove(service); //Delete the service
             }
+            try
+            {  
+                await _context.SaveChangesAsync();
+                AddLog("Action", "Service have been removed", "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail)); //Add a log of the action
 
-            await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail)); //Record exception
+                throw;
+            }
+          
             return RedirectToAction(nameof(Index));
         }
 
@@ -253,17 +265,21 @@ namespace HomeCareWebApp.Controllers
             return (_context.Services?.Any(e => e.ServiceId == id)).GetValueOrDefault();
         }
 
-        private void AddLog(string type, string message, string originalValues, string currentValues, int uid) //A reusable method that will be used to insert logs 
+        private void AddLog(string type, string message, string originalValues, string currentValues, User user)
         {
-            Log log = new Log();
-            log.Source = "Web App";
-            log.DateTime = DateTime.Now;
-            log.Type = type;
-            log.Message = message;
-            log.OriginalValues = originalValues;
-            log.CurrentValues = currentValues;
-            log.UserId = uid;
+            int uid = user.UserId;
+            Log log = new Log
+            {
+                Source = "Web App",
+                DateTime = DateTime.Now,
+                Type = type,
+                Message = message,
+                OriginalValues = originalValues,
+                CurrentValues = currentValues,
+                UserId = uid
+            };
             _context.Logs.Add(log);
+            _context.SaveChanges();
 
         }
     }
