@@ -58,7 +58,7 @@ namespace AdminApp
             }
         }
 
-        // Visual Elements
+        // <---------------------------- Visual Elements ---------------------------->
 
         // Dashboard Button
         private void dashboardBtn_MouseEnter(object sender, EventArgs e)
@@ -216,7 +216,7 @@ namespace AdminApp
             UpdateButtonStyles();
         }
 
-        private void SetActiveButtonState(Button activeButton)
+        private void SetActiveButtonState(Button activeButton) // Set the active button state
         {
             isDashboardActive = activeButton == dashboardBtn;
             isServicesActive = activeButton == servicesBtn;
@@ -254,7 +254,7 @@ namespace AdminApp
             form.Show();
         }
 
-        private void logoutBtn_Click(object sender, EventArgs e)
+        private void logoutBtn_Click(object sender, EventArgs e) //logout and clear all global variables
         {
             // Clear out everything in Global class
             Global.User = null;
@@ -267,7 +267,7 @@ namespace AdminApp
             goToPage(new Login());
         }
 
-        public void showScreen(object Form) // Change Panel To Form
+        public void showScreen(object Form) // Change the forms showing in the panel to navigate the application
         {
             if (this.mainScreen.Controls.Count > 0)
                 this.mainScreen.Controls.RemoveAt(0);
@@ -282,11 +282,6 @@ namespace AdminApp
         private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            // Implementation for label2 click
         }
 
     }
