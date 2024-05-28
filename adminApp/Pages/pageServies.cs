@@ -24,11 +24,9 @@ namespace AdminApp
 
         private void servicesPage_Load(object sender, EventArgs e)
         {
-            //this is to change the text color
-            //this.ForeColor = Color.Black;
-            dgvServices.ForeColor = Color.Black;
-            RefreshGridView();
+            RefreshGridView(); //Populate Data Grid View
 
+            //Populate the comboboxes
             ddlCategory.DataSource = context.Categories.ToList();
             ddlCategory.DisplayMember = "CategoryName";
             ddlCategory.ValueMember = "CategoryID";
@@ -42,7 +40,7 @@ namespace AdminApp
 
         }
 
-        private void RefreshGridView()
+        private void RefreshGridView() //Refresh & Populate Data Grid View
         {
             dgvServices.DataSource = null;
             var servicesToShow = context.Services.AsQueryable();
@@ -105,16 +103,18 @@ namespace AdminApp
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int firstcell = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
+            int firstcell = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value); //Get the service ID of the selected row
             Service service = context.Services.Single(x => x.ServiceId == firstcell);
-            int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
+            int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value); //Get the CategoryID of the selected row
 
-            if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
+            if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString())
+                && Global.HomeCareUser.UserRole != "Admin") //If the user is not the manager of the category
             {
                 MessageBox.Show("the Service your trying to Delete is assigned to another manager");
                 return;
             }
 
+            //Validating delete
             if (MessageBox.Show("Are you sure you want to delete service (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 try
@@ -122,23 +122,24 @@ namespace AdminApp
                     context.Services.Remove(service);
                     context.SaveChanges();
                     MessageBox.Show("Deleted successfully. ");
-                    Logger("Service Deleted");
+                    Logger("Service Deleted"); //Logging action to database
                     RefreshGridView();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error when trying to delete: {ex.InnerException?.Message}");
+                    MessageBox.Show($"Error when trying to delete service: {ex.InnerException?.Message}");
                 }
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //Open the dialogue to add a new service
             servicesDialogue frmservicedialouge = new servicesDialogue();
             frmservicedialouge.ShowDialog();
             if (frmservicedialouge.DialogResult == DialogResult.OK)
             {
-                MessageBox.Show("Added successfully."); //Show feedback to the user
+                MessageBox.Show("Added successfully.");
                 Logger("Service Added");
                 RefreshGridView(); //refresh only if the user added a new record
             }
@@ -149,11 +150,12 @@ namespace AdminApp
             try
             {
 
-                int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value);
-                int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value);
+                int SelectedServiceID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[0].Value); //Get the serviceID of the selected row
+                int SelectedCategoryID = Convert.ToInt32(dgvServices.SelectedCells[0].OwningRow.Cells[4].Value); //Get the CategoryID of the selected row
                 servicesDialogue frmServiceEdit = new servicesDialogue(SelectedServiceID);
 
-                if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) && Global.HomeCareUser.UserRole != "Admin")
+                if (Global.HomeCareUser.UserId != Convert.ToInt32(context.Categories.Where(x => x.CategoryId == SelectedCategoryID).FirstOrDefault().ManagerId.ToString()) 
+                    && Global.HomeCareUser.UserRole != "Admin") //If the user is not the manager of the category
                 {
                     MessageBox.Show("the Service your trying to update is assigned to another manager");
                     return;
@@ -163,7 +165,7 @@ namespace AdminApp
                     frmServiceEdit.ShowDialog();
                 }
 
-                if (frmServiceEdit.DialogResult == DialogResult.OK)
+                if (frmServiceEdit.DialogResult == DialogResult.OK) //give feedback to the use if update is successful
                 {
                     Logger("Service Updated");
                     RefreshGridView();
@@ -176,19 +178,20 @@ namespace AdminApp
             }
         }
 
-        private void btnFilter_Click(object sender, EventArgs e)
+        private void btnFilter_Click(object sender, EventArgs e) //Filter functionlity is integrated into the RefreshGridView function
         {
             RefreshGridView();
         }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            //Reset the filters and DataGridView
             txtServiceID.Text = "";
             ddlTechnician.SelectedItem = null;
             ddlCategory.SelectedItem = null;
             RefreshGridView();
         }
-        private void Logger(string Message)
+        private void Logger(string Message) //Logging to database function
         {
 
             try
@@ -198,7 +201,7 @@ namespace AdminApp
                 log.Source = "Desktop App";
                 log.DateTime = DateTime.Now;
                 log.UserId = Global.HomeCareUser.UserId;
-                log.ExceptionType = "N/A";
+                log.Type = "N/A";
                 log.OriginalValues = "N/A";
                 log.CurrentValues = "N/A";
 

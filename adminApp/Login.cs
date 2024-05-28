@@ -33,6 +33,7 @@ namespace AdminApp
 
         private async void loginBtn_Click(object sender, EventArgs e)
         {
+            //validation and feedback
             var signInResults = await VerifyUserNamePassword(txtUserName.Text, txtPassword.Text);
             if (signInResults == true && Global.HomeCareUser.UserRole != "Customer" && Global.HomeCareUser.UserRole != "Technician") //if user is verified
             {
@@ -41,13 +42,19 @@ namespace AdminApp
                 this.Hide();
                 dash.Show();
             }
-            else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician")
+            else if (txtUserName.Text == "" || txtPassword.Text == "")
             {
-                MessageBox.Show("Access Denied!!" , "Error");
+                MessageBox.Show("you left either username or password empty", "Error");
+            }
+            else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician") //if user is verified (not technician not Customer)
+            {
+                MessageBox.Show("Access Denied!!", "Error");
             }
             else
             {
                 MessageBox.Show("Error. The username or password are not correct");
+
+                //reset textboxes
                 txtUserName.Text = "";
                 txtPassword.Text = "";
             }
@@ -137,15 +144,12 @@ namespace AdminApp
             Application.Exit();
         }
 
+        //TODO: Remove this code
         private void btnDebugLogin_Click(object sender, EventArgs e)
         {
             //this comment below is for debugging purposes
             txtUserName.Text = "admin@test.com";
             txtPassword.Text = "Test@123";
-
-            /* this.Hide();
-             dashboard dashboard = new dashboard();
-             dashboard.Show();*/
         }
 
         private void btnDebugManager_Click(object sender, EventArgs e)
