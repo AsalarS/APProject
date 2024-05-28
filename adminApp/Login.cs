@@ -46,7 +46,6 @@ namespace AdminApp
             {
                 MessageBox.Show("you left either username or password empty", "Error");
             }
-            else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician")
             else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician") //if user is verified (not technician not Customer)
             {
                 MessageBox.Show("Access Denied!!", "Error");
