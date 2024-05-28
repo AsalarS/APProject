@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<HomeCareObjects.Model.Service>
 
 @{
-    ViewData["Title"] = "Services";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Services</h1>
 
 @if(User.IsInRole("Admin") || User.IsInRole("Manager")){
     <p>
