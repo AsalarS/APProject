@@ -14,7 +14,7 @@ using adminApp.Dialogue;
 
 namespace AdminApp.Pages
 {
-    public partial class pageCategory : Form //TODO: Change datagridview colors
+    public partial class pageCategory : Form
     {
         HomeCareDBContext context;
         public pageCategory()

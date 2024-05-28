@@ -13,7 +13,7 @@ using ProjectFormApp;
 
 namespace AdminApp
 {
-    public partial class pageServies : Form //TODO: Change datagridview colors
+    public partial class pageServies : Form
     {
         HomeCareDBContext context;
         public pageServies()
