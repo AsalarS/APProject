@@ -13,25 +13,25 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th scope ="col">
                 @Html.DisplayNameFor(model => model.Source)
             </th>
-            <th>
+            <th scope ="col">
                 @Html.DisplayNameFor(model => model.Type)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.DateTime)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Message)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.OriginalValues)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.CurrentValues)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.User)
             </th>
             <th></th>
@@ -39,7 +39,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            <tr class="table-primary">
             <td>
                 @Html.DisplayFor(modelItem => item.Source)
             </td>
