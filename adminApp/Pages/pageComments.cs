@@ -55,7 +55,7 @@ namespace adminApp.Pages
                     c.CommentText,
                     ServiceName = c.Request.Service.ServiceName,
                     ServiceId = c.Request.Service.ServiceId,
-                    UserName = c.Request.Customer.Username, // Assuming Username is what you meant by FullName
+                    UserName = c.Request.Customer.Username, 
                     UserId = c.Request.Customer.UserId,
                     c.CommentDate,
                     CategoryName = c.Request.Service.Category.CategoryName, // comment.Service.Category.CategoryName
