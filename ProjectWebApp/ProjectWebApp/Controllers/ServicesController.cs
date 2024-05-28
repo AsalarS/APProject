@@ -132,7 +132,7 @@ namespace HomeCareWebApp.Controllers
                 ViewData["CategoryId"] = new SelectList(_context.Categories.Where(x => x.Manager.Email == User.Identity.Name), "CategoryId", "CategoryName", service.CategoryId);
 
             }
-            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId);
+            ViewData["TechnicianId"] = new SelectList(_context.Users, "UserId", "Email", service.TechnicianId); 
             return View(service);
         }
 
