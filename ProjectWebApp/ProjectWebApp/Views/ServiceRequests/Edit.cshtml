@@ -27,7 +27,7 @@
                 <input asp-for="DateNeeded" class="form-control" />
                 <span asp-validation-for="DateNeeded" class="text-danger"></span>
             </div>
-             @if(User.IsInRole("Manager")){ 
+             @if(User.IsInRole("Manager") || User.IsInRole("Admin")){ 
             <div class="form-group">
                     <label asp-for="TechnicianId" class="control-label">Technician</label>
                     <select asp-for="TechnicianId" class="form-control" asp-items="ViewBag.TechnicianId"><option value="0" disabled selected>Select Technician</option></select>
@@ -36,7 +36,8 @@
              } 
             <div class="form-group">
                 <input type="submit" asp-action="Edit" value="Save" class="btn btn-primary" />
-                @if(User.IsInRole("Manager") || User.IsInRole("Technician")){
+                @if (User.IsInRole("Manager") || User.IsInRole("Technician") || User.IsInRole("Admin"))
+                {
                 <input type="submit" asp-action="Completed" asp-route-id="@Model.RequestId" value="Mark As Completed" class="btn btn-primary" />
                 }
             </div>

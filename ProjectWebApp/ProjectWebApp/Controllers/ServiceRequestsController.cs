@@ -23,7 +23,6 @@ namespace HomeCareWebApp.Controllers
             _context = context;
             notification = new Notification();
             notificationTec = new Notification();
-            notificationTec = new Notification();
         }
 
         private void addNotification(string text, string status, string type, int id)
@@ -117,14 +116,13 @@ namespace HomeCareWebApp.Controllers
                 try
                 {
                     await _context.SaveChangesAsync();
-                    AddLog("Inserting", "Updated service request", "None", "None", serviceRequest.CustomerId);
-                    _context.SaveChanges();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    
                     throw;
                 }
+                TempData["Success"] = "Request Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
@@ -194,29 +192,33 @@ namespace HomeCareWebApp.Controllers
                         serviceRequest.RequestStatus = 1;
 
                     }
-
+                    var orgReq = _context.ServiceRequests.Find(id);
+                    _context.Entry(orgReq).State = EntityState.Detached;
+                    var userEmail = User.Identity.GetUserName();
                     _context.Update(serviceRequest);
-                    notification.Type = "Service Request Update";
-                    notification.Status = "Unread";
-                    notification.UserId = serviceRequest.CustomerId;
 
                     if (serviceRequest.RequestStatus == 2)
                     {
-                        notification.NotificationText = "Your service request has an assigned technician and it is now Active";
-                    }else if(serviceRequest.RequestStatus == 3)
-                    {
-                        notification.NotificationText = "Your service request is now completed";
-                    }else if(serviceRequest.RequestStatus == 4)
-                    {
-                        notification.NotificationText = "Your service request has been canceled";
-                    }
+                    string notificationText = "Your service request has an assigned technician and it is now Active";
+                    string type = "Service Request Update";
+                    string status = "Unread";
+                    int uid = serviceRequest.CustomerId;
                     _context.Notifications.Add(notificationTec);
-                    _context.Notifications.Add(notification);
+                        addNotification(notificationText,status,type,uid);
+                    }
                     try
                     {
+                        AddLog("Audit", "Updated service request", 
+                            $"Request Description: {orgReq.RequestDescription}. " +
+                            $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
+                            $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
+                            , 
+                            $"Request Description: {serviceRequest.RequestDescription}. " +
+                            $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
+                            $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
+
+                            , _context.Users.SingleOrDefault(x => x.Email == userEmail));
                         await _context.SaveChangesAsync();
-                        AddLog("Inserting", "Updated service request", "None", "None", serviceRequest.CustomerId);
-                         _context.SaveChangesAsync();
 
                     }
                     catch (Exception)
@@ -237,6 +239,7 @@ namespace HomeCareWebApp.Controllers
                         throw;
                     }
                 }
+                TempData["Success"] = "Request Edited Successfully";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
@@ -289,11 +292,12 @@ namespace HomeCareWebApp.Controllers
             }
             catch (Exception ex)
             {
-
-                AddLog(ex.InnerException.Message, ex.Message, "None", "None", serviceRequest.CustomerId);
+                var userEmail = User.Identity.GetUserName();
+                AddLog(ex.InnerException.Message, ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                 throw;
 
             }
+            TempData["Success"] = "Request Canceled Successfully";
             return RedirectToAction(nameof(Index));
         }
 
@@ -318,9 +322,12 @@ namespace HomeCareWebApp.Controllers
             var serviceRequest = await _context.ServiceRequests.FindAsync(id);
             if (serviceRequest != null)
             {
+                var userEmail = User.Identity.GetUserName();
+                int orgStatus = serviceRequest.RequestStatus;
                 serviceRequest.RequestStatus = 3;
                 _context.Update(serviceRequest);
                 addNotification("Your service request has been completed", "Unread", "Service Request Update", serviceRequest.CustomerId);
+                AddLog("Action", "Service Request Update", $"Original Request Status: {orgStatus}", "New Request Status: 3",_context.Users.SingleOrDefault(x => x.Email == userEmail));
 
             }
             try
@@ -331,22 +338,27 @@ namespace HomeCareWebApp.Controllers
             }
             catch (Exception ex)
             {
-                AddLog(ex.InnerException.Message, ex.Message, "None", "None", serviceRequest.CustomerId);
+                var userEmail = User.Identity.GetUserName();
+                AddLog(ex.InnerException.Message, ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                 throw;
             }
+            TempData["Success"] = "Request Marked As Completed Successfully";
             return RedirectToAction(nameof(Index));
         }
 
-        private void AddLog(string type, string message, string originalValues, string currentValues, int uid)
+        private void AddLog(string type, string message, string originalValues, string currentValues, User user)
         {
-            Log log = new Log();
-            log.Source = "Web App";
-            log.DateTime = DateTime.Now;
-            log.ExceptionType = type;
-            log.Message = message;
-            log.OriginalValues = originalValues;
-            log.CurrentValues = currentValues;
-            log.UserId = uid;
+            int uid = user.UserId;
+            Log log = new Log
+            {
+                Source = "Web App",
+                DateTime = DateTime.Now,
+                Type = type,
+                Message = message,
+                OriginalValues = originalValues,
+                CurrentValues = currentValues,
+                UserId = uid
+            };
             _context.Logs.Add(log);
 
         }
