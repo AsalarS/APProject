@@ -27,10 +27,8 @@ namespace AdminApp.Pages
         {
             dgvCategory.DataSource = context.Users.ToList();
             RefreshGridView();
-            //this is to change the text color
-            this.ForeColor = Color.Black;
 
-            if (Global.HomeCareUser.UserRole == "Manager")
+            if (Global.HomeCareUser.UserRole == "Manager") //Hide the CRUD or Add, Delete, Update buttons if the user is not an Admin
             {
                 btnAdd.Enabled = false;
                 btnAdd.Hide();
@@ -41,6 +39,8 @@ namespace AdminApp.Pages
                 btnUpdate.Enabled = false;
                 btnUpdate.Hide();
             }
+
+            //Populate the combobox
             ddlManager.DataSource = context.Users.Where(x => x.UserRole == "Manager").ToList();
             ddlManager.DisplayMember = "FullName";
             ddlManager.ValueMember = "UserID";
@@ -96,7 +96,7 @@ namespace AdminApp.Pages
         {
             categoryDialogue frmcategoryAdd = new categoryDialogue();
             frmcategoryAdd.ShowDialog();
-            if (frmcategoryAdd.DialogResult == DialogResult.OK)
+            if (frmcategoryAdd.DialogResult == DialogResult.OK) //if category added successfully
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
                 RefreshGridView(); //refresh only if the user added a new record
@@ -106,7 +106,7 @@ namespace AdminApp.Pages
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int firstcell = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
+            int firstcell = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value); //Get the category ID of the selected row
             Category category = context.Categories.Single(x => x.CategoryId == firstcell);
 
             if (MessageBox.Show("Are you sure you want to delete category (" + firstcell + ")", "Confirm Delete", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -125,7 +125,6 @@ namespace AdminApp.Pages
                 }
                 catch (Exception ex)
                 {
-                    // MessageBox.Show(ex.Message);
                     MessageBox.Show($"Error: {ex.InnerException?.Message}");
                 }
 
@@ -137,11 +136,11 @@ namespace AdminApp.Pages
 
             try
             {
-                int SelectedCategoryID = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value);
+                int SelectedCategoryID = Convert.ToInt32(dgvCategory.SelectedCells[0].OwningRow.Cells[0].Value); //Get the category ID of the selected row
                 categoryDialogue frmCategoryEdit = new categoryDialogue(SelectedCategoryID);
                 frmCategoryEdit.ShowDialog();
 
-                if (frmCategoryEdit.DialogResult == DialogResult.OK)
+                if (frmCategoryEdit.DialogResult == DialogResult.OK) //if category updated successfully
                 {
                     Logger("Category Updated");
                     RefreshGridView();
@@ -160,11 +159,12 @@ namespace AdminApp.Pages
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            //Reset the filters
             txtCategoryID.Text = "";
             ddlManager.SelectedItem = null;
             RefreshGridView();
         }
-        private void Logger(string Message)
+        private void Logger(string Message) //Logging to database method
         {
 
             try
@@ -174,7 +174,7 @@ namespace AdminApp.Pages
                 log.Source = "Desktop App";
                 log.DateTime = DateTime.Now;
                 log.UserId = Global.HomeCareUser.UserId;
-                log.ExceptionType = "N/A";
+                log.Type = "N/A";
                 log.OriginalValues = "N/A";
                 log.CurrentValues = "N/A";
 

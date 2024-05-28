@@ -30,7 +30,7 @@
         {
             txtTechnicianName = new Label();
             txtTotalRequests = new Label();
-            txtFailedRequests = new Label();
+            txtCompletedRequests = new Label();
             panel1 = new Panel();
             SuspendLayout();
             // 
@@ -56,16 +56,16 @@
             txtTotalRequests.TabIndex = 1;
             txtTotalRequests.Text = "00";
             // 
-            // txtFailedRequests
+            // txtCompletedRequests
             // 
-            txtFailedRequests.AutoSize = true;
-            txtFailedRequests.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            txtFailedRequests.ForeColor = Color.FromArgb(131, 140, 163);
-            txtFailedRequests.Location = new Point(418, 15);
-            txtFailedRequests.Name = "txtFailedRequests";
-            txtFailedRequests.Size = new Size(21, 15);
-            txtFailedRequests.TabIndex = 2;
-            txtFailedRequests.Text = "00";
+            txtCompletedRequests.AutoSize = true;
+            txtCompletedRequests.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            txtCompletedRequests.ForeColor = Color.FromArgb(131, 140, 163);
+            txtCompletedRequests.Location = new Point(418, 15);
+            txtCompletedRequests.Name = "txtCompletedRequests";
+            txtCompletedRequests.Size = new Size(21, 15);
+            txtCompletedRequests.TabIndex = 2;
+            txtCompletedRequests.Text = "00";
             // 
             // panel1
             // 
@@ -76,16 +76,16 @@
             panel1.Size = new Size(450, 2);
             panel1.TabIndex = 3;
             // 
-            // technicianCustomRow
+            // UCTechnician
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             Controls.Add(panel1);
-            Controls.Add(txtFailedRequests);
+            Controls.Add(txtCompletedRequests);
             Controls.Add(txtTotalRequests);
             Controls.Add(txtTechnicianName);
-            Name = "technicianCustomRow";
+            Name = "UCTechnician";
             Size = new Size(470, 45);
             ResumeLayout(false);
             PerformLayout();
@@ -95,7 +95,7 @@
 
         private Label txtTechnicianName;
         private Label txtTotalRequests;
-        private Label txtFailedRequests;
+        private Label txtCompletedRequests;
         private Panel panel1;
     }
 }

@@ -89,11 +89,11 @@ namespace adminApp.Pages
                 {
                     UCComments commentControl = new UCComments();
                     commentControl.Comment = comment.CommentText;
-                    commentControl.ServiceName = comment.ServiceName; // ServiceName from the Services table
+                    commentControl.ServiceName = comment.ServiceName;
                     commentControl.ServiceId = comment.ServiceId.ToString();
                     commentControl.UserName = comment.UserName;
                     commentControl.UserId = comment.UserId.ToString();
-                    commentControl.Category = comment.CategoryName; // Category name from the Categories table
+                    commentControl.Category = comment.CategoryName;
                     commentControl.CategoryId = comment.categoryId.ToString();
                     commentControl.Date = comment.CommentDate.ToString("yyyy-MM-dd");
                     commentControl.Time = comment.CommentDate.ToString("HH:mm:ss");
@@ -111,6 +111,7 @@ namespace adminApp.Pages
         {
             RefreshData();
         }
+
         /*---------------  Sort Buttons Visual & Functionality  --------------------*/
 
         // Sort by Service Name
@@ -184,7 +185,7 @@ namespace adminApp.Pages
         }
     }
 
-    public enum SortType
+    public enum SortType //enum for sorting
     {
         Date,
         Category,

@@ -17,11 +17,13 @@ namespace adminApp.CustomRows
             InitializeComponent();
         }
 
+        // Properties for the User Control
+        //Each one is assigned to its label
         #region Properties
 
         private String _technicianName;
         private String _totalRequests;
-        private String _failedRequests;
+        private String _completedRequest;
 
         [Category("Custom Property")]
         public String technicianName
@@ -36,10 +38,10 @@ namespace adminApp.CustomRows
             set { _totalRequests = value; txtTotalRequests.Text = value; }
         }
 
-        public String failedRequests
+        public String completedRequests
         {
-            get { return _failedRequests; }
-            set { _failedRequests = value; txtFailedRequests.Text = value; }
+            get { return _completedRequest; }
+            set { _completedRequest = value; txtCompletedRequests.Text = value; }
         }
 
         #endregion
