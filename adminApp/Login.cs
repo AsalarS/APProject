@@ -41,9 +41,13 @@ namespace AdminApp
                 this.Hide();
                 dash.Show();
             }
+            else if (txtUserName.Text == "" || txtPassword.Text == "")
+            {
+                MessageBox.Show("you left either username or password empty", "Error");
+            }
             else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician")
             {
-                MessageBox.Show("Access Denied!!" , "Error");
+                MessageBox.Show("Access Denied!!", "Error");
             }
             else
             {
