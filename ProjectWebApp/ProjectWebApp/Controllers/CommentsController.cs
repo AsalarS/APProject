@@ -99,6 +99,7 @@ namespace HomeCareWebApp.Controllers
                 comment.CommentDate = DateTime.Now;
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Comment Added Successfully";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId", comment.RequestId);
@@ -152,6 +153,7 @@ namespace HomeCareWebApp.Controllers
                         throw;
                     }
                 }
+                TempData["Success"] = "Comment Edited Successfully";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["RequestId"] = new SelectList(_context.ServiceRequests, "RequestId", "RequestId", comment.RequestId);
@@ -193,6 +195,7 @@ namespace HomeCareWebApp.Controllers
             }
             
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Comment Deleted Successfully";
             return RedirectToAction(nameof(Index));
         }
 
