@@ -24,7 +24,13 @@ namespace HomeCareWebApp.Controllers
             notification = new Notification();
             notificationTec = new Notification();
         }
-
+        /// <summary>
+        /// Create a notification object for customer
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="status"></param>
+        /// <param name="type"></param>
+        /// <param name="id"></param>
         private void addNotification(string text, string status, string type, int id)
         {
             notification.Status = status;
@@ -62,6 +68,7 @@ namespace HomeCareWebApp.Controllers
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
 
             }
+            //check if search bar has value
             if (!String.IsNullOrEmpty(SearchString))
             {
                 serviceReqs = serviceReqs.Where(x => x.RequestDescription!.Contains(SearchString));
@@ -93,9 +100,10 @@ namespace HomeCareWebApp.Controllers
         // GET: ServiceRequests/Create
         public IActionResult Create()
         {
-            var userEmail = User.Identity.GetUserName();
-            ViewData["CustomerId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName");
+            
+            var userEmail = User.Identity.GetUserName();//to get the ID
+            ViewData["CustomerId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");//return the logged in customer FullName 
+            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName"); //return service names
             return View();
         }
 
@@ -106,20 +114,23 @@ namespace HomeCareWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequestId,RequestDescription,DateNeeded,CustomerId,ServiceId")] ServiceRequest serviceRequest)
         {
+            var userEmail = User.Identity.GetUserName();
             if (ModelState.IsValid)
             {
                 serviceRequest.TechnicianId = null; // Set Technician Id to null (manager will assign later)
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
                 serviceRequest.RequestStatus = 1; // Set Request Status to 1 (Pending)
                 _context.Add(serviceRequest);
+                AddLog("Action", "Creating a service request", "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                 addNotification("A new Service request have been created", "Unread", "New Service Request", serviceRequest.CustomerId);
+
                 try
                 {
                     await _context.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
-                    
+                    AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                     throw;
                 }
                 TempData["Success"] = "Request Created Successfully";
@@ -151,10 +162,16 @@ namespace HomeCareWebApp.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
             //ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "FullName", serviceRequest.TechnicianId);
             // Check if the technician is assigned to the service
-            var technicians = await _context.Users
+            /*var technicians = await _context.Users
                 .Where(u => u.UserRole == "Technician" && u.ServicesNavigation.Any(s => s.ServiceId == serviceRequest.ServiceId))
-                .Select(u => new { u.UserId, u.FullName })
-                .ToListAsync();
+                .Select(u => new { u.UserId, u.FullName })*/
+            var technicians = _context.Users
+                                     .Where(x => x.UserRole == "Technician")
+                                     .Where(x => _context.ServiceRequests
+                                                       .Where(sr => sr.Service.CategoryId == serviceRequest.Service.CategoryId)
+                                                       .Select(sr => sr.TechnicianId)
+                                                       .Contains(x.UserId))
+                                                        .ToList();
 
             ViewData["TechnicianId"] = new SelectList(technicians, "UserId", "FullName", serviceRequest.TechnicianId);
             return View(serviceRequest);
@@ -168,6 +185,7 @@ namespace HomeCareWebApp.Controllers
         public async Task<IActionResult> Edit(int id,
             [Bind("RequestId,RequestDescription,RequestDate,DateNeeded,CustomerId,TechnicianId,ServiceId,RequestStatus")] ServiceRequest serviceRequest)
         {
+
             if (id != serviceRequest.RequestId)
             {
                 return NotFound();
@@ -208,22 +226,24 @@ namespace HomeCareWebApp.Controllers
                     }
                     try
                     {
-                        AddLog("Audit", "Updated service request", 
-                            $"Request Description: {orgReq.RequestDescription}. " +
-                            $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
-                            $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
-                            , 
-                            $"Request Description: {serviceRequest.RequestDescription}. " +
-                            $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
-                            $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
-
-                            , _context.Users.SingleOrDefault(x => x.Email == userEmail));
+                       
                         await _context.SaveChangesAsync();
+                        AddLog("Audit", "Updated service request",
+                           $"Request Description: {orgReq.RequestDescription}. " +
+                           $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
+                           $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
+                           ,
+                           $"Request Description: {serviceRequest.RequestDescription}. " +
+                           $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
+                           $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
+
+                           , _context.Users.SingleOrDefault(x => x.Email == userEmail));
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
+                        AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
+   
                         throw;
                     }
                     
@@ -251,6 +271,7 @@ namespace HomeCareWebApp.Controllers
         // GET: ServiceRequests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null || _context.ServiceRequests == null)
             {
                 return NotFound();
@@ -360,6 +381,7 @@ namespace HomeCareWebApp.Controllers
                 UserId = uid
             };
             _context.Logs.Add(log);
+            _context.SaveChanges();
 
         }
     }
