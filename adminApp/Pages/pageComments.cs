@@ -54,9 +54,12 @@ namespace adminApp.Pages
                 {
                     c.CommentText,
                     ServiceName = c.Request.Service.ServiceName,
+                    ServiceId = c.Request.Service.ServiceId,
                     UserName = c.Request.Customer.Username, // Assuming Username is what you meant by FullName
+                    UserId = c.Request.Customer.UserId,
                     c.CommentDate,
-                    CategoryName = c.Request.Service.Category.CategoryName // comment.Service.Category.CategoryName
+                    CategoryName = c.Request.Service.Category.CategoryName, // comment.Service.Category.CategoryName
+                    categoryId = c.Request.Service.Category.CategoryId
                 })
                 .ToList();
 
@@ -82,15 +85,18 @@ namespace adminApp.Pages
                 flpComments.Controls.Clear(); // Clear existing controls
                 flpComments.Refresh();
 
-                foreach (var comment in comments)
+                foreach (var comment in comments) //Set Custom Row Values
                 {
                     UCComments commentControl = new UCComments();
                     commentControl.Comment = comment.CommentText;
                     commentControl.ServiceName = comment.ServiceName; // ServiceName from the Services table
+                    commentControl.ServiceId = comment.ServiceId.ToString();
                     commentControl.UserName = comment.UserName;
+                    commentControl.UserId = comment.UserId.ToString();
+                    commentControl.Category = comment.CategoryName; // Category name from the Categories table
+                    commentControl.CategoryId = comment.categoryId.ToString();
                     commentControl.Date = comment.CommentDate.ToString("yyyy-MM-dd");
                     commentControl.Time = comment.CommentDate.ToString("HH:mm:ss");
-                    commentControl.Category = comment.CategoryName; // Category name from the Categories table
 
                     flpComments.Controls.Add(commentControl);
                 }
@@ -126,7 +132,7 @@ namespace adminApp.Pages
         // Sort by Customer Name
         private void lblCustomer_Click(object sender, EventArgs e)
         {
-            UpdateSort(SortType.Customer); //TODO: Fix Customer sort error
+            UpdateSort(SortType.Customer);
         }
 
         private void lblCustomer_MouseEnter(object sender, EventArgs e)

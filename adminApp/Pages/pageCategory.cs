@@ -14,7 +14,7 @@ using adminApp.Dialogue;
 
 namespace AdminApp.Pages
 {
-    public partial class pageCategory : Form //TODO: Change datagridview colors
+    public partial class pageCategory : Form
     {
         HomeCareDBContext context;
         public pageCategory()
@@ -68,15 +68,28 @@ namespace AdminApp.Pages
             
             dgvCategory.DataSource = categoriesToShow.OrderByDescending(m => m.CategoryId).Select(o => new
             {
-                categoryID = o.CategoryId,
-                CategoryName = o.CategoryName,
+                ID = o.CategoryId,
+                Name = o.CategoryName,
                 Description = o.Description,
-                ManagerID = o.ManagerId,
+                Manager = o.ManagerId,
             }).ToList();
 
+            // Set column headers style
+            dgvCategory.EnableHeadersVisualStyles = false;
+            dgvCategory.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(13, 13, 37);
+            dgvCategory.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCategory.ColumnHeadersDefaultCellStyle.Font = new Font(dgvCategory.Font.FontFamily, 10, FontStyle.Bold);
+            dgvCategory.ColumnHeadersDefaultCellStyle.Padding = new Padding(10, 10, 10, 10);
 
+            // Set column widths
+            dgvCategory.Columns[0].Width = 50; // CategoryID
+            dgvCategory.Columns[1].Width = 200; // CategoryName
+            dgvCategory.Columns[2].Width = 300; // Description
+            dgvCategory.Columns[3].Width = 100; // ManagerID
 
-
+            // Set column alignment
+            dgvCategory.Columns["ID"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCategory.Columns["Manager"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -87,6 +100,7 @@ namespace AdminApp.Pages
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
                 RefreshGridView(); //refresh only if the user added a new record
+                Logger("Category Added");
             }
         }
 
@@ -105,6 +119,8 @@ namespace AdminApp.Pages
 
                     MessageBox.Show("Deleted successfully. ");
 
+                    Logger("Category Deleted");
+
                     RefreshGridView();
                 }
                 catch (Exception ex)
@@ -112,6 +128,7 @@ namespace AdminApp.Pages
                     // MessageBox.Show(ex.Message);
                     MessageBox.Show($"Error: {ex.InnerException?.Message}");
                 }
+
             }
         }
 
@@ -126,6 +143,7 @@ namespace AdminApp.Pages
 
                 if (frmCategoryEdit.DialogResult == DialogResult.OK)
                 {
+                    Logger("Category Updated");
                     RefreshGridView();
                 }
             }
@@ -145,6 +163,28 @@ namespace AdminApp.Pages
             txtCategoryID.Text = "";
             ddlManager.SelectedItem = null;
             RefreshGridView();
+        }
+        private void Logger(string Message)
+        {
+
+            try
+            {
+                Log log = new Log();
+                log.Message = Message;
+                log.Source = "Desktop App";
+                log.DateTime = DateTime.Now;
+                log.UserId = Global.HomeCareUser.UserId;
+                log.ExceptionType = "N/A";
+                log.OriginalValues = "N/A";
+                log.CurrentValues = "N/A";
+
+                context.Logs.Add(log);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

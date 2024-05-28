@@ -34,16 +34,22 @@ namespace AdminApp
         private async void loginBtn_Click(object sender, EventArgs e)
         {
             var signInResults = await VerifyUserNamePassword(txtUserName.Text, txtPassword.Text);
-            if (signInResults == true) //if user is verified
+            if (signInResults == true && Global.HomeCareUser.UserRole != "Customer" && Global.HomeCareUser.UserRole != "Technician") //if user is verified
             {
                 //do something.. i.e. navigate to next forms
                 dashboard dash = new dashboard();
                 this.Hide();
                 dash.Show();
             }
+            else if (Global.HomeCareUser.UserRole == "Customer" || Global.HomeCareUser.UserRole == "Technician")
+            {
+                MessageBox.Show("Access Denied!!" , "Error");
+            }
             else
             {
                 MessageBox.Show("Error. The username or password are not correct");
+                txtUserName.Text = "";
+                txtPassword.Text = "";
             }
         }
 
@@ -87,6 +93,10 @@ namespace AdminApp
                         catch (Exception ex)
                         {
                             MessageBox.Show("Error: " + ex.Message);
+                        }
+                        if (Global.HomeCareUser == null)
+                        {
+                            return false;
                         }
                     }
                     return passCheck;

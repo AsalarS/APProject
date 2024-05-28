@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvCategory = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             btnAdd = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -39,21 +42,10 @@
             btnFilter = new Button();
             ddlManager = new ComboBox();
             txtCategoryID = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
+            dgvCategory = new DataGridView();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).BeginInit();
             SuspendLayout();
-            // 
-            // dgvCategory
-            // 
-            dgvCategory.BackgroundColor = Color.FromArgb(224, 224, 224);
-            dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCategory.Location = new Point(24, 107);
-            dgvCategory.Margin = new Padding(2);
-            dgvCategory.Name = "dgvCategory";
-            dgvCategory.RowHeadersWidth = 62;
-            dgvCategory.RowTemplate.Height = 33;
-            dgvCategory.Size = new Size(802, 407);
-            dgvCategory.TabIndex = 1;
             // 
             // btnAdd
             // 
@@ -77,7 +69,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(355, 530);
+            btnDelete.Location = new Point(358, 530);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(140, 50);
             btnDelete.TabIndex = 3;
@@ -92,7 +84,7 @@
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnUpdate.ForeColor = Color.White;
-            btnUpdate.Location = new Point(680, 530);
+            btnUpdate.Location = new Point(686, 530);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(140, 50);
             btnUpdate.TabIndex = 4;
@@ -185,7 +177,57 @@
             txtCategoryID.Size = new Size(290, 22);
             txtCategoryID.TabIndex = 0;
             // 
-            // categoryPage
+            // dgvCategory
+            // 
+            dgvCategory.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvCategory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCategory.BackgroundColor = Color.FromArgb(0, 0, 24);
+            dgvCategory.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dgvCategory.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvCategory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvCategory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvCategory.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvCategory.GridColor = Color.FromArgb(50, 50, 77);
+            dgvCategory.Location = new Point(24, 107);
+            dgvCategory.Margin = new Padding(2);
+            dgvCategory.MultiSelect = false;
+            dgvCategory.Name = "dgvCategory";
+            dgvCategory.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(13, 13, 37);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvCategory.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvCategory.RowHeadersVisible = false;
+            dgvCategory.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(13, 13, 37);
+            dgvCategory.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvCategory.RowTemplate.Height = 33;
+            dgvCategory.ShowEditingIcon = false;
+            dgvCategory.Size = new Size(802, 407);
+            dgvCategory.TabIndex = 1;
+            // 
+            // pageCategory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -197,17 +239,16 @@
             Controls.Add(btnAdd);
             Controls.Add(dgvCategory);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "categoryPage";
+            Name = "pageCategory";
             Text = "categoryPage";
             Load += categoryPage_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCategory).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private DataGridView dgvCategory;
         private Button btnAdd;
         private Button btnDelete;
         private Button btnUpdate;
@@ -218,5 +259,6 @@
         private Button btnFilter;
         private ComboBox ddlManager;
         private TextBox txtCategoryID;
+        private DataGridView dgvCategory;
     }
 }

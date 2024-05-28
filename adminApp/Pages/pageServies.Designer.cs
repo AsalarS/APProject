@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvServices = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             btnAdd = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -41,18 +44,10 @@
             ddlTechnician = new ComboBox();
             ddlCategory = new ComboBox();
             txtServiceID = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
+            dgvServices = new DataGridView();
             groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvServices).BeginInit();
             SuspendLayout();
-            // 
-            // dgvServices
-            // 
-            dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvServices.Location = new Point(24, 107);
-            dgvServices.Name = "dgvServices";
-            dgvServices.RowTemplate.Height = 25;
-            dgvServices.Size = new Size(802, 404);
-            dgvServices.TabIndex = 0;
             // 
             // btnAdd
             // 
@@ -209,30 +204,78 @@
             txtServiceID.Size = new Size(186, 22);
             txtServiceID.TabIndex = 0;
             // 
-            // servicesPage
+            // dgvServices
+            // 
+            dgvServices.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvServices.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvServices.BackgroundColor = Color.FromArgb(0, 0, 24);
+            dgvServices.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            dgvServices.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvServices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvServices.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvServices.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvServices.GridColor = Color.FromArgb(50, 50, 77);
+            dgvServices.Location = new Point(24, 106);
+            dgvServices.Margin = new Padding(2);
+            dgvServices.MultiSelect = false;
+            dgvServices.Name = "dgvServices";
+            dgvServices.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(13, 13, 37);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvServices.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvServices.RowHeadersVisible = false;
+            dgvServices.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(0, 0, 24);
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(131, 140, 163);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(50, 50, 77);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(13, 13, 37);
+            dgvServices.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvServices.RowTemplate.Height = 33;
+            dgvServices.ShowEditingIcon = false;
+            dgvServices.Size = new Size(802, 407);
+            dgvServices.TabIndex = 5;
+            // 
+            // pageServies
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(858, 611);
+            Controls.Add(dgvServices);
             Controls.Add(groupBox1);
             Controls.Add(btnUpdate);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
-            Controls.Add(dgvServices);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "servicesPage";
+            Name = "pageServies";
             Text = "servicesPage";
             Load += servicesPage_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvServices).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private DataGridView dgvServices;
         private Button btnAdd;
         private Button btnDelete;
         private Button btnUpdate;
@@ -245,5 +288,6 @@
         private Label lblServieID;
         private Button btnReset;
         private Button btnFilter;
+        private DataGridView dgvServices;
     }
 }

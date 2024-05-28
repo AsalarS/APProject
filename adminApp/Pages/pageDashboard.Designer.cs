@@ -32,7 +32,7 @@
             label2 = new Label();
             lblCompletedRequests = new Label();
             label4 = new Label();
-            lblOverdueRequests = new Label();
+            lblActiveRequests = new Label();
             label6 = new Label();
             label13 = new Label();
             label8 = new Label();
@@ -114,18 +114,18 @@
             label4.Text = "Completed Requests";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblOverdueRequests
+            // lblActiveRequests
             // 
-            lblOverdueRequests.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            lblOverdueRequests.AutoSize = true;
-            lblOverdueRequests.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            lblOverdueRequests.ForeColor = Color.White;
-            lblOverdueRequests.Location = new Point(176, 13);
-            lblOverdueRequests.Name = "lblOverdueRequests";
-            lblOverdueRequests.Size = new Size(37, 45);
-            lblOverdueRequests.TabIndex = 8;
-            lblOverdueRequests.Text = "0";
-            lblOverdueRequests.TextAlign = ContentAlignment.MiddleCenter;
+            lblActiveRequests.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblActiveRequests.AutoSize = true;
+            lblActiveRequests.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            lblActiveRequests.ForeColor = Color.White;
+            lblActiveRequests.Location = new Point(176, 13);
+            lblActiveRequests.Name = "lblActiveRequests";
+            lblActiveRequests.Size = new Size(37, 45);
+            lblActiveRequests.TabIndex = 8;
+            lblActiveRequests.Text = "0";
+            lblActiveRequests.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -135,9 +135,9 @@
             label6.ForeColor = Color.White;
             label6.Location = new Point(14, 27);
             label6.Name = "label6";
-            label6.Size = new Size(132, 20);
+            label6.Size = new Size(115, 20);
             label6.TabIndex = 7;
-            label6.Text = "Overdue Requests";
+            label6.Text = "Active Requests";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label13
@@ -291,7 +291,7 @@
             // 
             panel3.BackColor = Color.FromArgb(13, 13, 37);
             panel3.Controls.Add(label6);
-            panel3.Controls.Add(lblOverdueRequests);
+            panel3.Controls.Add(lblActiveRequests);
             panel3.Location = new Point(578, 76);
             panel3.Name = "panel3";
             panel3.Size = new Size(240, 71);
@@ -409,7 +409,7 @@
         private Label label2;
         private Label lblCompletedRequests;
         private Label label4;
-        private Label lblOverdueRequests;
+        private Label lblActiveRequests;
         private Label label6;
         private Label lblNumberOfServices;
         private Label lblTopService;

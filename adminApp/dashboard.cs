@@ -26,28 +26,35 @@ namespace AdminApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Default Page
-            showScreen(new pageDashboard());
-            // Set active state
-            SetActiveButtonState(dashboardBtn);
-            // Update images and colors
-            UpdateButtonStyles();
-
-            if (ProjectFormApp.Global.HomeCareUser != null)
+            try
             {
-                label2.Text = Global.HomeCareUser.FullName;
+                // Default Page
+                showScreen(new pageDashboard());
+                // Set active state
+                SetActiveButtonState(dashboardBtn);
+                // Update images and colors
+                UpdateButtonStyles();
+
+                if (ProjectFormApp.Global.HomeCareUser != null)
+                {
+                    label2.Text = Global.HomeCareUser.FullName;
+                }
+                else
+                {
+                    label2.Text = "User not set";
+                }
+                //this is to hide logs from managers
+                if (Global.HomeCareUser.UserRole == "Manager")
+                {
+                    logsBtn.Enabled = false;
+                    logsBtn.Hide();
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                label2.Text = "User not set";
-            }
-            //this is to hide logs from managers
-            if (Global.HomeCareUser.UserRole == "Manager")
-            {
-                logsBtn.Enabled = false;
-                logsBtn.Hide();
 
-
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
@@ -270,11 +277,6 @@ namespace AdminApp
             this.mainScreen.Controls.Add(f);
             this.mainScreen.Tag = f;
             f.Show();
-        }
-
-        private void bellBtn_Click(object sender, EventArgs e)
-        {
-            //TODO: Implement bell button click
         }
 
         private void dashboard_FormClosing(object sender, FormClosingEventArgs e)

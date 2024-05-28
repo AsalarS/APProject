@@ -24,7 +24,7 @@ namespace AdminApp.Pages
             InitializeComponent();
             context = new HomeCareDBContext();
             currentSortType = SortType.Date; // Default to sorting by date
-            isAscendingOrder = true; // Default to ascending order
+            isAscendingOrder = false; // Default to ascending order
 
         }
 
@@ -57,6 +57,7 @@ namespace AdminApp.Pages
                         log.Message,
                         log.Source,
                         UserName = log.User.FullName,
+                        UserID = log.User.UserId,
                         log.DateTime
                     })
                     .ToList();
@@ -85,6 +86,7 @@ namespace AdminApp.Pages
                     logControl.logMessage = log.Message;
                     logControl.source = log.Source;
                     logControl.userName = log.UserName;
+                    logControl.userID = log.UserID.ToString();
                     logControl.date = log.DateTime.ToString("yyyy-MM-dd");
                     logControl.time = log.DateTime.ToString("HH:mm:ss");
 
@@ -118,7 +120,7 @@ namespace AdminApp.Pages
         //User button
         private void lblUser_Click(object sender, EventArgs e)
         {
-            UpdateSort(SortType.User); //TODO: Fix User sort error
+            UpdateSort(SortType.User);
         }
 
         private void lblUser_MouseEnter(object sender, EventArgs e)
