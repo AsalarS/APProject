@@ -39,7 +39,6 @@
             // 
             // flpLogs
             // 
-            flpLogs.AutoScroll = true;
             flpLogs.FlowDirection = FlowDirection.TopDown;
             flpLogs.Location = new Point(12, 43);
             flpLogs.Name = "flpLogs";

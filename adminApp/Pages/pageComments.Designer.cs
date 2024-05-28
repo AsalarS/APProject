@@ -40,7 +40,6 @@
             // 
             // flpComments
             // 
-            flpComments.AutoScroll = true;
             flpComments.FlowDirection = FlowDirection.TopDown;
             flpComments.Location = new Point(12, 43);
             flpComments.Name = "flpComments";
