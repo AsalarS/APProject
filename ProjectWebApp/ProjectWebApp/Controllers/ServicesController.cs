@@ -13,7 +13,7 @@ namespace HomeCareWebApp.Controllers
     public class ServicesController : Controller
     {
         private readonly HomeCareDBContext _context;
-        private Notification notification;
+        private Notification notification; //Notification object that will be inserted if an action happens
 
         public ServicesController(HomeCareDBContext context)
         {
@@ -241,7 +241,7 @@ namespace HomeCareWebApp.Controllers
             var service = await _context.Services.FindAsync(id);
             if (service != null)
             {
-                _context.Services.Remove(service);
+                _context.Services.Remove(service); //Delete the service
             }
 
             await _context.SaveChangesAsync();
@@ -253,7 +253,7 @@ namespace HomeCareWebApp.Controllers
             return (_context.Services?.Any(e => e.ServiceId == id)).GetValueOrDefault();
         }
 
-        private void AddLog(string type, string message, string originalValues, string currentValues, int uid)
+        private void AddLog(string type, string message, string originalValues, string currentValues, int uid) //A reusable method that will be used to insert logs 
         {
             Log log = new Log();
             log.Source = "Web App";
