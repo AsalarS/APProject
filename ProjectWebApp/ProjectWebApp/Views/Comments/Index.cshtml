@@ -7,10 +7,22 @@
 
 <h1>Comments</h1>
 
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"].ToString()
+    </div>
+}
 <p>
     <a asp-action="Create">Create New</a>
-    <a asp-controller="ServiceRequests" asp-action="Index">Back</a>
+    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" /></a>
 </p>
+
+@if (Model.Count() == 0)
+{
+    <caption>No Records Found</caption>
+}
+else{
 <table class="table">
     <thead>
         <tr>
@@ -21,20 +33,12 @@
                 @Html.DisplayNameFor(model => model.CommentDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Request)
+                @Html.DisplayNameFor(model => model.Request.RequestId)
             </th>
-            @if(User.IsInRole("User")){
-                <th>@Html.DisplayNameFor(model => model.Request.Customer)</th>
-            }
-            else if (User.IsInRole("Technician"))
-            {
-                <th>@Html.DisplayNameFor(model => model.Request.TechnicianId)</th>
-                
-            }
-            else if (User.IsInRole("Manager")){
-
-                <th>@Html.DisplayNameFor(model => model.Request.Service.Category.ManagerId)</th>
-            }
+            
+                <th>@Html.DisplayNameFor(model => model.Request.Customer) Name</th>
+            
+            
             <th></th>
         </tr>
     </thead>
@@ -50,20 +54,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Request.RequestId)
             </td>
-                @if (User.IsInRole("User"))
-                    {
+                
                     <td>@Html.DisplayFor(modelItem => item.Request.Customer.FullName)</td>
-                    }
-                    else if (User.IsInRole("Technician"))
-                    {
-                    <td>@Html.DisplayFor(modelItem => item.Request.Technician.FullName)</td>
-
-                    }
-                    else if (User.IsInRole("Manager"))
-                    {
-
-                    <td>@Html.DisplayFor(modelItem => item.Request.Service.Category.Manager.FullName)</td>
-                    }
+                    
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CommentId">Details</a> |
@@ -73,3 +66,4 @@
 }
     </tbody>
 </table>
+}

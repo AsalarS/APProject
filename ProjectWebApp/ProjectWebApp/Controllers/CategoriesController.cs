@@ -32,7 +32,7 @@ namespace HomeCareWebApp.Controllers
                 categories = categories.Where(x => x.CategoryName!.Contains(SearchString));
             }
 
-          
+
             return View(categories);
         }
 
@@ -57,10 +57,10 @@ namespace HomeCareWebApp.Controllers
 
         // GET: Categories/Create
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email");
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email");
             return View();
         }
 
@@ -78,7 +78,7 @@ namespace HomeCareWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email", category.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email", category.ManagerId);
             return View(category);
         }
 
@@ -96,7 +96,7 @@ namespace HomeCareWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Email", category.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email", category.ManagerId);
             return View(category);
         }
 
@@ -172,14 +172,14 @@ namespace HomeCareWebApp.Controllers
             {
                 _context.Categories.Remove(category);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
         {
-          return (_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault();
+            return (_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault();
         }
     }
 }

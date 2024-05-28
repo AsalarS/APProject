@@ -11,6 +11,9 @@ namespace HomeCareWebApp.Controllers
 {
     public class NotificationsController : Controller
     {
+       
+
+
         private readonly HomeCareDBContext _context;
 
         public NotificationsController(HomeCareDBContext context)
@@ -21,7 +24,7 @@ namespace HomeCareWebApp.Controllers
         // GET: Notifications
         public async Task<IActionResult> Index()
         {
-            var homeCareDBContext = _context.Notifications.Include(n => n.User);
+            var homeCareDBContext = _context.Notifications.Include(n => n.User).Where(x => x.User.Email == User.Identity.Name);
             return View(await homeCareDBContext.ToListAsync());
         }
 
@@ -36,6 +39,9 @@ namespace HomeCareWebApp.Controllers
             var notification = await _context.Notifications
                 .Include(n => n.User)
                 .FirstOrDefaultAsync(m => m.NotificationId == id);
+            notification.Status = "Read";
+            _context.Update(notification);
+            _context.SaveChanges();
             if (notification == null)
             {
                 return NotFound();

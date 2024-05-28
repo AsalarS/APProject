@@ -18,8 +18,7 @@ namespace HomeCareObjects.Model
         public DateTime UploadDate { get; set; }
         [StringLength(50)]
         public string DocumentType { get; set; } = null!;
-        [StringLength(200)]
-        public string DocumentPath { get; set; } = null!;
+        public byte[] BinaryData { get; set; } = null!;
         [Column("RequestID")]
         public int RequestId { get; set; }
 

@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using HomeCareObjects.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -33,6 +34,7 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        HomeCareDBContext homeCareDBContext;
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
@@ -48,6 +50,7 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            homeCareDBContext = new HomeCareDBContext();
         }
 
         /// <summary>
@@ -135,15 +138,42 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account
             
            
 
-                var manager = new IdentityUser
+                var manager1 = new IdentityUser
                 {
-                    UserName = "manager@test.com",
-                    Email = "manager@test.com",
+                    UserName = "manager1@test.com",
+                    Email = "manager1@test.com",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true
                 };
-                await _userManager.CreateAsync(manager, "Test@123");
-                await _userManager.AddToRoleAsync(manager, "Manager");
+                await _userManager.CreateAsync(manager1, "Test@123");
+                await _userManager.AddToRoleAsync(manager1, "Manager");
+                var manager2 = new IdentityUser
+                {
+                    UserName = "manager2@test.com",
+                    Email = "manager2@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(manager2, "Test@123");
+                await _userManager.AddToRoleAsync(manager2, "Manager");
+                var manager3 = new IdentityUser
+                {
+                    UserName = "manager3@test.com",
+                    Email = "manager3@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(manager3, "Test@123");
+                await _userManager.AddToRoleAsync(manager3, "Manager");
+                var manager4 = new IdentityUser
+                {
+                    UserName = "manager4@test.com",
+                    Email = "manager4@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(manager4, "Test@123");
+                await _userManager.AddToRoleAsync(manager4, "Manager");
 
             
                 var tech1 = new IdentityUser
@@ -165,6 +195,34 @@ namespace ProjectWebApp.Areas.Identity.Pages.Account
                 };
                 await _userManager.CreateAsync(tech2, "Test@123");
                 await _userManager.AddToRoleAsync(tech2, "Technician");
+                
+                var tech3 = new IdentityUser
+                {
+                    UserName = "tech3@test.com",
+                    Email = "tech3@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(tech3, "Test@123");
+                await _userManager.AddToRoleAsync(tech3, "Technician");
+                var tech4 = new IdentityUser
+                {
+                    UserName = "tech4@test.com",
+                    Email = "tech4@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(tech4, "Test@123");
+                await _userManager.AddToRoleAsync(tech4, "Technician");
+                var tech5 = new IdentityUser
+                {
+                    UserName = "tech5@test.com",
+                    Email = "tech5@test.com",
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+                await _userManager.CreateAsync(tech5, "Test@123");
+                await _userManager.AddToRoleAsync(tech5, "Technician");
             
                 var user1 = new IdentityUser
                 {

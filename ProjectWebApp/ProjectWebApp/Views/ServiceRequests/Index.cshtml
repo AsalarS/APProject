@@ -6,42 +6,56 @@
 }
 
 <h1>Service Requests</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-Search using Request Description:
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"].ToString()
+    </div>
+}
+@if (User.IsInRole("User"))
+{
+    <p>
+        <a asp-action="Create"><input type="button" value="Create Request" class="btn btn-outline-primary" /></a>
+    </p>
+}
+@if (Model.Count() == 0)
+{
+    <caption>No Records Found</caption>
+}
+else{
+<text>Search using Request Description:</text>
 <form asp-asp-controller="ServiceRequests" asp-action="Index" method="get">
     <input type="text" name="SearchString" value="@Context.Request.Query["SearchString"].ToString()" />
     <input type="submit" value="Search" class="btn- btn-secondary mx-2" />
     <a asp-asp-controller="ServiceRequests" asp-action="Index" class="btn btn-outline-danger">
         Clear
     </a>
-    <a asp-area="" asp-controller="Comments" asp-action="Index">Comments</a>
+    <a asp-area="" asp-controller="Comments" asp-action="Index"><input type="button" value="View Comments" class="btn btn-info"/></a>
+        <a asp-area="" asp-controller="Documents" asp-action="Index"><input type="button" value="View Files" class="btn btn-info" /></a>
 </form>
-<table class="table">
+<table class="table table-hover table-bordered table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.RequestId)</th>
-            <th>
+            <th scope="col">@Html.DisplayNameFor(model => model.RequestId)</th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.RequestDescription)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.RequestDate)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.DateNeeded)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.Customer)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.Service)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.Technician)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.RequestStatus)
             </th>
             <th></th>
@@ -49,7 +63,7 @@ Search using Request Description:
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="table-primary">
             <td>
                     @Html.DisplayFor(model => item.RequestId)
             </td>
@@ -103,6 +117,7 @@ Search using Request Description:
                             {
                                 case 1:
                                     <text>Pending</text>
+
                                     break;
                                 case 2:
                                     <text>Active</text>
@@ -120,12 +135,17 @@ Search using Request Description:
                         }
                     </span>
                 </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a> |
-                
-                <a asp-action="Delete" asp-route-id="@item.RequestId">Delete</a>
+                <td>
+                    @if(item.RequestStatus != 3 && item.RequestStatus != 4)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.RequestId">Edit</a>
+                        if(User.IsInRole("Manager")){
+                    <a asp-action="Delete" asp-route-id = "@item.RequestId">Cancel</a>
+                        }
+                        }
             </td>
         </tr>
 }
     </tbody>
 </table>
+}
