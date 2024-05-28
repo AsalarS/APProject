@@ -17,6 +17,8 @@ namespace adminApp.CustomRows
             InitializeComponent();
         }
 
+        // Properties for the User Control
+        //Each one is assigned to its label
         #region Properties
 
         private String _logMessage;

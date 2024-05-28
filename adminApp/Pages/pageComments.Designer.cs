@@ -46,6 +46,7 @@
             flpComments.Name = "flpComments";
             flpComments.Size = new Size(834, 556);
             flpComments.TabIndex = 1;
+            flpComments.WrapContents = false;
             // 
             // panel1
             // 
