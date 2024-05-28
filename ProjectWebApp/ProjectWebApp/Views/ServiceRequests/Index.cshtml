@@ -31,7 +31,7 @@ else{
         Clear
     </a>
     <a asp-area="" asp-controller="Comments" asp-action="Index"><input type="button" value="View Comments" class="btn btn-info"/></a>
-        <a asp-area="" asp-controller="Documents" asp-action="Index"><input type="button" value="View Files" class="btn btn-info" /></a>
+        <a asp-area="" asp-controller="Documents" asp-action="Index"><input type="button" value="View Documents" class="btn btn-info" /></a>
 </form>
 <table class="table table-hover table-bordered table-striped">
     <thead>
@@ -98,7 +98,7 @@ else{
                                 statusClass = "text-warning";
                                 break;
                             case 2:
-                                statusClass = "text-primary";
+                                    statusClass = "text-light";
                                 break;
                             case 3:
                                 statusClass = "text-success";

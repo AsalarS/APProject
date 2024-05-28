@@ -13,8 +13,8 @@
     </div>
 }
 <p>
-    <a asp-action="Create">Create New</a>
-    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" /></a>
+    <a asp-action="Create"><input type="button" value="Create Document" class="btn btn-outline-primary" /></a>
+    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" class="btn btn-danger" /></a>
 </p>
 
 
@@ -22,29 +22,29 @@
 {
     <caption>No Records Found</caption>
 }else{
-<table class="table">
+    <table class="table table-hover table-bordered table-striped">
     <thead>
         <tr>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.DocumentName)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.UploadDate)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.DocumentType)
             </th>
 
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.RequestId)
             </th>
-            <th>@Html.DisplayNameFor(model => model.Request.Customer)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Request.Customer)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+                <tr class="table-primary">
             <td>
                 @Html.DisplayFor(modelItem => item.DocumentName)
             </td>

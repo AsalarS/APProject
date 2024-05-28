@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -20,6 +21,7 @@ namespace HomeCareWebApp.Controllers
         }
 
         // GET: Comments
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var userEmail = User.Identity.GetUserName();
