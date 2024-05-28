@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HomeCareObjects.Model;
 using Microsoft.AspNetCore.Authorization;
 using ProjectWebApp.ViewModels;
+using HomeCareWebApp.ViewModels;
 
 namespace HomeCareWebApp.Controllers
 {
@@ -51,8 +52,15 @@ namespace HomeCareWebApp.Controllers
             {
                 return NotFound();
             }
-
-            return View(category);
+            CategoryRequestsViewModel categoryRequestsViewModel = new CategoryRequestsViewModel
+            {
+                ActiveRequests = _context.ServiceRequests.Count(x => x.Service.CategoryId == category.CategoryId && x.RequestStatus == 2),
+                Category = category,
+                PendingRequests = _context.ServiceRequests.Count(x => x.Service.CategoryId == category.CategoryId && x.RequestStatus == 1),
+                CompletedRequests = _context.ServiceRequests.Count(x => x.Service.CategoryId == category.CategoryId && x.RequestStatus == 3),
+                OverdueRequests = _context.ServiceRequests.Count(x => x.Service.CategoryId == category.CategoryId && x.DateNeeded < DateTime.Now)
+            };
+            return View(categoryRequestsViewModel);
         }
 
         // GET: Categories/Create
