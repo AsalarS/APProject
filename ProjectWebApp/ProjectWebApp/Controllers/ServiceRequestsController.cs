@@ -106,12 +106,14 @@ namespace HomeCareWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RequestId,RequestDescription,DateNeeded,CustomerId,ServiceId")] ServiceRequest serviceRequest)
         {
+            var userEmail = User.Identity.GetUserName();
             if (ModelState.IsValid)
             {
                 serviceRequest.TechnicianId = null; // Set Technician Id to null (manager will assign later)
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
                 serviceRequest.RequestStatus = 1; // Set Request Status to 1 (Pending)
                 _context.Add(serviceRequest);
+                AddLog("Action", "Creating a service request", "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                 addNotification("A new Service request have been created", "Unread", "New Service Request", serviceRequest.CustomerId);
                 try
                 {
@@ -119,7 +121,7 @@ namespace HomeCareWebApp.Controllers
                 }
                 catch (Exception ex)
                 {
-                    
+                    AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
                     throw;
                 }
                 TempData["Success"] = "Request Created Successfully";
@@ -174,6 +176,7 @@ namespace HomeCareWebApp.Controllers
         public async Task<IActionResult> Edit(int id,
             [Bind("RequestId,RequestDescription,RequestDate,DateNeeded,CustomerId,TechnicianId,ServiceId,RequestStatus")] ServiceRequest serviceRequest)
         {
+
             if (id != serviceRequest.RequestId)
             {
                 return NotFound();
@@ -214,22 +217,24 @@ namespace HomeCareWebApp.Controllers
                     }
                     try
                     {
-                        AddLog("Audit", "Updated service request", 
-                            $"Request Description: {orgReq.RequestDescription}. " +
-                            $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
-                            $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
-                            , 
-                            $"Request Description: {serviceRequest.RequestDescription}. " +
-                            $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
-                            $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
-
-                            , _context.Users.SingleOrDefault(x => x.Email == userEmail));
+                       
                         await _context.SaveChangesAsync();
+                        AddLog("Audit", "Updated service request",
+                           $"Request Description: {orgReq.RequestDescription}. " +
+                           $"Date Needed: {orgReq.DateNeeded.ToString()}. " +
+                           $"Technician ID: {(orgReq.TechnicianId != null ? orgReq.TechnicianId.ToString() : "None")}"
+                           ,
+                           $"Request Description: {serviceRequest.RequestDescription}. " +
+                           $"Date Needed: {serviceRequest.DateNeeded.ToString()}. " +
+                           $"Technician ID: {(serviceRequest.TechnicianId != null ? serviceRequest.TechnicianId.ToString() : "None")}"
+
+                           , _context.Users.SingleOrDefault(x => x.Email == userEmail));
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
+                        AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail));
+   
                         throw;
                     }
                     
@@ -257,6 +262,7 @@ namespace HomeCareWebApp.Controllers
         // GET: ServiceRequests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null || _context.ServiceRequests == null)
             {
                 return NotFound();
@@ -366,6 +372,7 @@ namespace HomeCareWebApp.Controllers
                 UserId = uid
             };
             _context.Logs.Add(log);
+            _context.SaveChanges();
 
         }
     }
