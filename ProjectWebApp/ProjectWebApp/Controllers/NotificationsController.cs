@@ -11,6 +11,9 @@ namespace HomeCareWebApp.Controllers
 {
     public class NotificationsController : Controller
     {
+       
+
+
         private readonly HomeCareDBContext _context;
 
         public NotificationsController(HomeCareDBContext context)

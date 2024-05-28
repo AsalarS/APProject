@@ -26,7 +26,7 @@ namespace HomeCareWebApp.Controllers
         {
 
             IEnumerable<Service> homeCareDBContext;
-            homeCareDBContext = _context.Services.Include(x => x.Category.Manager).Include(s => s.Category).Include(s => s.Technician);
+            homeCareDBContext = _context.Services.Include(x => x.Category.Manager).Include(s => s.Category).Include(s => s.Technician)
 
             if (!String.IsNullOrEmpty(SearchString)) //If the user entered something in the search bar
             {
@@ -106,7 +106,20 @@ namespace HomeCareWebApp.Controllers
                 notification.Type = "Test";
                 notification.UserId = Convert.ToInt32(service.TechnicianId);
                 _context.Notifications.Add(notification); //add notification for the technician 
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                   //AddLog("Insert", "A new service have been inserted", "None", "None", Manager ID Should be here);
+                    _context.SaveChanges();
+
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
             if (User.IsInRole("Admin"))
@@ -238,6 +251,20 @@ namespace HomeCareWebApp.Controllers
         private bool ServiceExists(int id)
         {
             return (_context.Services?.Any(e => e.ServiceId == id)).GetValueOrDefault();
+        }
+
+        private void AddLog(string type, string message, string originalValues, string currentValues, int uid)
+        {
+            Log log = new Log();
+            log.Source = "Web App";
+            log.DateTime = DateTime.Now;
+            log.ExceptionType = type;
+            log.Message = message;
+            log.OriginalValues = originalValues;
+            log.CurrentValues = currentValues;
+            log.UserId = uid;
+            _context.Logs.Add(log);
+
         }
     }
 }
