@@ -151,10 +151,16 @@ namespace HomeCareWebApp.Controllers
             ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName", serviceRequest.ServiceId);
             //ViewData["TechnicianId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Technician"), "UserId", "FullName", serviceRequest.TechnicianId);
             // Check if the technician is assigned to the service
-            var technicians = await _context.Users
+            /*var technicians = await _context.Users
                 .Where(u => u.UserRole == "Technician" && u.ServicesNavigation.Any(s => s.ServiceId == serviceRequest.ServiceId))
-                .Select(u => new { u.UserId, u.FullName })
-                .ToListAsync();
+                .Select(u => new { u.UserId, u.FullName })*/
+            var technicians = _context.Users
+                                     .Where(x => x.UserRole == "Technician")
+                                     .Where(x => _context.ServiceRequests
+                                                       .Where(sr => sr.Service.CategoryId == serviceRequest.Service.CategoryId)
+                                                       .Select(sr => sr.TechnicianId)
+                                                       .Contains(x.UserId))
+                                                        .ToList();
 
             ViewData["TechnicianId"] = new SelectList(technicians, "UserId", "FullName", serviceRequest.TechnicianId);
             return View(serviceRequest);

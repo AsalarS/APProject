@@ -14,8 +14,8 @@
     </div>
 }
 <p>
-    <a asp-action="Create">Create New</a>
-    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" /></a>
+    <a asp-action="Create"><input type="button" value="Create Comment" class="btn btn-outline-primary" /></a>
+    <a asp-controller="ServiceRequests" asp-action="Index"><input type="button" value="Back" class="btn btn-danger" /></a>
 </p>
 
 @if (Model.Count() == 0)
@@ -23,16 +23,16 @@
     <caption>No Records Found</caption>
 }
 else{
-<table class="table">
+    <table class="table table-hover table-bordered table-striped">
     <thead>
         <tr>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.CommentText)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.CommentDate)
             </th>
-            <th>
+                <th scope="col">
                 @Html.DisplayNameFor(model => model.Request.RequestId)
             </th>
             
@@ -44,7 +44,7 @@ else{
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+                <tr class="table-primary">
             <td>
                 @Html.DisplayFor(modelItem => item.CommentText)
             </td>
