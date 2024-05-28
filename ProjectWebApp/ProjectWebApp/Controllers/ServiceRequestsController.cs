@@ -26,6 +26,16 @@ namespace HomeCareWebApp.Controllers
             notificationTec = new Notification();
         }
 
+        private void addNotification(string text, string status, string type, int id)
+        {
+            notification.Status = status;
+            notification.NotificationText = text;
+            notification.Type = type;
+            notification.UserId = id;
+            _context.Notifications.Add(notification);
+        }
+
+
         // GET: ServiceRequests
         [Authorize]
         public async Task<IActionResult> Index(string SearchString)
@@ -103,12 +113,18 @@ namespace HomeCareWebApp.Controllers
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
                 serviceRequest.RequestStatus = 1; // Set Request Status to 1 (Pending)
                 _context.Add(serviceRequest);
-                notification.Status = "Unread";
-                notification.NotificationText = "A new Service request have been created";
-                notification.Type = "New Service Request";
-                notification.UserId = serviceRequest.CustomerId;
-                _context.Notifications.Add(notification);
-                await _context.SaveChangesAsync();
+                addNotification("A new Service request have been created", "Unread", "New Service Request", serviceRequest.CustomerId);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    AddLog("Inserting", "Updated service request", "None", "None", serviceRequest.CustomerId);
+                    _context.SaveChanges();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Users, "UserId", "UserId", serviceRequest.CustomerId);
@@ -171,15 +187,13 @@ namespace HomeCareWebApp.Controllers
                         notificationTec.Status = "Unread";
                         notificationTec.Type = "Assigned to a service request";
                         notificationTec.UserId = Convert.ToInt32(serviceRequest.TechnicianId);
+
                     }
                     else
                     {
                         serviceRequest.RequestStatus = 1;
 
                     }
-
-                    
-
 
                     _context.Update(serviceRequest);
                     notification.Type = "Service Request Update";
@@ -194,11 +208,23 @@ namespace HomeCareWebApp.Controllers
                         notification.NotificationText = "Your service request is now completed";
                     }else if(serviceRequest.RequestStatus == 4)
                     {
-                        notification.NotificationText = "Your service has been canceled";
+                        notification.NotificationText = "Your service request has been canceled";
                     }
                     _context.Notifications.Add(notificationTec);
                     _context.Notifications.Add(notification);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                        AddLog("Inserting", "Updated service request", "None", "None", serviceRequest.CustomerId);
+                         _context.SaveChangesAsync();
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -254,9 +280,20 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.RequestStatus = 4;
                 _context.Update(serviceRequest);
-            }
+                addNotification("Your service request has been canceled", "Unread", "Service Request Updatet", serviceRequest.CustomerId);
 
-            await _context.SaveChangesAsync();
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+                AddLog(ex.InnerException.Message, ex.Message, "None", "None", serviceRequest.CustomerId);
+                throw;
+
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -283,12 +320,36 @@ namespace HomeCareWebApp.Controllers
             {
                 serviceRequest.RequestStatus = 3;
                 _context.Update(serviceRequest);
-            }
+                addNotification("Your service request has been completed", "Unread", "Service Request Update", serviceRequest.CustomerId);
 
-            await _context.SaveChangesAsync();
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+               
+                
+            }
+            catch (Exception ex)
+            {
+                AddLog(ex.InnerException.Message, ex.Message, "None", "None", serviceRequest.CustomerId);
+                throw;
+            }
             return RedirectToAction(nameof(Index));
         }
 
-        
+        private void AddLog(string type, string message, string originalValues, string currentValues, int uid)
+        {
+            Log log = new Log();
+            log.Source = "Web App";
+            log.DateTime = DateTime.Now;
+            log.ExceptionType = type;
+            log.Message = message;
+            log.OriginalValues = originalValues;
+            log.CurrentValues = currentValues;
+            log.UserId = uid;
+            _context.Logs.Add(log);
+
+        }
     }
+
 }

@@ -13,6 +13,7 @@ namespace HomeCareWebApp.Controllers
     public class LogsController : Controller
     {
         private readonly HomeCareDBContext _context;
+        
 
         public LogsController(HomeCareDBContext context)
         {
@@ -26,6 +27,7 @@ namespace HomeCareWebApp.Controllers
             var homeCareDBContext = _context.Logs.Include(l => l.User);
             return View(await homeCareDBContext.ToListAsync());
         }
+
 
         // GET: Logs/Details/5
         
