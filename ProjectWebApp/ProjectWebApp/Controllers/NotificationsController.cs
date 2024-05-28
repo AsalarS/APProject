@@ -24,7 +24,7 @@ namespace HomeCareWebApp.Controllers
         // GET: Notifications
         public async Task<IActionResult> Index()
         {
-            var homeCareDBContext = _context.Notifications.Include(n => n.User).Where(x => x.User.Email == User.Identity.Name);
+            var homeCareDBContext = _context.Notifications.Include(n => n.User).Where(x => x.User.Email == User.Identity.Name).OrderByDescending(x => x.Status);
             return View(await homeCareDBContext.ToListAsync());
         }
 
