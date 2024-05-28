@@ -22,6 +22,7 @@ namespace adminApp.CustomRows
         private String _logMessage;
         private String _source;
         private String _userName;
+        private String _userID;
         private String _date;
         private String _time;
 
@@ -42,6 +43,12 @@ namespace adminApp.CustomRows
         {
             get { return _userName; }
             set { _userName = value; lblFullName.Text = value; }
+        }
+
+        public String userID
+        {
+            get { return _userID; }
+            set { _userID = value; toolTipUserID.SetToolTip(lblFullName, value); }
         }
 
         public String date

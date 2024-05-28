@@ -60,17 +60,17 @@ namespace AdminApp
 
             // Pending Requests
             lblPendingRequests.Text = context.ServiceRequests
-                                              .Where(x => x.DateNeeded < x.RequestDate)
+                                              .Where(x => x.RequestStatus == 1)
                                               .Count()
                                               .ToString();
             // Completed Requests
             lblCompletedRequests.Text = context.ServiceRequests
-                                            .Where(x => x.DateNeeded > x.RequestDate)
+                                            .Where(x => x.RequestStatus == 3)
                                             .Count()
                                             .ToString();
-            // Overdue Requests
-            lblCompletedRequests.Text = context.ServiceRequests
-                                            .Where(x => x.DateNeeded > x.RequestDate)
+            // Active Requests
+            lblActiveRequests.Text = context.ServiceRequests
+                                            .Where(x => x.RequestStatus == 2)
                                             .Count()
                                             .ToString();
             //Top Service

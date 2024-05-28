@@ -13,7 +13,7 @@ using ProjectFormApp;
 
 namespace AdminApp
 {
-    public partial class pageServies : Form //TODO: Change datagridview colors
+    public partial class pageServies : Form
     {
         HomeCareDBContext context;
         public pageServies()
@@ -64,22 +64,42 @@ namespace AdminApp
                     .Where(x => x.TechnicianId == Convert.ToInt32(ddlTechnician.SelectedValue.ToString()));
                 //if customer is selected from the combobox, get orders of that customer
             }
-
-            
             
             dgvServices.DataSource = servicesToShow.OrderByDescending(m => m.ServiceId).Select(o => new
             {
 
-                ServiceID = o.ServiceId,
-                ServiceName = o.ServiceName,
-                ServiceDescription = o.ServiceDescription,
-                ServicePrice = o.ServicePrice,
-                CategoryID = o.Category.CategoryId,
-                TechnicianID = o.TechnicianId,
+                ID = o.ServiceId,
+                Name = o.ServiceName,
+                Description = o.ServiceDescription,
+                Price = o.ServicePrice,
+                Category = o.Category.CategoryId,
+                Technician = o.TechnicianId,
 
             }).ToList();
 
-           
+            // Set column headers style
+            dgvServices.EnableHeadersVisualStyles = false;
+            dgvServices.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(13, 13, 37);
+            dgvServices.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvServices.ColumnHeadersDefaultCellStyle.Font = new Font(dgvServices.Font.FontFamily, 10, FontStyle.Bold);
+            dgvServices.ColumnHeadersDefaultCellStyle.Padding = new Padding(10, 10, 10, 10);
+
+            // Set column widths
+            dgvServices.Columns[0].Width = 50; // ServicesID
+            dgvServices.Columns[1].Width = 175; // ServiceName
+            dgvServices.Columns[2].Width = 300; // Description
+            dgvServices.Columns[3].Width = 125; // ServicePrice
+            dgvServices.Columns[4].Width = 100; // CategoryID
+            dgvServices.Columns[5].Width = 100; // TechnicianID
+
+            // Set column alignment
+            dgvServices.Columns["ID"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvServices.Columns["Category"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvServices.Columns["Technician"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Format Price column as currency and set its text color
+            dgvServices.Columns["Price"].DefaultCellStyle.Format = "N2"; // Currency format
+            dgvServices.Columns["Price"].DefaultCellStyle.ForeColor = Color.FromArgb(85, 250, 190); // Set color
 
         }
 
@@ -102,6 +122,7 @@ namespace AdminApp
                     context.Services.Remove(service);
                     context.SaveChanges();
                     MessageBox.Show("Deleted successfully. ");
+                    Logger("Service Deleted");
                     RefreshGridView();
                 }
                 catch (Exception ex)
@@ -118,6 +139,7 @@ namespace AdminApp
             if (frmservicedialouge.DialogResult == DialogResult.OK)
             {
                 MessageBox.Show("Added successfully."); //Show feedback to the user
+                Logger("Service Added");
                 RefreshGridView(); //refresh only if the user added a new record
             }
         }
@@ -143,6 +165,7 @@ namespace AdminApp
 
                 if (frmServiceEdit.DialogResult == DialogResult.OK)
                 {
+                    Logger("Service Updated");
                     RefreshGridView();
                 }
 
@@ -164,6 +187,28 @@ namespace AdminApp
             ddlTechnician.SelectedItem = null;
             ddlCategory.SelectedItem = null;
             RefreshGridView();
+        }
+        private void Logger(string Message)
+        {
+
+            try
+            {
+                Log log = new Log();
+                log.Message = Message;
+                log.Source = "Desktop App";
+                log.DateTime = DateTime.Now;
+                log.UserId = Global.HomeCareUser.UserId;
+                log.ExceptionType = "N/A";
+                log.OriginalValues = "N/A";
+                log.CurrentValues = "N/A";
+
+                context.Logs.Add(log);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

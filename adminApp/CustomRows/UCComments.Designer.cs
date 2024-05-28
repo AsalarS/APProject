@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             lblDate = new Label();
             lblCategory = new Label();
@@ -35,6 +36,9 @@
             lblUserName = new Label();
             lblTime = new Label();
             rtbText = new RichTextBox();
+            toolTipServiceID = new ToolTip(components);
+            toolTipUserID = new ToolTip(components);
+            toolTipCategoryID = new ToolTip(components);
             SuspendLayout();
             // 
             // panel1
@@ -124,6 +128,24 @@
             rtbText.TabIndex = 18;
             rtbText.Text = "";
             // 
+            // toolTipServiceID
+            // 
+            toolTipServiceID.BackColor = Color.FromArgb(50, 50, 77);
+            toolTipServiceID.ForeColor = Color.White;
+            toolTipServiceID.ToolTipTitle = "Service ID";
+            // 
+            // toolTipUserID
+            // 
+            toolTipUserID.BackColor = Color.FromArgb(50, 50, 77);
+            toolTipUserID.ForeColor = Color.White;
+            toolTipUserID.ToolTipTitle = "User ID";
+            // 
+            // toolTipCategoryID
+            // 
+            toolTipCategoryID.BackColor = Color.FromArgb(50, 50, 77);
+            toolTipCategoryID.ForeColor = Color.White;
+            toolTipCategoryID.ToolTipTitle = "Category ID";
+            // 
             // UCComments
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -152,5 +174,8 @@
         private Label lblUserName;
         private Label lblTime;
         private RichTextBox rtbText;
+        private ToolTip toolTipServiceID;
+        private ToolTip toolTipUserID;
+        private ToolTip toolTipCategoryID;
     }
 }
