@@ -154,11 +154,11 @@
             // 
             label8.AutoSize = true;
             label8.ForeColor = Color.FromArgb(131, 140, 163);
-            label8.Location = new Point(471, 247);
+            label8.Location = new Point(450, 247);
             label8.Name = "label8";
-            label8.Size = new Size(38, 15);
+            label8.Size = new Size(66, 15);
             label8.TabIndex = 2;
-            label8.Text = "Failed";
+            label8.Text = "Completed";
             // 
             // label7
             // 

@@ -22,6 +22,9 @@ namespace adminApp.CustomRows
 
         }
 
+        // Properties for the User Control
+        //Each one is assigned to its label
+
         #region Properties
 
         private String _comment;

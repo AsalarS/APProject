@@ -24,7 +24,7 @@ namespace AdminApp
 
         }
 
-        private void RefreshData() 
+        private void RefreshData()  //Refresh Dashboard Data
         {
             // Get the selected category ID from the dropdown
             int selectedCategoryId = (int)ddlCategory.SelectedValue;
@@ -41,7 +41,7 @@ namespace AdminApp
             flpTechnicianData.Controls.Clear(); // Clear existing controls
             flpTechnicianData.Refresh();
          
-            foreach (var technician in technicians)
+            foreach (var technician in technicians) //create custom rows for technicians list
             {
                 UCTechnician row = new UCTechnician();
                 row.technicianName = technician.FullName;
@@ -49,20 +49,20 @@ namespace AdminApp
                                             .Where(x => x.TechnicianId == technician.UserId && x.Service.CategoryId == selectedCategoryId)
                                             .Count()
                                             .ToString();
-                row.failedRequests = context.ServiceRequests
-                                             .Where(x => x.TechnicianId == technician.UserId
-                                                     && x.RequestDate > x.DateNeeded
-                                                     && x.Service.CategoryId == selectedCategoryId)
-                                             .Count()
-                                             .ToString();
+                row.completedRequests = context.ServiceRequests
+                                            .Where(x => x.TechnicianId == technician.UserId
+                                                    && x.RequestStatus == 3
+                                                    && x.Service.CategoryId == selectedCategoryId)
+                                            .Count()
+                                            .ToString();
                 flpTechnicianData.Controls.Add(row);
             }
 
             // Pending Requests
             lblPendingRequests.Text = context.ServiceRequests
-                                              .Where(x => x.RequestStatus == 1)
-                                              .Count()
-                                              .ToString();
+                                            .Where(x => x.RequestStatus == 1)
+                                            .Count()
+                                            .ToString();
             // Completed Requests
             lblCompletedRequests.Text = context.ServiceRequests
                                             .Where(x => x.RequestStatus == 3)
@@ -75,15 +75,15 @@ namespace AdminApp
                                             .ToString();
             //Top Service
             var topServiceId = context.ServiceRequests
-                                      .GroupBy(x => x.ServiceId)
-                                      .OrderByDescending(x => x.Count())
-                                      .Select(x => x.Key)
-                                      .FirstOrDefault();
+                                            .GroupBy(x => x.ServiceId)
+                                            .OrderByDescending(x => x.Count())
+                                            .Select(x => x.Key)
+                                            .FirstOrDefault();
 
             var topServiceName = context.Services
-                                        .Where(s => s.ServiceId == topServiceId)
-                                        .Select(s => s.ServiceName)
-                                        .FirstOrDefault();
+                                            .Where(s => s.ServiceId == topServiceId)
+                                            .Select(s => s.ServiceName)
+                                            .FirstOrDefault();
 
             lblTopService.Text = topServiceName;
             //Number of services
@@ -96,13 +96,14 @@ namespace AdminApp
                                             .ToString();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e) //Refresh Button
         {
             RefreshData();
         }
 
         private void DashboardPage_Load(object sender, EventArgs e)
         {
+            //Populate category dropdown
             ddlCategory.DataSource = context.Categories.ToList();
             ddlCategory.DisplayMember = "CategoryName";
             ddlCategory.ValueMember = "CategoryId";
