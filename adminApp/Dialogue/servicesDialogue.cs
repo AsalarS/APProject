@@ -33,7 +33,7 @@ namespace adminApp.Dialogue
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel; //cancel the dialogue
             this.Close();
         }
 
@@ -42,7 +42,7 @@ namespace adminApp.Dialogue
             try
             {
                 Debug.WriteLine(Global.HomeCareUser.UserId);
-                // this if statement alows the manager to add services to his assigned category only
+                // this if statement allows the manager to add services to his assigned category only
                 if (context.Categories.Any(x => x.ManagerId == Global.HomeCareUser.UserId) && Global.HomeCareUser.UserRole == "Manager")
                 {
                     ddlCategory.DataSource = context.Categories.Where(x => x.ManagerId == Global.HomeCareUser.UserId).ToList();
@@ -52,7 +52,7 @@ namespace adminApp.Dialogue
 
 
                 }
-                if (Global.HomeCareUser.UserRole == "Admin")
+                if (Global.HomeCareUser.UserRole == "Admin") //if user is admin
                 {
                     ddlCategory.DataSource = context.Categories.ToList();
                     ddlCategory.DisplayMember = "CategoryName";
@@ -61,8 +61,9 @@ namespace adminApp.Dialogue
 
                 }
 
-                if (service != null && service.ServiceId > 0)
+                if (service != null && service.ServiceId > 0) //if services is not null
                 {
+                    //populate the fields with the provided service
                     txtServiceId.Text = service.ServiceId.ToString();
                     ddlCategory.SelectedValue = service.CategoryId;
                     nameTxt.Text = service.ServiceName;
@@ -108,7 +109,7 @@ namespace adminApp.Dialogue
                 service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
 
-                if (service != null && service.ServiceId > 0)
+                if (service != null && service.ServiceId > 0) //if service is not null
                 {
                     context.Services.Update(service);
                 }

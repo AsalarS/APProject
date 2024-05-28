@@ -29,7 +29,7 @@ namespace adminApp.Popup
         {
             InitializeComponent();
             context = new HomeCareDBContext();
-            this.category = context.Categories.Find(categoryID);
+            this.category = context.Categories.Find(categoryID); //find the category by ID
 
         }
 
@@ -44,12 +44,13 @@ namespace adminApp.Popup
             try
             {
 
+                //populate the dropdown list
                 ddlManager.DataSource = context.Users.Where(x => x.UserRole == "Manager").ToList();
                 ddlManager.DisplayMember = "FullName";
                 ddlManager.ValueMember = "UserID";
                 ddlManager.SelectedItem = null;
 
-                if (category != null && category.CategoryId > 0)
+                if (category != null && category.CategoryId > 0) //if category is not null
                 {
                     txtCategoryId.Text = category.CategoryId.ToString();
                     ddlManager.SelectedValue = category.ManagerId;
@@ -64,7 +65,7 @@ namespace adminApp.Popup
             }
         }
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private void saveBtn_Click(object sender, EventArgs e) //save
         {
             try
             {
@@ -100,11 +101,6 @@ namespace adminApp.Popup
 
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }
-
-        private void ddlManager_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

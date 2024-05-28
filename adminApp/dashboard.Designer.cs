@@ -81,7 +81,6 @@
             label2.TabIndex = 1;
             label2.Text = "John Doe";
             label2.TextAlign = ContentAlignment.MiddleLeft;
-            label2.Click += label2_Click;
             // 
             // label1
             // 
