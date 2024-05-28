@@ -65,7 +65,6 @@ namespace adminApp.Dialogue
                 {
                     txtServiceId.Text = service.ServiceId.ToString();
                     ddlCategory.SelectedValue = service.CategoryId;
-                    ddlTechnician.SelectedValue = service.TechnicianId;
                     nameTxt.Text = service.ServiceName;
                     descTxt.Text = service.ServiceDescription;
                     priceTxt.Text = service.ServicePrice.ToString();
@@ -82,24 +81,32 @@ namespace adminApp.Dialogue
         {
             try
             {
-                service.ServiceName = nameTxt.Text;
-                service.ServiceDescription = descTxt.Text;
+                //Validation
+                if(nameTxt.Text == null)
+                {
+                    MessageBox.Show("Please enter a service name.");
+                    return;
+                }
+                if (descTxt.Text == null)
+                {
+                    MessageBox.Show("Please enter a service description.");
+                    return;
+                }
                 if (!Double.TryParse(priceTxt.Text, out _))
                 {
                     MessageBox.Show("Please enter a valid price.");
                     return;
                 }
-                service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
-
                 if (ddlCategory.SelectedValue == null)
                 {
-                    MessageBox.Show("Please select a category and a technician.");
+                    MessageBox.Show("Please select a category.");
                     return;
                 }
 
+                service.ServiceName = nameTxt.Text;
+                service.ServiceDescription = descTxt.Text;
+                service.ServicePrice = Convert.ToDecimal(priceTxt.Text);
                 service.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue.ToString());
-                //service.TechnicianId = Convert.ToInt32(ddlTechnician.SelectedValue.ToString());
-                service.TechnicianId = ddlTechnician.SelectedValue != null ? Convert.ToInt32(ddlTechnician.SelectedValue) : null;
 
                 if (service != null && service.ServiceId > 0)
                 {
@@ -113,9 +120,8 @@ namespace adminApp.Dialogue
                 //Execute the insert SQL
                 context.SaveChanges();
 
-                //Only if the insert was successful, we can 
+                //Only if the insert was successful
                 this.DialogResult = DialogResult.OK;
-                //close the form
                 this.Close();
             }
             catch (Exception ex)
@@ -123,33 +129,6 @@ namespace adminApp.Dialogue
                 // MessageBox.Show(ex.Message);
                 // MessageBox.Show($"Error: {ex.InnerException?.Message}");
                 MessageBox.Show("Error on save: " + ex.Message);
-            }
-        }
-
-        private void ddlCategory_DropDownClosed(object sender, EventArgs e) //TODO: Discuss database changes
-        {
-            try
-            {
-
-                var selectedValue = Convert.ToInt32(ddlCategory.SelectedValue);
-                var technicianIds = context.Services
-                                           .Where(x => x.CategoryId == selectedValue)
-                                           .Select(x => x.TechnicianId)
-                                           .ToList();
-                // Get the unique technician IDs and then their names
-                var technicians = context.Users
-                                          .Where(u => technicianIds.Contains(u.UserId))
-                                          .ToList();
-
-                ddlTechnician.DataSource = technicians;
-                ddlTechnician.DisplayMember = "FullName";
-                ddlTechnician.ValueMember = "UserID";
-                ddlTechnician.SelectedItem = null;
-            }
-            catch (Exception ex)
-            {
-                
-                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

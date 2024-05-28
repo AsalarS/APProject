@@ -36,8 +36,6 @@
             priceTxt = new TextBox();
             label4 = new Label();
             ddlCategory = new ComboBox();
-            label5 = new Label();
-            ddlTechnician = new ComboBox();
             saveBtn = new Button();
             cancelBtn = new Button();
             label6 = new Label();
@@ -133,30 +131,6 @@
             ddlCategory.Name = "ddlCategory";
             ddlCategory.Size = new Size(300, 38);
             ddlCategory.TabIndex = 14;
-            ddlCategory.DropDownClosed += ddlCategory_DropDownClosed;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(35, 309);
-            label5.Name = "label5";
-            label5.Size = new Size(121, 30);
-            label5.TabIndex = 17;
-            label5.Text = "Technician :";
-            // 
-            // ddlTechnician
-            // 
-            ddlTechnician.BackColor = Color.FromArgb(50, 50, 77);
-            ddlTechnician.FlatStyle = FlatStyle.Flat;
-            ddlTechnician.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            ddlTechnician.ForeColor = Color.White;
-            ddlTechnician.FormattingEnabled = true;
-            ddlTechnician.Location = new Point(226, 309);
-            ddlTechnician.Name = "ddlTechnician";
-            ddlTechnician.Size = new Size(300, 38);
-            ddlTechnician.TabIndex = 16;
             // 
             // saveBtn
             // 
@@ -165,7 +139,7 @@
             saveBtn.FlatStyle = FlatStyle.Flat;
             saveBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             saveBtn.ForeColor = Color.White;
-            saveBtn.Location = new Point(35, 384);
+            saveBtn.Location = new Point(35, 332);
             saveBtn.Name = "saveBtn";
             saveBtn.Size = new Size(129, 40);
             saveBtn.TabIndex = 18;
@@ -180,7 +154,7 @@
             cancelBtn.FlatStyle = FlatStyle.Flat;
             cancelBtn.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             cancelBtn.ForeColor = Color.White;
-            cancelBtn.Location = new Point(397, 384);
+            cancelBtn.Location = new Point(397, 332);
             cancelBtn.Name = "cancelBtn";
             cancelBtn.Size = new Size(129, 40);
             cancelBtn.TabIndex = 19;
@@ -216,13 +190,11 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
-            ClientSize = new Size(574, 465);
+            ClientSize = new Size(574, 408);
             Controls.Add(label6);
             Controls.Add(txtServiceId);
             Controls.Add(cancelBtn);
             Controls.Add(saveBtn);
-            Controls.Add(label5);
-            Controls.Add(ddlTechnician);
             Controls.Add(label4);
             Controls.Add(ddlCategory);
             Controls.Add(label3);
@@ -250,8 +222,6 @@
         private TextBox priceTxt;
         private Label label4;
         private ComboBox ddlCategory;
-        private Label label5;
-        private ComboBox ddlTechnician;
         private Button saveBtn;
         private Button cancelBtn;
         private Label label6;
