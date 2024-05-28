@@ -327,7 +327,7 @@ namespace HomeCareWebApp.Controllers
                 serviceRequest.RequestStatus = 3;
                 _context.Update(serviceRequest);
                 addNotification("Your service request has been completed", "Unread", "Service Request Update", serviceRequest.CustomerId);
-                AddLog("Audit", "Service Request Update", $"Original Request Status: {orgStatus}", "New Request Status: 3",_context.Users.SingleOrDefault(x => x.Email == userEmail));
+                AddLog("Action", "Service Request Update", $"Original Request Status: {orgStatus}", "New Request Status: 3",_context.Users.SingleOrDefault(x => x.Email == userEmail));
 
             }
             try
@@ -349,14 +349,16 @@ namespace HomeCareWebApp.Controllers
         private void AddLog(string type, string message, string originalValues, string currentValues, User user)
         {
             int uid = user.UserId;
-            Log log = new Log();
-            log.Source = "Web App";
-            log.DateTime = DateTime.Now;
-            log.Type = type;
-            log.Message = message;
-            log.OriginalValues = originalValues;
-            log.CurrentValues = currentValues;
-            log.UserId = uid;
+            Log log = new Log
+            {
+                Source = "Web App",
+                DateTime = DateTime.Now,
+                Type = type,
+                Message = message,
+                OriginalValues = originalValues,
+                CurrentValues = currentValues,
+                UserId = uid
+            };
             _context.Logs.Add(log);
 
         }
