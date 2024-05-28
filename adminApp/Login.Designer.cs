@@ -35,8 +35,6 @@
             txtUserName = new TextBox();
             txtPassword = new TextBox();
             loginBtn = new Button();
-            btnDebugAdmin = new Button();
-            btnDebugManager = new Button();
             SuspendLayout();
             // 
             // lblLogo
@@ -108,34 +106,12 @@
             loginBtn.UseVisualStyleBackColor = false;
             loginBtn.Click += loginBtn_Click;
             // 
-            // btnDebugAdmin
-            // 
-            btnDebugAdmin.Location = new Point(877, 467);
-            btnDebugAdmin.Name = "btnDebugAdmin";
-            btnDebugAdmin.Size = new Size(75, 23);
-            btnDebugAdmin.TabIndex = 6;
-            btnDebugAdmin.Text = "Admin";
-            btnDebugAdmin.UseVisualStyleBackColor = true;
-            btnDebugAdmin.Click += btnDebugLogin_Click;
-            // 
-            // btnDebugManager
-            // 
-            btnDebugManager.Location = new Point(877, 421);
-            btnDebugManager.Name = "btnDebugManager";
-            btnDebugManager.Size = new Size(75, 23);
-            btnDebugManager.TabIndex = 7;
-            btnDebugManager.Text = "Manager";
-            btnDebugManager.UseVisualStyleBackColor = true;
-            btnDebugManager.Click += btnDebugManager_Click;
-            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 24);
             ClientSize = new Size(1064, 611);
-            Controls.Add(btnDebugManager);
-            Controls.Add(btnDebugAdmin);
             Controls.Add(loginBtn);
             Controls.Add(txtPassword);
             Controls.Add(txtUserName);
@@ -160,7 +136,6 @@
         private TextBox txtUserName;
         private TextBox txtPassword;
         private Button loginBtn;
-        private Button btnDebugAdmin;
         private Button btnDebugManager;
     }
 }

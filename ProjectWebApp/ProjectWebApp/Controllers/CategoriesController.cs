@@ -84,6 +84,7 @@ namespace HomeCareWebApp.Controllers
             {
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = "Category Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ManagerId"] = new SelectList(_context.Users.Where(x => x.UserRole == "Manager"), "UserId", "Email", category.ManagerId);
@@ -126,6 +127,7 @@ namespace HomeCareWebApp.Controllers
                 try
                 {
                     _context.Update(category);
+                    TempData["Success"] = "Category Edited Successfully";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -182,6 +184,7 @@ namespace HomeCareWebApp.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["Success"] = "Category Deleted Successfully";
             return RedirectToAction(nameof(Index));
         }
 

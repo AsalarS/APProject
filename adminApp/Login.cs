@@ -144,19 +144,7 @@ namespace AdminApp
             Application.Exit();
         }
 
-        //TODO: Remove this code
-        private void btnDebugLogin_Click(object sender, EventArgs e)
-        {
-            //this comment below is for debugging purposes
-            txtUserName.Text = "admin@test.com";
-            txtPassword.Text = "Test@123";
-        }
-
-        private void btnDebugManager_Click(object sender, EventArgs e)
-        {
-            txtUserName.Text = "manager@test.com";
-            txtPassword.Text = "Test@123";
-        }
+        
     }
 
 }

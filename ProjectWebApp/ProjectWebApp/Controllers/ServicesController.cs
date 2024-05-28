@@ -120,7 +120,7 @@ namespace HomeCareWebApp.Controllers
 
                     throw;
                 }
-                
+                TempData["Success"] = "Service Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
             if (User.IsInRole("Admin"))
@@ -194,6 +194,7 @@ namespace HomeCareWebApp.Controllers
                         throw;
                     }
                 }
+                TempData["Success"] = "Service Edited Successfully";
                 return RedirectToAction(nameof(Index));
             }
             if (User.IsInRole("Admin"))
@@ -256,7 +257,7 @@ namespace HomeCareWebApp.Controllers
                 AddLog("Exception", ex.Message, "None", "None", _context.Users.SingleOrDefault(x => x.Email == userEmail)); //Record exception
                 throw;
             }
-          
+            TempData["Success"] = "Service Deleted Successfully";
             return RedirectToAction(nameof(Index));
         }
 
