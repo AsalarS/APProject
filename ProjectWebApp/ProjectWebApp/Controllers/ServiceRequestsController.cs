@@ -24,7 +24,13 @@ namespace HomeCareWebApp.Controllers
             notification = new Notification();
             notificationTec = new Notification();
         }
-
+        /// <summary>
+        /// Create a notification object for customer
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="status"></param>
+        /// <param name="type"></param>
+        /// <param name="id"></param>
         private void addNotification(string text, string status, string type, int id)
         {
             notification.Status = status;
@@ -62,6 +68,7 @@ namespace HomeCareWebApp.Controllers
                 serviceReqs = _context.ServiceRequests.Include(s => s.Customer).Include(s => s.Service).Include(s => s.Technician);
 
             }
+            //check if search bar has value
             if (!String.IsNullOrEmpty(SearchString))
             {
                 serviceReqs = serviceReqs.Where(x => x.RequestDescription!.Contains(SearchString));
@@ -93,9 +100,10 @@ namespace HomeCareWebApp.Controllers
         // GET: ServiceRequests/Create
         public IActionResult Create()
         {
-            var userEmail = User.Identity.GetUserName();
-            ViewData["CustomerId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");
-            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName");
+            
+            var userEmail = User.Identity.GetUserName();//to get the ID
+            ViewData["CustomerId"] = new SelectList(_context.Users.Where(x => x.Email == userEmail), "UserId", "FullName");//return the logged in customer FullName 
+            ViewData["ServiceId"] = new SelectList(_context.Services, "ServiceId", "ServiceName"); //return service names
             return View();
         }
 
@@ -112,7 +120,7 @@ namespace HomeCareWebApp.Controllers
                 serviceRequest.RequestDate = DateTime.Now; // Set Request Date to current time
                 serviceRequest.RequestStatus = 1; // Set Request Status to 1 (Pending)
                 _context.Add(serviceRequest);
-                addNotification("A new Service request have been created", "Unread", "New Service Request", serviceRequest.CustomerId);
+                addNotification("A new Service request have been created", "Unread", "New Service Request", serviceRequest.CustomerId);// send 
                 try
                 {
                     await _context.SaveChangesAsync();
